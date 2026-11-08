@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="81">
+<meta name="karta-verze" content="82">
 <title>UKOL-9953 · Zkusebni karta pro mereni K1 (obnova stranky A, karta UKOL-253)</title>
 <style>
 body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
@@ -16,6 +16,8 @@ header p{margin:.2rem 0;font-size:1.05rem}
 .prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
 .prepinac button[aria-pressed="true"]{background:#111;color:#fff}
 .trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
+.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
 body.detail .trat-ram{display:none}
 body.celek .detail-kroky{display:none}
 .detail-kroky{margin:1rem 0}
@@ -38,7 +40,7 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 <header>
   <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
   <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> zkusebni karta, ceka na mereni</p>
+    <p data-radek="kde"><strong>Kde jsme:</strong> krok 1 – Zkusebni krok (bez skutecne prace)</p>
     <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Zkusebni krok (bez skutecne prace).</p>
     <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
   </div>
@@ -51,9 +53,18 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 <main>
   <div class="trat-ram">
 <svg data-trat="1" viewBox="0 0 140 150" width="140" height="150" role="img" aria-label="Trať kroků karty">
-<g class="stanice stav-ceka" data-stanice="1" data-poradi="1" data-x="70" data-tady="1" data-krok="1"><circle cx="70" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="70" y="134" font-size="13" text-anchor="middle">1</text><text x="92" y="46" font-size="16" aria-hidden="true">⑂</text><text x="70" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+<g class="stanice stav-ceka" data-stanice="1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Zkusebni krok (bez skutecne prace)" data-tady="1" data-krok="1"><circle cx="70" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="70" y="134" font-size="13" text-anchor="middle">1</text><text x="92" y="46" font-size="16" aria-hidden="true">⑂</text><text x="70" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
 </svg>
   </div>
+  <section class="panely-kroku">
+<article class="krok-panel" data-panel-krok="1" hidden>
+  <h3><span class="znak" aria-hidden="true">○</span> Zkusebni krok (bez skutecne prace) <span class="stav-text">(čeká)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-vracena" data-odbocka-id="m1794162173a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">zkouska meridla vracena (vrácena)</span></div><div class="odbocka odbocka-vracena" data-odbocka-id="m1794162390a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">zkouska meridla vracena (vrácena)</span></div><div class="odbocka odbocka-vracena" data-odbocka-id="m1794169678a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">zkouska meridla vracena (vrácena)</span></div></div>
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+  </section>
   <section class="detail-kroky">
 <article class="krok-detail stav-ceka" data-krok-id="1">
   <h3><span class="znak" aria-hidden="true">○</span> 1. Zkusebni krok (bez skutecne prace) <span class="stav-text">(čeká)</span></h3>
@@ -95,6 +106,24 @@ function rezim(r){
   document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
   document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
 }
+function otevriPanel(id){
+  const panely=[...document.querySelectorAll('[data-panel-krok]')];
+  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
+  if(!panel)return;
+  const otevrene=!panel.hidden;
+  panely.forEach(p=>p.hidden=true);
+  if(!otevrene)panel.hidden=false;
+}
+function pripravProklik(){
+  document.querySelectorAll('[data-stanice]').forEach(st=>{
+    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
+    st.addEventListener('click',akce);
+    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
+  });
+  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
+  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
+}
+document.addEventListener('DOMContentLoaded',pripravProklik);
 </script>
 </body>
 </html>
