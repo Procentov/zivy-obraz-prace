@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ukázka A — živý obraz karty UKOL-231</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Arial, sans-serif; margin: 0; padding: 12px;
+         background: #fff; color: #111; }
+  h1 { font-size: 1.1rem; margin: 0 0 4px; }
+  #meta { font-size: 0.85rem; margin-bottom: 10px; line-height: 1.4; }
+  #prepinac { margin-bottom: 10px; }
+  #prepinac button { font-size: 1rem; padding: 6px 14px; border: 2px solid #111;
+                      background: #fff; cursor: pointer; }
+  #prepinac button[aria-pressed="true"] { background: #111; color: #fff; }
+  svg text { font-family: inherit; }
+  .popis { font-size: 0.8rem; color: #333; max-width: 520px; }
+  .legenda { font-size: 0.75rem; margin-top: 10px; border-top: 1px solid #ccc; padding-top: 6px; }
+  #chyba { color: #900; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Živý obraz — ukázka A (vlastní stránka)</h1>
+<div id="meta">načítám…</div>
+<div id="prepinac">
+  <button id="btnCelek" aria-pressed="true">Celek</button>
+  <button id="btnDetail" aria-pressed="false">Detail</button>
+</div>
+<div id="mapa"></div>
+<div class="legenda">
+  Značky (bez barvy, porucha barvocitu): ● plný kruh + ✓ = hotovo. ▦ čtverec s čárkovaným
+  obrysem + ⧗ = běží. ○ kruh s tečkovaným obrysem = čeká. Zesílený obrys = TADY JSME (aktuální pozice).
+</div>
+<script type="application/json" id="karta-data">
+{"id": "UKOL-231", "nazev": "Živý obraz práce", "pozice": "D2", "micek": "stroj UKOL-221 start_jizdy (karta UKOL-251)", "kroky": [{"id": "D1", "nazev": "Definice prechodu (Mirek 5. 11. 2026, potvrzeno 'Ano'): Mirkova pozornost patri ukolu jen ve DVOU chvilich.", "stav": "hotovo", "dukaz": "Mirek hlasem 5. 11. 2026 ve vlakne 231-05, potvrzeno 'Ano'"}, {"id": "D2", "nazev": "Mapa v Notionu se obnovi SAMA po kazdem zapisu na kartu (podminka startu 1; stavi Velin)", "stav": "bezi", "dukaz": null}, {"id": "D2b", "nazev": "Pevne misto pro Mirka: kanban v Notionu, stranka pro Mirka jen se 3 radky nahore, zbytek schovany dole pro asistenty. Stavi Velin.", "stav": "ceka", "dukaz": null}, {"id": "D3", "nazev": "Posun se dostane na kartu automaticky po kazdem kole smycky, skrytym krokem v brane zapisu karty (podminka startu 2; stavi Velin)", "stav": "ceka", "dukaz": null}, {"id": "D4", "nazev": "Jedno vlakno na vsechno: zmena pravidla zamku 'jeden ukol = jedno vlakno' (podpis Mirka)", "stav": "ceka", "dukaz": null}, {"id": "D5", "nazev": "Asistent v cistem vlakne sam pozna tema a rekne jen novinky (napul; navazuje UKOL-213)", "stav": "ceka", "dukaz": null}, {"id": "D6", "nazev": "Jeden zvonek s tlacitkem Probrat (napul, 3 z 5 jizd; navazuje UKOL-237)", "stav": "ceka", "dukaz": null}, {"id": "D7", "nazev": "Predletova kontrola pred vyrazenim: kdyz neprojde, den u PC", "stav": "ceka", "dukaz": null}, {"id": "D8", "nazev": "Start a mereni: na 5 skutecnych ukolech do 10 vterin z mapy faze a co vzniklo (cil karty 231); dojezd prace meri karta UKOL-201", "stav": "ceka", "dukaz": null}], "denik_posledni": [{"ts": "2026-11-05T15:00:43+01:00", "co": "NASTUP VLAKNA 231-06. Posun od 231-05: kroky karty prepsany na D1-D8, D1 hotovo (1 z 9), D2 bezi (stavi Velin). Velin zalozil kartu UKOL-251 (dve spojky) a UKOL-253 (mapa sama, posun po kole, pevne misto)."}, {"ts": "2026-11-05T15:01:58+01:00", "co": "Kontrola cizimi modely probehla ve Velinu, Mirek podepsal plan 14:15. ZRCADLO prepsano generatorem (notion_zapis.py, 30 bloku, ZAPSANO A OVERENO). Micek: stroj (UKOL-251)."}, {"ts": "2026-11-06T15:48:57+01:00", "co": "Doplneni problemu (Mirek hlasem, schvaleno): bez vizualni mapy je Mirek v informacnim vakuu (analogie Jarvis). Jedna stavba, vic uhlu pohledu (vrtulnik/mistnosti); rizeni ne jen orientace."}, {"ts": "2026-11-06T20:09:02+01:00", "co": "SOUHRN AUDITU A DOPORUCENI: zapis po kazde iteraci skriptem; kresli SKRIPT AZ PRI OTEVRENI odkazu (nic do zasoby); prepinac celek/detail; tvar ne barva. Doporuceni: 2 ukazky (A vlastni stranka, B mapa v Notionu), Mirek porovna na Foldu a vybere."}, {"ts": "2026-11-07T08:30:01+01:00", "co": "Adresy starsich vlaken doplneny z archivu konverzaci."}]}
+</script>
+<script>
+let mod = "celek";
+let data = null;
+
+function nacti() {
+  try {
+    data = JSON.parse(document.getElementById("karta-data").textContent);
+  } catch (e) {
+    document.getElementById("meta").innerHTML = '<span id="chyba">Data se nepodařilo načíst: ' + e + '</span>';
+    return;
+  }
+  vykresli();
+}
+
+function znacka(stav) {
+  if (stav === "hotovo") return {tvar: "circle", vypln: "#111", cara: "solid", mark: "✓", slovo: "HOTOVO"};
+  if (stav === "bezi") return {tvar: "square", vypln: "none", cara: "dashed", mark: "⧗", slovo: "BĚŽÍ"};
+  return {tvar: "circle", vypln: "none", cara: "dotted", mark: "", slovo: "ČEKÁ"};
+}
+
+function vykresli() {
+  const meta = document.getElementById("meta");
+  meta.innerHTML = "<b>" + data.id + " — " + data.nazev + "</b><br>" +
+    "Pozice: " + data.pozice + " &nbsp; Míček: " + data.micek + "<br>" +
+    "Vykresleno skriptem při otevření: " + new Date().toLocaleString("cs-CZ");
+
+  const kroky = data.kroky;
+  const n = kroky.length;
+  const sirka = 640, vyskaRadku = mod === "detail" ? 92 : 56;
+  const vyska = n * vyskaRadku + 20;
+  let svg = '<svg width="' + sirka + '" height="' + vyska + '" viewBox="0 0 ' + sirka + ' ' + vyska + '">';
+
+  for (let i = 0; i < n; i++) {
+    const k = kroky[i];
+    const y = 30 + i * vyskaRadku;
+    const z = znacka(k.stav);
+    const aktualni = (k.id === data.pozice);
+
+    if (i > 0) {
+      const yPred = 30 + (i - 1) * vyskaRadku;
+      svg += '<line x1="30" y1="' + (yPred + 10) + '" x2="30" y2="' + (y - 10) +
+             '" stroke="#333" stroke-width="2" marker-end="url(#sipka)"/>';
+    }
+
+    const obrys = z.cara === "dashed" ? '6,4' : (z.cara === "dotted" ? '2,3' : '0');
+    const strokeW = aktualni ? 4 : 2;
+    if (z.tvar === "circle") {
+      svg += '<circle cx="30" cy="' + y + '" r="14" fill="' + z.vypln + '" stroke="#111" stroke-width="' +
+             strokeW + '" stroke-dasharray="' + obrys + '"/>';
+    } else {
+      svg += '<rect x="16" y="' + (y - 14) + '" width="28" height="28" fill="' + z.vypln + '" stroke="#111" stroke-width="' +
+             strokeW + '" stroke-dasharray="' + obrys + '"/>';
+    }
+    if (z.mark) {
+      svg += '<text x="30" y="' + (y + 5) + '" text-anchor="middle" font-size="14" fill="' +
+             (z.vypln === "none" ? "#111" : "#fff") + '">' + z.mark + '</text>';
+    }
+
+    const popisText = mod === "detail" ? (k.id + " — " + k.nazev) : (k.id + " [" + z.slovo + "]");
+    const maxZnaku = mod === "detail" ? 90 : 60;
+    const zkraceno = popisText.length > maxZnaku ? popisText.slice(0, maxZnaku) + "…" : popisText;
+    svg += '<text x="58" y="' + (y - 2) + '" font-size="13" fill="#111">' + escHtml(zkraceno) + '</text>';
+    svg += '<text x="58" y="' + (y + 14) + '" font-size="11" fill="#333">' + z.slovo +
+           (aktualni ? "  ◀ TADY JSME" : "") + '</text>';
+
+    if (mod === "detail" && k.dukaz) {
+      svg += '<text x="58" y="' + (y + 30) + '" font-size="10" fill="#555">Důkaz: ' +
+             escHtml(String(k.dukaz).slice(0, 80)) + '</text>';
+    }
+  }
+  svg += '<defs><marker id="sipka" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">' +
+         '<path d="M0,0 L8,4 L0,8 z" fill="#333"/></marker></defs>';
+  svg += '</svg>';
+
+  let extra = "";
+  if (mod === "detail" && data.denik_posledni && data.denik_posledni.length) {
+    extra = '<div class="popis"><b>Poslední zápisy v deníku karty:</b><ul>' +
+      data.denik_posledni.map(z => '<li>' + escHtml(z.ts) + ' — ' + escHtml((z.co || "").slice(0, 160)) + '…</li>').join("") +
+      '</ul></div>';
+  }
+
+  document.getElementById("mapa").innerHTML = svg + extra;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+document.getElementById("btnCelek").onclick = () => prepni("celek");
+document.getElementById("btnDetail").onclick = () => prepni("detail");
+function prepni(novy) {
+  mod = novy;
+  document.getElementById("btnCelek").setAttribute("aria-pressed", String(mod === "celek"));
+  document.getElementById("btnDetail").setAttribute("aria-pressed", String(mod === "detail"));
+  if (data) vykresli();
+}
+
+nacti();
+</script>
+</body>
+</html>
