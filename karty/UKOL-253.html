@@ -6,19 +6,27 @@
 <meta name="karta-verze" content="34">
 <title>UKOL-253 · Živý obraz ve Velínu: mapa se obnoví sama, posun po každém kole, pevné místo Čeká na mě (D2, D3, D2b z UKOL-231)</title>
 <style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff}
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
 header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
 .prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
 .prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-main.cesta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
-details.krok{border:2px solid #111;border-radius:6px;padding:.3rem .5rem;min-width:9rem}
-details.krok summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;font-size:.95rem}
-details.krok summary::-webkit-details-marker{display:none}
-.znak{font-size:1.3rem;line-height:1}
-.podrobnosti{font-size:.85rem;margin-top:.4rem;border-top:1px solid #999;padding-top:.3rem}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
 footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-body.detail details.podrobnosti-force{display:block}
 .odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
 .odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
 .odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
@@ -28,168 +36,186 @@ body.detail details.podrobnosti-force{display:block}
 </head>
 <body class="celek">
 <header>
-  <p class="radek-1"><strong>Kde jsme:</strong> krok 4 - stranka A se sama obnovuje</p>
-  <p class="radek-2"><strong>Co vzniklo:</strong> Hotové: Mirek ke kroku 7 (8. 11. 2026): &#x27;Nacti audit jak se to dela venku z projektu barak. Z hlediska UX to chce upravit.&#x27; Audit = tahak UKOL-159 v2 (C:/work/ukoly/_UKOL-159_tahak_situace_forma_zdro…</p>
-  <p class="radek-3"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> krok 4 - stranka A se sama obnovuje</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Vzhled stranky A podle auditu &#x27;jak se to dela venku&#x27; (Barak B7).</p>
+    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">6</span> z 10 hotovo</p>
   <div class="prepinac">
     <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
     <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
   </div>
 </header>
-<main class="cesta">
-<details class="krok stav-hotovo" data-krok-id="1">
-  <summary>
-    <span class="znak" aria-hidden="true">●</span>
-    <span class="poradi">1.</span>
-    <span class="nazev">Ukazka A: vlastni stranka s mapou uzlu a prepinacem celek/detail na 1 realnem ukolu</span>
-    <span class="stav-text">(hotovo)</span>
-    <span class="odbocka-fork" aria-hidden="true" title="1 odbočka/y">⑂</span>
-  </summary>
-  <div class="podrobnosti">
-    <p>Postav vlastni stranku (ukazka A) s mapou uzlu a prepinacem celek/detail, kreslenou skriptem PRI OTEVRENI z dat jedne skutecne karty (audit UKOL-231 6.11.2026 odd.6, navrh retezec Zivy obraz -&gt; zapis po kole -&gt; novy stroj). Vysledek zapis do C:/work/ukoly/_25…</p>
-    <p>Kolo: 1 · Dokonč.: 2026-11-08T16:18:21+01:00</p>
-    <div class="odbocky-kroku"><div class="odbocka odbocka-vracena" data-odbocka-id="r251a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">Odkaz na ukazku A sel otevrit jen na pocitaci v kancelari - oprava na odkaz pro Fold i pocitac (vrácena)</span></div></div>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 1490 150" width="1490" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-hotovo" data-stanice="1" data-poradi="1" data-x="70"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">1</text><text x="92" y="46" font-size="16" aria-hidden="true">⑂</text></g>
+<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="2" data-poradi="2" data-x="220"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">2</text><text x="242" y="46" font-size="16" aria-hidden="true">⑂</text></g>
+<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="3" data-poradi="3" data-x="370"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">3</text><text x="392" y="46" font-size="16" aria-hidden="true">⑂</text></g>
+<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="4" data-poradi="4" data-x="520"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">4</text></g>
+<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="4b" data-poradi="5" data-x="670"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">4b</text></g>
+<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-ceka" data-stanice="4c" data-poradi="6" data-x="820" data-tady="1" data-krok="4c"><circle cx="820" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="820" y="134" font-size="13" text-anchor="middle">4c</text><text x="820" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-odlozeno" data-stanice="5" data-poradi="7" data-x="970"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">□</text><text x="970" y="134" font-size="13" text-anchor="middle">5</text><text x="992" y="46" font-size="16" aria-hidden="true">⑂</text></g>
+<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
+<g class="stanice stav-hotovo" data-stanice="6" data-poradi="8" data-x="1120"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">6</text></g>
+<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-ceka" data-stanice="7" data-poradi="9" data-x="1270"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1270" y="134" font-size="13" text-anchor="middle">7</text></g>
+<line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-ceka" data-stanice="8" data-poradi="10" data-x="1420"><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">8</text></g>
+</svg>
   </div>
-</details>
-<details class="krok stav-hotovo" data-krok-id="2">
-  <summary>
-    <span class="znak" aria-hidden="true">●</span>
-    <span class="poradi">2.</span>
-    <span class="nazev">Ukazka B: myslenkova mapa primo v Notionu, prepisovana skriptem, na stejnem ukolu (ukoncena vyberem A 8. 11. 2026)</span>
-    <span class="stav-text">(hotovo)</span>
-    <span class="odbocka-fork" aria-hidden="true" title="1 odbočka/y">⑂</span>
-  </summary>
-  <div class="podrobnosti">
-    <p>Postav ukazku B: myslenkovou mapu/graf primo na strance Notionu teze karty jako ukazka A, prepisovanou skriptem (ne rucne) - audit UKOL-231 6.11.2026 odd.4. Vysledek zapis do C:/work/ukoly/_253_stroj/ukazka_b_253.json jako {&quot;notion_url&quot;: &lt;odkaz&gt;, &quot;prepsano_sk…</p>
-    <p>Kolo: 1 · Dokonč.: 2026-11-08T16:19:11+01:00</p>
-    <div class="odbocky-kroku"><div class="odbocka odbocka-slepa" data-odbocka-id="r251b" data-z-kroku="2" data-konec="slepa"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">✗</span><span class="odbocka-popis">Ukazka B byla jen seznam textu v Notionu, ne mapa - Mirek ji zamitl (slepá)</span></div></div>
-  </div>
-</details>
-<details class="krok stav-hotovo" data-krok-id="3">
-  <summary>
-    <span class="znak" aria-hidden="true">●</span>
-    <span class="poradi">3.</span>
-    <span class="nazev">Zvonek Mirkovi s odkazy na ukazky A a B; Mirek vybere format</span>
-    <span class="stav-text">(hotovo)</span>
-    <span class="odbocka-fork" aria-hidden="true" title="1 odbočka/y">⑂</span>
-  </summary>
-  <div class="podrobnosti">
-    <p>Posli Mirkovi zvonek (Probrat, UKOL-237) s odkazy na ukazku A i B. Mirek je otevre na Foldu a vybere, ktera se stavi naostro (audit UKOL-231 odd.4,6). Stroj se zastavi a ceka na Mirkovu odpoved v deniku karty; nic nerozhoduj za nej.</p>
-    <p>Kolo: — · Dokonč.: 2026-11-08T18:50:39+01:00</p>
-    <div class="odbocky-kroku"><div class="odbocka odbocka-vracena" data-odbocka-id="r251c" data-z-kroku="3" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">Nacrty A a B k vyberu, Mirek vybral A; pak pridany odbocky z rozhovoru (vrácena)</span></div></div>
-  </div>
-</details>
-<details class="krok stav-hotovo" data-krok-id="4">
-  <summary>
-    <span class="znak" aria-hidden="true">●</span>
-    <span class="poradi">4.</span>
-    <span class="nazev">Stranka A kazde karty se po zapisu pres branu prekresli sama (K1)</span>
-    <span class="stav-text">(hotovo)</span>
-    
-  </summary>
-  <div class="podrobnosti">
-    <p>Udelej z ukazky A ostrou stranku pro KAZDOU kartu: generator C:/work/ukoly/_253_stroj/obraz_a.py &lt;karta&gt; nakresli stranku podle nacrtu A (https://claude.ai/artifact/KLMzwwy1w5B1vQb6G7ygAj: nahore 3 radky kde jsme / co vzniklo / co ceka na tebe, prepinac Celek…</p>
-    <p>Kolo: 1 · Dokonč.: 2026-11-08T20:02:12+01:00</p>
-    
-  </div>
-</details>
-<details class="krok stav-hotovo" data-krok-id="4b">
-  <summary>
-    <span class="znak" aria-hidden="true">●</span>
-    <span class="poradi">5.</span>
-    <span class="nazev">Odbocky: zapis z rozhovoru i ze stroje a kresleni na strance A (K6)</span>
-    <span class="stav-text">(hotovo)</span>
-    
-  </summary>
-  <div class="podrobnosti">
-    <p>Odbocky: na karte pole odbocky = seznam {id, z_kroku, co, konec: vracena|slepa|nova, ukol, ts, kdo}; skript C:/work/ukoly/_253_stroj/zapis_odbocky.py --karta --id --z-kroku --co --konec [--ukol] zapisuje vyhradne pres branu zapis_karty.py (nic neprepisuje, je…</p>
-    <p>Kolo: 1 · Dokonč.: 2026-11-08T19:27:11+01:00</p>
-    
-  </div>
-</details>
-<details class="krok stav-ceka" data-krok-id="4c">
-  <summary>
-    <span class="znak" aria-hidden="true">○</span>
-    <span class="poradi">6.</span>
-    <span class="nazev">Vzhled stranky A podle auditu &#x27;jak se to dela venku&#x27; (Barak B7)</span>
-    <span class="stav-text">(čeká)</span>
-    
-  </summary>
-  <div class="podrobnosti">
-    <p>Uprav vzhled stranky A (generator C:/work/ukoly/_253_stroj/obraz_a.py) podle auditu &#x27;jak se to dela venku&#x27; z projektu Barak: C:/work/ukoly/_UKOL-159_tahak_situace_forma_zdroj_v2_20260924.md (radky 1 trat, 6 klikaci vysvetleni, 11 predstav mi kartu a pravidla …</p>
-    <p>Kolo: — · Dokonč.: —</p>
-    
-  </div>
-</details>
-<details class="krok stav-odlozeno" data-krok-id="5">
-  <summary>
-    <span class="znak" aria-hidden="true">□</span>
-    <span class="poradi">7.</span>
-    <span class="nazev">D3: zapis posunu na kartu po kazdem kole smycky stroje (K2)</span>
-    <span class="stav-text">(odlozeno)</span>
-    <span class="odbocka-fork" aria-hidden="true" title="1 odbočka/y">⑂</span>
-  </summary>
-  <div class="podrobnosti">
-    <p>Pridej automaticky skryty krok, ktery po kazdem kole stroje zapise posun na kartu pres branu (dnes jde posun jen do C:/work/stroj/jizdy/&lt;karta&gt;/stav.json). Nevnucovat zapis delnikovi ani kontrole; krok musi prezit budouci zmeny smycky. Zapisy se nesmi navzaje…</p>
-    <p>Kolo: 1 · Dokonč.: —</p>
-    <div class="odbocky-kroku"><div class="odbocka odbocka-nova" data-odbocka-id="r251d" data-z-kroku="5" data-konec="nova" data-ukol="UKOL-255"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">Zapis posunu po kazdem kole stroje patri dilne - predano jako podnet (nová)</span> <span class="odbocka-ukol">UKOL-255</span></div></div>
-  </div>
-</details>
-<details class="krok stav-hotovo" data-krok-id="6">
-  <summary>
-    <span class="znak" aria-hidden="true">●</span>
-    <span class="poradi">8.</span>
-    <span class="nazev">D2b: pohled Ceka na me jen temata+blokatory, razeni dle pravidla (K3 + doplnek 6.11.)</span>
-    <span class="stav-text">(hotovo)</span>
-    
-  </summary>
-  <div class="podrobnosti">
-    <p>V pohledu Ceka na me (view 40f64a4c-c9df-8116-a3f8-000c626f640e) nech jen karty s tematem v diskusi s Mirkem nebo blokatorem stroje (rozliseni v datech, napr. pole Duvod cekani = tema/blokator); zadne tecky, palce ani prubezna schvaleni. Razeni (pocita skript…</p>
-    <p>Kolo: 1 · Dokonč.: 2026-11-08T16:04:42+01:00</p>
-    
-  </div>
-</details>
-<details class="krok stav-ceka" data-krok-id="7">
-  <summary>
-    <span class="znak" aria-hidden="true">○</span>
-    <span class="poradi">9.</span>
-    <span class="nazev">Stranka A: 3 radky nahore, prepinac Celek/Detail, odbocky - Mirek potvrdi citelnost na Foldu</span>
-    <span class="stav-text">(čeká)</span>
-    
-  </summary>
-  <div class="podrobnosti">
-    <p>Posli Mirkovi odkaz na ostrou stranku A karty UKOL-253 (z kroku 4) na Fold a pockej na jeho potvrzeni citelnosti zapsane do deniku karty. Citelnost posuzuje Mirek, ne skript. Nic za nej nerozhoduj.</p>
-    <p>Kolo: — · Dokonč.: —</p>
-    
-  </div>
-</details>
-<details class="krok stav-ceka" data-krok-id="8">
-  <summary>
-    <span class="znak" aria-hidden="true">○</span>
-    <span class="poradi">10.</span>
-    <span class="nazev">Mirek potvrdi hotovo cele karty na 5 skutecnych ukolech (K4, cil karty 231)</span>
-    <span class="stav-text">(čeká)</span>
-    
-  </summary>
-  <div class="podrobnosti">
-    <p>Over s Mirkem na 5 skutecnych ukolech, ze ze stranky A (a pohledu Ceka na me) do 10 vterin pozna, kde jsme, co vzniklo a kde se prace stocila (K4). Pri souhlasu zapis potvrzeni do deniku karty.</p>
-    <p>Kolo: — · Dokonč.: —</p>
-    
-  </div>
-</details>
+  <section class="detail-kroky">
+<article class="krok-detail stav-hotovo" data-krok-id="1">
+  <h3><span class="znak" aria-hidden="true">●</span> 1. Ukazka A: vlastni stranka s mapou uzlu a prepinacem celek/detail na 1 realnem ukolu <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 16:18</span></h3>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-vracena" data-odbocka-id="r251a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">Odkaz na ukazku A sel otevrit jen na pocitaci v kancelari - oprava na odkaz pro Fold i pocitac (vrácena)</span></div></div>
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Postav vlastni stranku (ukazka A) s mapou uzlu a prepinacem celek/detail, kreslenou skriptem PRI OTEVRENI z dat jedne skutecne karty (audit UKOL-231 6.11.2026 odd.6, navrh retezec Zivy obraz -&gt; zapis po kole -&gt; novy stroj). Vysledek zapis do C:/work/ukoly/_253_stroj/ukazka_a_253.json jako {&quot;url&quot;: &lt;odkaz&gt;, &quot;ma_prepinac&quot;: true/false}. Nic jineho nemen (role smycky, zamek, karta UKOL-251). Pozadavek Mirka 8. 11. 2026: vysledny odkaz se MUSI otevrit stejnym odkazem na Foldu (Android, mimo kancelar) i na pocitaci s Windows - zadna adresa jen tohoto pocitace (127.0.0.1, localhost, domaci sit), jen https. Overuje meridlo_odkaz_vsude_253.py (K5).</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:/work/ukoly/_253_stroj/ukazka_a_253.json</p>
+      <ul class="meritka"><li>U1-M1: python C:/work/ukoly/_253_stroj/meridlo_u1_253.py</li><li>U1-M2: python C:\work\ukoly\_253_stroj\meridlo_odkaz_vsude_253.py --soubor C:\work\ukoly\_253_stroj\ukazka_a_253.json --klic url</li></ul>
+      <ul class="dukaz"><li>8. 11. 16:18: python C:/work/ukoly/_253_stroj/meridlo_u1_253.py → vad 0</li><li>8. 11. 16:18: python C:\work\ukoly\_253_stroj\meridlo_odkaz_vsude_253.py --soubor C:\work\ukoly\_253_stroj\ukazka_a_253.json --klic url → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="2">
+  <h3><span class="znak" aria-hidden="true">●</span> 2. Ukazka B: myslenkova mapa primo v Notionu, prepisovana skriptem, na stejnem ukolu (ukoncena vyberem A 8. 11. 2026) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 16:19</span></h3>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-slepa" data-odbocka-id="r251b" data-z-kroku="2" data-konec="slepa"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">✗</span><span class="odbocka-popis">Ukazka B byla jen seznam textu v Notionu, ne mapa - Mirek ji zamitl (slepá)</span></div></div>
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Postav ukazku B: myslenkovou mapu/graf primo na strance Notionu teze karty jako ukazka A, prepisovanou skriptem (ne rucne) - audit UKOL-231 6.11.2026 odd.4. Vysledek zapis do C:/work/ukoly/_253_stroj/ukazka_b_253.json jako {&quot;notion_url&quot;: &lt;odkaz&gt;, &quot;prepsano_skriptem&quot;: true/false}. Pozadavek Mirka 8. 11. 2026: vysledny odkaz se MUSI otevrit stejnym odkazem na Foldu (Android, mimo kancelar) i na pocitaci s Windows - zadna adresa jen tohoto pocitace (127.0.0.1, localhost, domaci sit), jen https. Overuje meridlo_odkaz_vsude_253.py (K5).</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:/work/ukoly/_253_stroj/ukazka_b_253.json</p>
+      <ul class="meritka"><li>U2-M1: python C:/work/ukoly/_253_stroj/meridlo_u2_253.py</li><li>U2-M2: python C:\work\ukoly\_253_stroj\meridlo_odkaz_vsude_253.py --soubor C:\work\ukoly\_253_stroj\ukazka_b_253.json --klic notion_url</li></ul>
+      <ul class="dukaz"><li>8. 11. 16:19: python C:/work/ukoly/_253_stroj/meridlo_u2_253.py → vad 0</li><li>8. 11. 16:19: python C:\work\ukoly\_253_stroj\meridlo_odkaz_vsude_253.py --soubor C:\work\ukoly\_253_stroj\ukazka_b_253.json --klic notion_url → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="3">
+  <h3><span class="znak" aria-hidden="true">●</span> 3. Zvonek Mirkovi s odkazy na ukazky A a B; Mirek vybere format <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 18:50</span></h3>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-vracena" data-odbocka-id="r251c" data-z-kroku="3" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">Nacrty A a B k vyberu, Mirek vybral A; pak pridany odbocky z rozhovoru (vrácena)</span></div></div>
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Posli Mirkovi zvonek (Probrat, UKOL-237) s odkazy na ukazku A i B. Mirek je otevre na Foldu a vybere, ktera se stavi naostro (audit UKOL-231 odd.4,6). Stroj se zastavi a ceka na Mirkovu odpoved v deniku karty; nic nerozhoduj za nej.</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"><li>8. 11. 18:50: vlakno 251-02, odpoved &#x27;1&#x27; na nacrty A/B → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="4">
+  <h3><span class="znak" aria-hidden="true">●</span> 4. Stranka A kazde karty se po zapisu pres branu prekresli sama (K1) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 20:02</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Udelej z ukazky A ostrou stranku pro KAZDOU kartu: generator C:/work/ukoly/_253_stroj/obraz_a.py &lt;karta&gt; nakresli stranku podle nacrtu A (https://claude.ai/artifact/KLMzwwy1w5B1vQb6G7ygAj: nahore 3 radky kde jsme / co vzniklo / co ceka na tebe, prepinac Celek/Detail, hlavni cesta zleva doprava z kroku karty, informaci nese tvar znacky, nikdy barva - Mirek ma poruchu barvocitu) a nahraje ji na https://procentov.github.io/zivy-obraz-prace/karty/&lt;UKOL-xx&gt;.html (repo Procentov/zivy-obraz-prace; verejne - Mirek 8. 11. 2026 souhlasil). Spoustej ho SAM po kazdem uspesnem zapisu pres branu C:/work/ukoly/zapis_karty.py - odpojene, nesmi zdrzet ani shodit zapis karty, nesmi zapisovat pole, ktere spadne na CIZI_CERSTVY_NAROK. Stranka MUSI nest &lt;meta name=&quot;karta-verze&quot; content=&quot;&lt;verze karty z brany&gt;&quot;&gt;. Do zrcadla mapy v Notionu (mapa_z_karty.py) pridej nahoru radek s odkazem na stranku karty. Zaloz zkusebni kartu UKOL-9953 (jen pro mereni, zadna skutecna prace). Hotovo meri meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953: 10 zapisu, vsechny na strance do 100 s (limit mereni stroje 120 s). Vysledek zapis do C:/work/ukoly/_253_stroj/k1_obnova_253.json jako {&quot;url_vzor&quot;: .., &quot;kde_spousteno&quot;: .., &quot;generator&quot;: ..}. VADA Z OSTREHO PROVOZU (8. 11. 2026 ~20:00, vlakno 251-02): 4 zapisy odbocek tesne po sobe na karte UKOL-253 (zapis_odbocky.py, kod 0) -&gt; na strance jen 2 z 4, stranka zustala na karta-verze 27, karta ma 29, ani po dalsich minutach se nedokreslila. Posledni prekresleni se ztrati, kdyz se zapisy prekryvaji. Oprav tak, aby po posledni zmene karty stranka VZDY dobehla na posledni verzi (napr. po dokonceni prekresleni porovnej verzi karty a kresli znovu; nahravani nesmi skoncit konfliktem). Over i na karte UKOL-253: vsechny 4 odbocky r251a-d na strance.</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:\work\ukoly\_253_stroj\k1_obnova_253.json</p>
+      <ul class="meritka"><li>U4-M1: python C:\work\ukoly\_253_stroj\meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953</li></ul>
+      <ul class="dukaz"><li>8. 11. 20:02: python C:\work\ukoly\_253_stroj\meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953 → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="4b">
+  <h3><span class="znak" aria-hidden="true">●</span> 5. Odbocky: zapis z rozhovoru i ze stroje a kresleni na strance A (K6) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 19:27</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Odbocky: na karte pole odbocky = seznam {id, z_kroku, co, konec: vracena|slepa|nova, ukol, ts, kdo}; skript C:/work/ukoly/_253_stroj/zapis_odbocky.py --karta --id --z-kroku --co --konec [--ukol] zapisuje vyhradne pres branu zapis_karty.py (nic neprepisuje, jen pribyva). Musi jit volat i z chatu (asistent pres Vratneho) - to je zdroj odbocek z rozhovoru (Mirek 8. 11. 2026). Stranka A kresli odbocky podle nacrtu A, oddil &#x27;Jak vypada uzel s odbockou&#x27; (https://claude.ai/artifact/KLMzwwy1w5B1vQb6G7ygAj): uzel se znackou vidlicky, vetev dolu, sipka zpet nahoru = vracena, krizek = slepa, sipka s cislem ukolu = nova; v pohledu Celek jen znacka u uzlu, v Detailu a tuknutim na uzel rozbalene. Kazda odbocka v HTML: data-odbocka-id, data-z-kroku, data-konec, u nova data-ukol. Hotovo meri meridlo_obraz_a_253.py --rezim odbocky --karta UKOL-9953. Vysledek zapis do C:/work/ukoly/_253_stroj/k6_odbocky_253.json jako {&quot;skript&quot;: .., &quot;pole&quot;: &quot;odbocky&quot;}.</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:\work\ukoly\_253_stroj\k6_odbocky_253.json</p>
+      <ul class="meritka"><li>U4b-M1: python C:\work\ukoly\_253_stroj\meridlo_obraz_a_253.py --rezim odbocky --karta UKOL-9953</li></ul>
+      <ul class="dukaz"><li>8. 11. 19:27: python C:\work\ukoly\_253_stroj\meridlo_obraz_a_253.py --rezim odbocky --karta UKOL-9953 → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="4c">
+  <h3><span class="znak" aria-hidden="true">○</span> 6. Vzhled stranky A podle auditu &#x27;jak se to dela venku&#x27; (Barak B7) <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Uprav vzhled stranky A (generator C:/work/ukoly/_253_stroj/obraz_a.py) podle auditu &#x27;jak se to dela venku&#x27; z projektu Barak: C:/work/ukoly/_UKOL-159_tahak_situace_forma_zdroj_v2_20260924.md (radky 1 trat, 6 klikaci vysvetleni, 11 predstav mi kartu a pravidla pro poruchu barvocitu) a vzorniku https://claude.ai/artifact/9EAnxVV5d7ffgb3VbGZeLJ. Mirek 8. 11. 2026: &#x27;z hlediska UX to chce upravit&#x27;. Dnes je nahore surovy technicky denik, misto mapy seznam textu, technicka zadani na ocich a casy jako 2026-11-08T16:18:21. Udelej: (1) nahore veta &#x27;Kam te vedu&#x27; a tri radky kde jsme / co vzniklo / co ceka na tebe lidskou cestinou s diakritikou, kazdy nejvys 140 znaku, bez cest, nazvu skriptu a casovych razitek; zdroj: pole posledni_iterace_lidsky, pozice a micek karty, ne surovy denik; &#x27;ceka na tebe&#x27; podle micku (zacina Mirek -&gt; co presne od nej, jinak &#x27;Nic&#x27;); (2) pohled Celek = NAKRESLENA trat zleva doprava (svg): stanice = kroky karty v poradi, oznacene id karty (4b zustava 4b), stav tvarem a carou (plna = hotovo, carky = bezi, tecky = ceka, odlozeno jinym tvarem), aktualni krok tlustym ramem a napisem TADY, odbocky jen znackou vidlicky u stanice; na mobilu trat posuvna do strany ve vlastnim ramu, stranka sama nikdy; (3) pohled Detail = kroky lidskym nazvem s diakritikou; technicke zadani, cesty a denik v ZAVRENEM rozbalovacim prvku (details), datum lidsky (8. 11. 20:02); (4) v hlavicce velke cislo &#x27;hotovo X z Y&#x27; (plakat); (5) ovladaci prvky aspon 24x24 px, informaci nikdy nenese barva. Smlouva struktury, kterou meri meridlo C:/work/ukoly/_253_stroj/meridlo_ux_253.py: svg data-trat=1; stanice data-stanice=&lt;id&gt; data-poradi=1..N data-x rostouci; prave jeden data-tady=1 s data-krok = prvni krok, ktery neni hotovo ani odlozeno; blok id=tri-radky s data-radek=kde|vzniklo|ceka a data-ceka-na=mirek|nikdo; technicka zadani class=zadani jen v zavrenem details. Neporus smlouvu kroku 4 a 4b (meta karta-verze, data-odbocka-*). Vysledek: C:/work/ukoly/_253_stroj/k4c_ux_253.json jako {&quot;generator&quot;: .., &quot;zmeny&quot;: [..]}.</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:\work\ukoly\_253_stroj\k4c_ux_253.json</p>
+      <ul class="meritka"><li>U4c-M1: python C:\work\ukoly\_253_stroj\meridlo_ux_253.py --karta UKOL-253</li><li>U4c-M2: python C:\work\ukoly\_253_stroj\meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-odlozeno" data-krok-id="5">
+  <h3><span class="znak" aria-hidden="true">□</span> 7. D3: zapis posunu na kartu po kazdem kole smycky stroje (K2) <span class="stav-text">(odloženo)</span></h3>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-nova" data-odbocka-id="r251d" data-z-kroku="5" data-konec="nova" data-ukol="UKOL-255"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">Zapis posunu po kazdem kole stroje patri dilne - predano jako podnet (nová)</span> <span class="odbocka-ukol">UKOL-255</span></div></div>
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Pridej automaticky skryty krok, ktery po kazdem kole stroje zapise posun na kartu pres branu (dnes jde posun jen do C:/work/stroj/jizdy/&lt;karta&gt;/stav.json). Nevnucovat zapis delnikovi ani kontrole; krok musi prezit budouci zmeny smycky. Zapisy se nesmi navzajem prepsat (denik jen pribyva, cislo verze karty rika poradi). Over na aspon 5 kolech skutecne jizdy: kazde kolo ma zaznam posunu, 0 prepsanych cizich zapisu. Vysledek zapis do C:/work/ukoly/_253_stroj/k2_test_253.json jako {&quot;kola&quot;: [{&quot;verze_pred&quot;: .., &quot;verze_po&quot;: .., &quot;posun_zapsan&quot;: true}, ...], &quot;prepsanych_cizich&quot;: 0}.</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:/work/ukoly/_253_stroj/k2_test_253.json</p>
+      <ul class="meritka"><li>U5-M2: python C:\work\ukoly\_253_stroj\meridlo_u5b_253.py</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="6">
+  <h3><span class="znak" aria-hidden="true">●</span> 8. D2b: pohled Ceka na me jen temata+blokatory, razeni dle pravidla (K3 + doplnek 6.11.) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 16:04</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>V pohledu Ceka na me (view 40f64a4c-c9df-8116-a3f8-000c626f640e) nech jen karty s tematem v diskusi s Mirkem nebo blokatorem stroje (rozliseni v datech, napr. pole Duvod cekani = tema/blokator); zadne tecky, palce ani prubezna schvaleni. Razeni (pocita skript pri kazdem obnoveni, nikdy rucne): 1) hranice/blokator nahoru, 2) priorita vysoka-&gt;stredni-&gt;nizka, 3) pri shode nejcerstvejsi pohyb nahoru, 4) micek u stroje bez pohybu &gt; 24 h -&gt; znacka zaseknute, nahoru do bodu 1 (prah 24 h muze Mirek zmenit). Over na 5 zkusebnich kartach s ruznou prioritou/stavem/starim pohybu: poradi sedi pravidlu 5 z 5. Vysledek zapis do C:/work/ukoly/_253_stroj/k3_test_253.json jako {&quot;karty&quot;: [{&quot;id&quot;: .., &quot;ma_byt_v_B&quot;: bool, &quot;je_v_B&quot;: bool}, ...5], &quot;poradi_B&quot;: [...], &quot;ocekavane_poradi&quot;: [...]}.</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:/work/ukoly/_253_stroj/k3_test_253.json</p>
+      <ul class="meritka"><li>U6-M1: python C:/work/ukoly/_253_stroj/meridlo_u6_253.py</li></ul>
+      <ul class="dukaz"><li>8. 11. 16:04: python C:/work/ukoly/_253_stroj/meridlo_u6_253.py → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="7">
+  <h3><span class="znak" aria-hidden="true">○</span> 9. Stranka A: 3 radky nahore, prepinac Celek/Detail, odbocky - Mirek potvrdi citelnost na Foldu <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Posli Mirkovi odkaz na ostrou stranku A karty UKOL-253 (z kroku 4) na Fold a pockej na jeho potvrzeni citelnosti zapsane do deniku karty. Citelnost posuzuje Mirek, ne skript. Nic za nej nerozhoduj.</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="8">
+  <h3><span class="znak" aria-hidden="true">○</span> 10. Mirek potvrdi hotovo cele karty na 5 skutecnych ukolech (K4, cil karty 231) <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Over s Mirkem na 5 skutecnych ukolech, ze ze stranky A (a pohledu Ceka na me) do 10 vterin pozna, kde jsme, co vzniklo a kde se prace stocila (K4). Pri souhlasu zapis potvrzeni do deniku karty.</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+
+  </section>
 </main>
 <footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · ◆ blokátor</p>
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
   <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
 </footer>
 <script>
 function rezim(r){
-  var vse=document.querySelectorAll('main.cesta details.krok');
   document.body.classList.remove('celek','detail');
   document.body.classList.add(r);
   document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
   document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
-  vse.forEach(function(d){ d.open = (r === 'detail'); });
 }
 </script>
 </body>
