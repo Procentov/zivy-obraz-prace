@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="28">
+<title>UKOL-225 · Měřicí základ a živý přehled obchodu Procentov.cz</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff}
+header p{margin:.2rem 0;font-size:1.05rem}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+main.cesta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+details.krok{border:2px solid #111;border-radius:6px;padding:.3rem .5rem;min-width:9rem}
+details.krok summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;font-size:.95rem}
+details.krok summary::-webkit-details-marker{display:none}
+.znak{font-size:1.3rem;line-height:1}
+.podrobnosti{font-size:.85rem;margin-top:.4rem;border-top:1px solid #999;padding-top:.3rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+body.detail details.podrobnosti-force{display:block}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="radek-1"><strong>Kde jsme:</strong> U7</p>
+  <p class="radek-2"><strong>Co vzniklo:</strong> VYHODNOCENI TYDNE (automat): 4 z 5 kontrol splneno. ✔ K1 – kroky pokladny se měří, odchylka do 10 %: SPLNENO / ✖ K2 – sběr každých 5 minut 7 dní: NESPLNENO | sber_kosik: probehlo 50.42 % behu, min. 9…</p>
+  <p class="radek-3"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main class="cesta">
+<details class="krok stav-hotovo" data-krok-id="U3">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">1.</span>
+    <span class="nazev">Sběrač: skript každých 5 minut ukládá minuty z živého Google a objednávky z e-shopu do Google tabulky a zapisuje log</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>V adresari C:/work/zivy_prehled vytvor jeden soubor sber.py (Python 3, jen knihovny requests, keyring, google-api-python-client a google-auth, ktere uz na pocitaci jsou). Pri spusteni &#x27;python C:/work/zivy_prehled/sber.py&#x27; udela soubor jeden sber a skonci kode…</p>
+    <p>Kolo: 1 · Dokonč.: 2026-10-21T13:59:32+02:00</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="U3b">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">2.</span>
+    <span class="nazev">Živé nákupy z Google (událost purchase po minutách) ve sběrači, označené &#x27;včetně testů&#x27;</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Uprav soubor C:/work/zivy_prehled/sber.py. Zachovej VSECHNO stavajici chovani a nic jineho neprepisuj. Pridej do kazdeho sberu: (1) dotaz do Google Analytics realtime stejnym zpusobem jako stavajici dotazy: dimenze minutesAgo, metrika eventCount, filtr eventN…</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="U1">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">3.</span>
+    <span class="nazev">Měření: přidání do košíku a kroky pokladny (příprava a zkouška v náhledu Google Tag Manageru, bez zveřejnění)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: 2026-10-22T18:26:45+02:00</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="U2">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">4.</span>
+    <span class="nazev">Měření: zapnutí pozastavené značky &#x27;zobrazení košíku&#x27; (krok 1 pokladny) po Mirkově schválení a ověření v živém pohledu Google (starší majetek 328958665)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: 2026-10-22T19:19:50+02:00</p>
+  </div>
+</details>
+<details class="krok stav-zruseno" data-krok-id="U8">
+  <summary>
+    <span class="znak" aria-hidden="true">✕</span>
+    <span class="poradi">5.</span>
+    <span class="nazev">Filtr testovacích nákupů: štítek (cookie) pro Mirka a Petru v měřicím nástroji po tvém souhlasu, filtr v Google ve zkušebním režimu, ověření jednou testovací objednávkou</span>
+    <span class="stav-text">(zrušeno)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="U4">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">6.</span>
+    <span class="nazev">Dopočet: úplná hodinová data z Google přepíšou dřívější odhady za stejné hodiny; živé nákupy se ráno opraví podle stavu objednávky v souboru (testovací a storno odečteny); u každého čísla čas načtení</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="U5">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">7.</span>
+    <span class="nazev">Plánovač a hlídání sběru: úloha každých 5 minut; když sběr stojí déle než 20 minut, přijde zpráva na telefon stávajícím kanálem z karty UKOL-216</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="U6">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">8.</span>
+    <span class="nazev">Stránka s adresou: čte z tabulky, tlačítka období a srovnání, velká čísla podle vzorníku</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-bezi" data-krok-id="U7">
+  <summary>
+    <span class="znak" aria-hidden="true">▶</span>
+    <span class="poradi">9.</span>
+    <span class="nazev">Týden provozu: kontrola kritérií K1 až K5 a uzávěrka</span>
+    <span class="stav-text">(běží)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: 1 · Dokonč.: —</p>
+  </div>
+</details>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · ◆ blokátor</p>
+</footer>
+<script>
+function rezim(r){
+  var vse=document.querySelectorAll('main.cesta details.krok');
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+  vse.forEach(function(d){ d.open = (r === 'detail'); });
+}
+</script>
+</body>
+</html>
