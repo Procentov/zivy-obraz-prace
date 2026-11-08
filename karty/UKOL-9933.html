@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="5">
+<title>UKOL-9933 · Zkouška spojek (UKOL-9933)</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
+header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
+.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
+.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
+.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
+.odbocka-znak{font-size:1rem}
+.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> krok U1 – Vytvoření zkušebního souboru spojek pro kartu UKOL-9933</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Vytvoření zkušebního souboru spojek pro kartu UKOL-9933.</p>
+    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">0</span> z 1 hotovo</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 140 150" width="140" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-ceka" data-stanice="U1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Vytvoření zkušebního souboru spojek pro kartu UKOL-9933" data-tady="1" data-krok="U1"><circle cx="70" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="70" y="134" font-size="13" text-anchor="middle">U1</text><text x="70" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+</svg>
+  </div>
+  <section class="panely-kroku">
+<article class="krok-panel" data-panel-krok="U1" hidden>
+  <h3><span class="znak" aria-hidden="true">○</span> Vytvoření zkušebního souboru spojek pro kartu UKOL-9933 <span class="stav-text">(čeká)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Nic se nevyžaduje - jde o první a jediný úsek plánu.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Vytvoř soubor C:/work/stroj/spojky/_zkouska/UKOL-9933.txt obsahující přesně text &#x27;ahoj UKOL-9933&#x27;. Nic jiného nedělej - neměň, nemaž ani nevytvářej žádný jiný soubor. Cena 0 Kč.</p></div></details>
+</article>
+  </section>
+  <section class="detail-kroky">
+<article class="krok-detail stav-ceka" data-krok-id="U1">
+  <h3><span class="znak" aria-hidden="true">○</span> 1. Vytvoření zkušebního souboru spojek pro kartu UKOL-9933 <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Vytvoř soubor C:/work/stroj/spojky/_zkouska/UKOL-9933.txt obsahující přesně text &#x27;ahoj UKOL-9933&#x27;. Nic jiného nedělej - neměň, nemaž ani nevytvářej žádný jiný soubor. Cena 0 Kč.</p>
+      <p>Oblast: C:/work/stroj/spojky/_zkouska · Výsledný soubor: C:/work/stroj/spojky/_zkouska/UKOL-9933.txt</p>
+      <ul class="meritka"><li>U1-M1: python C:/work/ukoly/_9933_stroj/meridlo_u1.py</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+
+  </section>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
+  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
+</footer>
+<script>
+function rezim(r){
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+}
+function otevriPanel(id){
+  const panely=[...document.querySelectorAll('[data-panel-krok]')];
+  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
+  if(!panel)return;
+  const otevrene=!panel.hidden;
+  panely.forEach(p=>p.hidden=true);
+  if(!otevrene)panel.hidden=false;
+}
+function pripravProklik(){
+  document.querySelectorAll('[data-stanice]').forEach(st=>{
+    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
+    st.addEventListener('click',akce);
+    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
+  });
+  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
+  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
+}
+document.addEventListener('DOMContentLoaded',pripravProklik);
+</script>
+</body>
+</html>
