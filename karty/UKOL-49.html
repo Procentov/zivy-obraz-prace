@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="93">
+<title>UKOL-49 · Druhý mozek v Notionu — jeden kontext pro všechny AI nástroje</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
+header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
+.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
+.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
+.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
+.odbocka-znak{font-size:1rem}
+.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> Karta je hotová.</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Karta je celá hotová.</p>
+    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">8</span> z 8 hotovo</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 1190 150" width="1190" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-hotovo" data-stanice="S1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Doplnit misto 15 nezarazenym kartam a odsunout 4 zalohy z adresare karet do _zalohy_karet (presun, ne mazani)"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">S1</text></g>
+<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="S2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Ranni kontrola stromu kazdy den v 6:00: cislo &#x27;mimo sve misto&#x27;, opravy jen kde se neco meni, hodiny pojistky neposouva"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">S2</text></g>
+<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="S3" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Pravidlo nova karta jen s mistem - zakazka pro Velin (zakladani karet a brana jsou jejich)"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">S3</text></g>
+<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="S4" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Soupis provozu: u kazde bezici veci majitel a kdo z ni cte - doplnit do existujiciho skladu modulu, ne novy seznam"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">S4</text></g>
+<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="S5" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Pojistka cizi veci: pred upravou souboru se zkontroluje soupis, cizi majitel = zastavit a ukazat koho se zeptat"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">S5</text></g>
+<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="S6" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Povinne nacteni pred praci: rejstrik temat + nastroj co_vime_o(tema) s poctivym &#x27;nemame&#x27; + povinny krok ve skillech (ZIP Mirkovi k nahrani)"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="820" y="134" font-size="13" text-anchor="middle">S6</text></g>
+<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="S7" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Zkouska 10+2 temat kontrolorem jine rodiny"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="970" y="134" font-size="13" text-anchor="middle">S7</text></g>
+<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="S8" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Povinne nacteni pred praci do skillu (nastupni-report, kde-jsme, startovaci-prompt) podle tvorba-skillu; ZIP Mirkovi k nahrani; + cteni seznamu chyb chovani a opakovane mereni radku Kurz"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">S8</text></g>
+</svg>
+  </div>
+  <section class="panely-kroku">
+<article class="krok-panel" data-panel-krok="S1" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Doplnit misto 15 nezarazenym kartam a odsunout 4 zalohy z adresare karet do _zalohy_karet (presun, ne mazani) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 20. 10. 14:43</p>
+  <p>plan podepsany; zapis jen pres branu (povoleni prevzeti dava Mirkuv podpis planu 20. 10.)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Kazde karte C:/work/ukoly/UKOL-*.json bez pole strom pridej pole strom = {oblast, patro, zarazil, kdy, podle}. Oblast je jedna z: Procentov, UTULI, Provoz a rizeni, Nastroje a znalosti, Technika, Osobni (podle projektu, kategorie, pak nazvu a tela karty). Patro je jedno z: projekt (otevrena prace), oblast (trvala odpovednost, rutina, hlidac), zdroj (inspirace, pruzkum), archiv (uzavrena, sloucena, odlozena). Zapisuj VYHRADNE funkci zapis_karty.zapis_kartu s drzitelem &#x27;stroj UKOL-49 S1&#x27;, povol_prevzeti=True a povol_po_zmene_mimo_branu=True; u karty zmenene mimo branu pridej do deniku vetu &#x27;S1: prijata zmena mimo branu, pridan jen strom&#x27;. Jine pole nemen. Soubory se slovem zaloha v nazvu a prazdne karty (bez nazvu a kroku) PRESUN do C:/work/ukoly/_zalohy_karet/, nic nemaz. Na konci spust python C:/work/ukoly/_u49/meridlo_S1.py a jeho vystup uloz do C:/work/ukoly/_u49/S1_vysledek.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="S2" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Ranni kontrola stromu kazdy den v 6:00: cislo &#x27;mimo sve misto&#x27;, opravy jen kde se neco meni, hodiny pojistky neposouva <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 20. 10. 17:14</p>
+  <p>S1 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Napis C:/work/ukoly/_u49/kontrola_strom.py. Projde karty C:/work/ukoly/UKOL-*.json (nebo slozku z --adresar) a spocita karty mimo sve misto: bez strom.oblast nebo strom.patro, oblast mimo sest povolenych, uzavrena karta s patrem jinym nez archiv. Posledni radek vystupu = JSON {&quot;mimo_misto&quot;: N, &quot;opraveno&quot;: M, &quot;k_zarazeni&quot;: [...], &quot;dvojcata_podezrela&quot;: [...], &quot;kdy&quot;: ISO}. Bez --nanecisto opravi jen jiste pripady (uzavrena karta -&gt; patro archiv) pres zapis_karty.zapis_kartu s drzitelem &#x27;kontrola stromu UKOL-49&#x27;; kartu bez nalezu NIKDY nezapisuje (neposouva cas zapisu). Nejiste pripady jen vypise do k_zarazeni. Vysledek uklada take do C:/work/ukoly/_u49/kontroly/K1.json ve tvaru {&quot;kriterium&quot;:&quot;K1&quot;,&quot;splneno&quot;: mimo_misto==0,&quot;cislo&quot;:N,&quot;kdy&quot;:ISO,&quot;zdroj&quot;:&quot;kontrola_strom.py&quot;} (ne pri --nanecisto). Pak zaloz v Planovaci uloh Windows ulohu &#x27;UKOL49-kontrola-stromu&#x27; denne v 6:00, ktera spusti tento skript.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="S3" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Pravidlo nova karta jen s mistem - zakazka pro Velin (zakladani karet a brana jsou jejich) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 20. 10. 17:28</p>
+  <p>Mirkovo schvaleni planu; zadani predano vlaknu Velinu</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Prevzal Velin jako kartu UKOL-223 (Mirek 20.10. volba 1, vlakno 221-03).</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="S4" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Soupis provozu: u kazde bezici veci majitel a kdo z ni cte - doplnit do existujiciho skladu modulu, ne novy seznam <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 20. 10. 17:51</p>
+  <p>S2 hotovo; citelny</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Do C:/work/inovace/moduly.json pridej oddil &quot;provoz&quot; (seznam). Nic jineho v souboru nemen. Za kazdou naplanovanou ulohu Windows, jejiz akce sahne do C:\work (zjisti: schtasks /Query /FO CSV /V), jedna polozka: {&quot;uloha&quot;: presny nazev ulohy bez uvodniho \\, &quot;co_dela&quot;: jedna veta cesky, &quot;soubory&quot;: [skripty a datove soubory, ktere spousti nebo zapisuje, plne cesty], &quot;majitel&quot;: &quot;UKOL-NN&quot; (karta, ktera ji postavila nebo drzi; hledej nazev skriptu v C:/work/ukoly/UKOL-*.json), &quot;jistota_majitele&quot;: &quot;doklad&quot; (nazev skriptu je na karte) nebo &quot;odhad&quot; (napis proc), &quot;ctenari&quot;: [karty nebo skripty, ktere vystup ctou nebo importuji jeho modul; hledej nazev souboru a import v C:/work/**/*.py]}. Pridej i databazi C:/work/databaze/procentov.duckdb a slozky C:/work/prehled* jako polozky s &quot;uloha&quot;: &quot;(bez ulohy) &lt;nazev&gt;&quot;. Nevymyslej: kdyz majitele nenajdes, dej odhad s duvodem.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="S5" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Pojistka cizi veci: pred upravou souboru se zkontroluje soupis, cizi majitel = zastavit a ukazat koho se zeptat <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 22. 10. 09:47</p>
+  <p>S4 hotovo (soupis ma majitele a soubory)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Napis hak C:/work/ukoly/_u49/pojistka_cizi.py pro Claude Code (udalost PreToolUse, nastroje Edit, Write, MultiEdit). Ze stdin precte JSON haku, vezme tool_input.file_path, v C:/work/inovace/moduly.json oddil provoz najde polozku, jejiz &quot;soubory&quot; obsahuji tuto cestu (porovnavej bez ohledu na velikost pismen a lomitka). Kdyz soubor ma majitele a promenna prostredi UKOL_KARTA se mu nerovna (nebo chybi): navratovy kod 2 a na stderr cesky &#x27;Soubor patri karte UKOL-NN (&lt;co_dela&gt;). Zmenu cizi veci nedelej, zeptej se majitele nebo nastav UKOL_KARTA.&#x27; Jinak kod 0. Pri jakekoli chybe cteni soupisu kod 0 (pojistka nesmi zastavit praci kvuli vlastni poruse). Pak ho zaregistruj v C:/work/.claude/settings.json (hooks.PreToolUse, matcher Edit|Write|MultiEdit, prikaz python C:/work/ukoly/_u49/pojistka_cizi.py); existujici obsah settings.json zachovej, pred zmenou ulozit kopii settings.json.pred_UKOL49.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="S6" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Povinne nacteni pred praci: rejstrik temat + nastroj co_vime_o(tema) s poctivym &#x27;nemame&#x27; + povinny krok ve skillech (ZIP Mirkovi k nahrani) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 22. 10. 10:02</p>
+  <p>S1 hotovo; vysledek pruzkumu</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Postav tri veci v C:/work/ukoly/_u49. (1) rejstrik_temat.py, ktery z karet C:/work/ukoly/UKOL-*.json (pole strom, nazev, cil, problem) sestavi rejstrik_temat.json {&quot;oblasti&quot;: {&quot;&lt;oblast ze strom.oblast&gt;&quot;: {&quot;&lt;tema&gt;&quot;: [&quot;UKOL-..&quot;]}}}; temata jsou vecne skupiny karet (30 az 60 celkem, karta smi byt ve vic tematech); kazda karta mimo archiv musi byt aspon v jednom tematu. (2) co_vime_o.py &quot;&lt;dotaz&gt;&quot;: najde temata a karty k dotazu (shoda slov v nazvu tematu, nazvu a cili karty, bez diakritiky), vcetne archivu oznaceneho jako archiv; posledni radek JSON {&quot;nalezeno&quot;: N, &quot;karty&quot;: [...], &quot;temata&quot;: [...], &quot;vyrok&quot;: &quot;mame&quot; nebo &quot;nemame&quot;}; kdyz nic, vyrok nemame - nikdy si nic nevymysli. (3) zkouska_temata.json {&quot;temata&quot;: [{&quot;id&quot;: &quot;T1&quot;, &quot;otazka&quot;: &quot;...&quot;, &quot;karty&quot;: [...]}]}: 12 otazek jak by je polozil Mirek na zacatku prace; 10 na temata, ke kterym karty JSOU (karty dohledej ctenim karet, ne nastrojem co_vime_o), mezi nimi prehledy obchodu, druhy mozek a ranni e-mail; 2 na temata, ke kterym karta neni (over prohledanim vsech karet). Pak zapis sha256 souboru zkouska_temata.json do zkouska_temata.sha256.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="S7" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Zkouska 10+2 temat kontrolorem jine rodiny <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 22. 10. 10:04</p>
+  <p>S6 hotovo; kontrolor jine rodiny dostupny bez placeneho behu</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Precti C:/work/ukoly/_u49/zkouska_temata.json (NEMEN ho; pouzij jen pole id a otazka). Na kazdou otazku odpovez VYHRADNE pomoci nastroje python C:/work/ukoly/_u49/co_vime_o.py &quot;&lt;otazka nebo jeji klicova slova&gt;&quot; (smis zkusit vic formulaci) a do C:/work/ukoly/_u49/zkouska_odpovedi.json zapis {&quot;T1&quot;: [karty, ktere ti nastroj vratil a ktere k tematu opravdu patri], ...}. Kdyz nastroj nic nevrati, dej prazdny seznam - nevymyslej.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="S8" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Povinne nacteni pred praci do skillu (nastupni-report, kde-jsme, startovaci-prompt) podle tvorba-skillu; ZIP Mirkovi k nahrani; + cteni seznamu chyb chovani a opakovane mereni radku Kurz <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 23. 10. 15:36</p>
+  <p>S7 hotovo (nastroj co_vime_o prosel zkouskou)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Pridano 22. 10. 2026 (Mirek volba 1, vlakno Mozkovna k UKOL-201, pokyn z vlakna 201-13): (a) nastupni-report pri startu vlakna s kartou precte seznam C:/work/ukoly/_u49/chyby_chovani.md a uvede ho v radku Jel jsem podle; seznam ma nejvys 10 radku, opakovani chyby zvysuje pocet porusenich. (b) Po nasazeni ZIPu se znovu zmeri 20 nahodnych vlaken skriptem C:/work/_hledani_archivu/kurz_zaklad.py (vyber pevnym seminkem 20261022). Cil: plny radek Kurz (cislo karty, cast, navazuje) u &gt;=19 z 20; vychozi stav 22. 10. 2026: 0 z 20.</p></div></details>
+</article>
+  </section>
+  <section class="detail-kroky">
+<article class="krok-detail stav-hotovo" data-krok-id="S1">
+  <h3><span class="znak" aria-hidden="true">●</span> 1. Doplnit misto 15 nezarazenym kartam a odsunout 4 zalohy z adresare karet do _zalohy_karet (presun, ne mazani) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 20. 10. 14:43</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Kazde karte C:/work/ukoly/UKOL-*.json bez pole strom pridej pole strom = {oblast, patro, zarazil, kdy, podle}. Oblast je jedna z: Procentov, UTULI, Provoz a rizeni, Nastroje a znalosti, Technika, Osobni (podle projektu, kategorie, pak nazvu a tela karty). Patro je jedno z: projekt (otevrena prace), oblast (trvala odpovednost, rutina, hlidac), zdroj (inspirace, pruzkum), archiv (uzavrena, sloucena, odlozena). Zapisuj VYHRADNE funkci zapis_karty.zapis_kartu s drzitelem &#x27;stroj UKOL-49 S1&#x27;, povol_prevzeti=True a povol_po_zmene_mimo_branu=True; u karty zmenene mimo branu pridej do deniku vetu &#x27;S1: prijata zmena mimo branu, pridan jen strom&#x27;. Jine pole nemen. Soubory se slovem zaloha v nazvu a prazdne karty (bez nazvu a kroku) PRESUN do C:/work/ukoly/_zalohy_karet/, nic nemaz. Na konci spust python C:/work/ukoly/_u49/meridlo_S1.py a jeho vystup uloz do C:/work/ukoly/_u49/S1_vysledek.json.</p>
+      <p>Oblast: C:/work/ukoly · Výsledný soubor: C:/work/ukoly/_u49/S1_vysledek.json</p>
+      <ul class="meritka"><li>S1a: python C:/work/ukoly/_u49/meridlo_S1.py</li></ul>
+      <ul class="dukaz"><li>20. 10. 14:43: python C:/work/ukoly/_u49/meridlo_S1.py → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="S2">
+  <h3><span class="znak" aria-hidden="true">●</span> 2. Ranni kontrola stromu kazdy den v 6:00: cislo &#x27;mimo sve misto&#x27;, opravy jen kde se neco meni, hodiny pojistky neposouva <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 20. 10. 17:14</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Napis C:/work/ukoly/_u49/kontrola_strom.py. Projde karty C:/work/ukoly/UKOL-*.json (nebo slozku z --adresar) a spocita karty mimo sve misto: bez strom.oblast nebo strom.patro, oblast mimo sest povolenych, uzavrena karta s patrem jinym nez archiv. Posledni radek vystupu = JSON {&quot;mimo_misto&quot;: N, &quot;opraveno&quot;: M, &quot;k_zarazeni&quot;: [...], &quot;dvojcata_podezrela&quot;: [...], &quot;kdy&quot;: ISO}. Bez --nanecisto opravi jen jiste pripady (uzavrena karta -&gt; patro archiv) pres zapis_karty.zapis_kartu s drzitelem &#x27;kontrola stromu UKOL-49&#x27;; kartu bez nalezu NIKDY nezapisuje (neposouva cas zapisu). Nejiste pripady jen vypise do k_zarazeni. Vysledek uklada take do C:/work/ukoly/_u49/kontroly/K1.json ve tvaru {&quot;kriterium&quot;:&quot;K1&quot;,&quot;splneno&quot;: mimo_misto==0,&quot;cislo&quot;:N,&quot;kdy&quot;:ISO,&quot;zdroj&quot;:&quot;kontrola_strom.py&quot;} (ne pri --nanecisto). Pak zaloz v Planovaci uloh Windows ulohu &#x27;UKOL49-kontrola-stromu&#x27; denne v 6:00, ktera spusti tento skript.</p>
+      <p>Oblast: C:/work/ukoly/_u49 · Výsledný soubor: C:/work/ukoly/_u49/kontrola_strom.py</p>
+      <ul class="meritka"><li>S2a: python C:/work/ukoly/_u49/meridlo_S2.py</li></ul>
+      <ul class="dukaz"><li>20. 10. 17:14: python C:/work/ukoly/_u49/meridlo_S2.py → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="S3">
+  <h3><span class="znak" aria-hidden="true">●</span> 3. Pravidlo nova karta jen s mistem - zakazka pro Velin (zakladani karet a brana jsou jejich) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 20. 10. 17:28</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Prevzal Velin jako kartu UKOL-223 (Mirek 20.10. volba 1, vlakno 221-03).</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="S4">
+  <h3><span class="znak" aria-hidden="true">●</span> 4. Soupis provozu: u kazde bezici veci majitel a kdo z ni cte - doplnit do existujiciho skladu modulu, ne novy seznam <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 20. 10. 17:51</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Do C:/work/inovace/moduly.json pridej oddil &quot;provoz&quot; (seznam). Nic jineho v souboru nemen. Za kazdou naplanovanou ulohu Windows, jejiz akce sahne do C:\work (zjisti: schtasks /Query /FO CSV /V), jedna polozka: {&quot;uloha&quot;: presny nazev ulohy bez uvodniho \\, &quot;co_dela&quot;: jedna veta cesky, &quot;soubory&quot;: [skripty a datove soubory, ktere spousti nebo zapisuje, plne cesty], &quot;majitel&quot;: &quot;UKOL-NN&quot; (karta, ktera ji postavila nebo drzi; hledej nazev skriptu v C:/work/ukoly/UKOL-*.json), &quot;jistota_majitele&quot;: &quot;doklad&quot; (nazev skriptu je na karte) nebo &quot;odhad&quot; (napis proc), &quot;ctenari&quot;: [karty nebo skripty, ktere vystup ctou nebo importuji jeho modul; hledej nazev souboru a import v C:/work/**/*.py]}. Pridej i databazi C:/work/databaze/procentov.duckdb a slozky C:/work/prehled* jako polozky s &quot;uloha&quot;: &quot;(bez ulohy) &lt;nazev&gt;&quot;. Nevymyslej: kdyz majitele nenajdes, dej odhad s duvodem.</p>
+      <p>Oblast: C:/work/inovace · Výsledný soubor: C:/work/inovace/moduly.json</p>
+      <ul class="meritka"><li>S4a: python C:/work/ukoly/_u49/meridlo_S4.py</li></ul>
+      <ul class="dukaz"><li>20. 10. 17:51: python C:/work/ukoly/_u49/meridlo_S4.py → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="S5">
+  <h3><span class="znak" aria-hidden="true">●</span> 5. Pojistka cizi veci: pred upravou souboru se zkontroluje soupis, cizi majitel = zastavit a ukazat koho se zeptat <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 22. 10. 09:47</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Napis hak C:/work/ukoly/_u49/pojistka_cizi.py pro Claude Code (udalost PreToolUse, nastroje Edit, Write, MultiEdit). Ze stdin precte JSON haku, vezme tool_input.file_path, v C:/work/inovace/moduly.json oddil provoz najde polozku, jejiz &quot;soubory&quot; obsahuji tuto cestu (porovnavej bez ohledu na velikost pismen a lomitka). Kdyz soubor ma majitele a promenna prostredi UKOL_KARTA se mu nerovna (nebo chybi): navratovy kod 2 a na stderr cesky &#x27;Soubor patri karte UKOL-NN (&lt;co_dela&gt;). Zmenu cizi veci nedelej, zeptej se majitele nebo nastav UKOL_KARTA.&#x27; Jinak kod 0. Pri jakekoli chybe cteni soupisu kod 0 (pojistka nesmi zastavit praci kvuli vlastni poruse). Pak ho zaregistruj v C:/work/.claude/settings.json (hooks.PreToolUse, matcher Edit|Write|MultiEdit, prikaz python C:/work/ukoly/_u49/pojistka_cizi.py); existujici obsah settings.json zachovej, pred zmenou ulozit kopii settings.json.pred_UKOL49.</p>
+      <p>Oblast: C:/work/ukoly/_u49 · Výsledný soubor: C:/work/ukoly/_u49/pojistka_cizi.py</p>
+      <ul class="meritka"><li>S5a: python C:/work/ukoly/_u49/meridlo_S5.py</li></ul>
+      <ul class="dukaz"><li>22. 10. 09:47: python C:/work/ukoly/_u49/meridlo_S5.py → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="S6">
+  <h3><span class="znak" aria-hidden="true">●</span> 6. Povinne nacteni pred praci: rejstrik temat + nastroj co_vime_o(tema) s poctivym &#x27;nemame&#x27; + povinny krok ve skillech (ZIP Mirkovi k nahrani) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 22. 10. 10:02</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Postav tri veci v C:/work/ukoly/_u49. (1) rejstrik_temat.py, ktery z karet C:/work/ukoly/UKOL-*.json (pole strom, nazev, cil, problem) sestavi rejstrik_temat.json {&quot;oblasti&quot;: {&quot;&lt;oblast ze strom.oblast&gt;&quot;: {&quot;&lt;tema&gt;&quot;: [&quot;UKOL-..&quot;]}}}; temata jsou vecne skupiny karet (30 az 60 celkem, karta smi byt ve vic tematech); kazda karta mimo archiv musi byt aspon v jednom tematu. (2) co_vime_o.py &quot;&lt;dotaz&gt;&quot;: najde temata a karty k dotazu (shoda slov v nazvu tematu, nazvu a cili karty, bez diakritiky), vcetne archivu oznaceneho jako archiv; posledni radek JSON {&quot;nalezeno&quot;: N, &quot;karty&quot;: [...], &quot;temata&quot;: [...], &quot;vyrok&quot;: &quot;mame&quot; nebo &quot;nemame&quot;}; kdyz nic, vyrok nemame - nikdy si nic nevymysli. (3) zkouska_temata.json {&quot;temata&quot;: [{&quot;id&quot;: &quot;T1&quot;, &quot;otazka&quot;: &quot;...&quot;, &quot;karty&quot;: [...]}]}: 12 otazek jak by je polozil Mirek na zacatku prace; 10 na temata, ke kterym karty JSOU (karty dohledej ctenim karet, ne nastrojem co_vime_o), mezi nimi prehledy obchodu, druhy mozek a ranni e-mail; 2 na temata, ke kterym karta neni (over prohledanim vsech karet). Pak zapis sha256 souboru zkouska_temata.json do zkouska_temata.sha256.</p>
+      <p>Oblast: C:/work/ukoly/_u49 · Výsledný soubor: C:/work/ukoly/_u49/rejstrik_temat.json</p>
+      <ul class="meritka"><li>S6a: python C:/work/ukoly/_u49/meridlo_S6.py</li></ul>
+      <ul class="dukaz"><li>22. 10. 10:02: python C:/work/ukoly/_u49/meridlo_S6.py → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="S7">
+  <h3><span class="znak" aria-hidden="true">●</span> 7. Zkouska 10+2 temat kontrolorem jine rodiny <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 22. 10. 10:04</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Precti C:/work/ukoly/_u49/zkouska_temata.json (NEMEN ho; pouzij jen pole id a otazka). Na kazdou otazku odpovez VYHRADNE pomoci nastroje python C:/work/ukoly/_u49/co_vime_o.py &quot;&lt;otazka nebo jeji klicova slova&gt;&quot; (smis zkusit vic formulaci) a do C:/work/ukoly/_u49/zkouska_odpovedi.json zapis {&quot;T1&quot;: [karty, ktere ti nastroj vratil a ktere k tematu opravdu patri], ...}. Kdyz nastroj nic nevrati, dej prazdny seznam - nevymyslej.</p>
+      <p>Oblast: C:/work/ukoly/_u49 · Výsledný soubor: C:/work/ukoly/_u49/zkouska_odpovedi.json</p>
+      <ul class="meritka"><li>S7a: python C:/work/ukoly/_u49/meridlo_S7.py</li></ul>
+      <ul class="dukaz"><li>22. 10. 10:04: python C:/work/ukoly/_u49/meridlo_S7.py → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="S8">
+  <h3><span class="znak" aria-hidden="true">●</span> 8. Povinne nacteni pred praci do skillu (nastupni-report, kde-jsme, startovaci-prompt) podle tvorba-skillu; ZIP Mirkovi k nahrani; + cteni seznamu chyb chovani a opakovane mereni radku Kurz <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 23. 10. 15:36</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Pridano 22. 10. 2026 (Mirek volba 1, vlakno Mozkovna k UKOL-201, pokyn z vlakna 201-13): (a) nastupni-report pri startu vlakna s kartou precte seznam C:/work/ukoly/_u49/chyby_chovani.md a uvede ho v radku Jel jsem podle; seznam ma nejvys 10 radku, opakovani chyby zvysuje pocet porusenich. (b) Po nasazeni ZIPu se znovu zmeri 20 nahodnych vlaken skriptem C:/work/_hledani_archivu/kurz_zaklad.py (vyber pevnym seminkem 20261022). Cil: plny radek Kurz (cislo karty, cast, navazuje) u &gt;=19 z 20; vychozi stav 22. 10. 2026: 0 z 20.</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+
+  </section>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
+  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
+</footer>
+<script>
+function rezim(r){
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+}
+function otevriPanel(id){
+  const panely=[...document.querySelectorAll('[data-panel-krok]')];
+  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
+  if(!panel)return;
+  const otevrene=!panel.hidden;
+  panely.forEach(p=>p.hidden=true);
+  if(!otevrene)panel.hidden=false;
+}
+function pripravProklik(){
+  document.querySelectorAll('[data-stanice]').forEach(st=>{
+    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
+    st.addEventListener('click',akce);
+    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
+  });
+  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
+  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
+}
+document.addEventListener('DOMContentLoaded',pripravProklik);
+</script>
+</body>
+</html>
