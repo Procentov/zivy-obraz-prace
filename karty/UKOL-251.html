@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="50">
+<title>UKOL-251 · Dvě spojky: předání do schránky probudí stroj, plán a blokátor zazvoní Mirkovi</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
+header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
+.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
+.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
+.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
+.odbocka-znak{font-size:1rem}
+.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> Karta je hotová.</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Karta je celá hotová.</p>
+    <p data-radek="ceka" data-ceka-na="mirek"><strong>Čeká na tebe:</strong> krok U5: neprošlo měřením, rozhodni</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">15</span> z 15 hotovo</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 2240 150" width="2240" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-hotovo" data-stanice="U1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Spojka 1: hlídač schránky a spouštěč plánovací jízdy"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">U1</text></g>
+<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Spojka 2: zvonek s tlačítky Podepsat / Probrat / Čeká na mě a příjem podpisu"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">U2</text></g>
+<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="O1" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Oprava spojek podle vzoru: cislo zaznamu a zabor, podpisovy listek, planovac bez omezeni"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">O1</text></g>
+<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="K1" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Nezavisla kontrola Codexem, verdikt vazany na otisk prace (1. kolo)"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">K1</text></g>
+<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="O2" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Druha oprava podle verdiktu (jen kdyz NEPREVZATO)"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">O2</text></g>
+<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="O3" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Treti oprava: zamek pri nezjistitelnem procesu plati (vada A8 od Codexu)"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="820" y="134" font-size="13" text-anchor="middle">O3</text></g>
+<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="K3" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Nezavisla kontrola Codexem (3. kolo, nad opravenou praci)"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="970" y="134" font-size="13" text-anchor="middle">K3</text></g>
+<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="O4" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Ctvrta oprava: nova schranka se cte od zacatku (vada z ostre zkousky)"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">O4</text></g>
+<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="K4" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Nezavisla kontrola Codexem (4. kolo, nad opravou nove schranky)"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1270" y="134" font-size="13" text-anchor="middle">K4</text></g>
+<line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="O5" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Pata oprava: predani nese Mirkova slova o bolesti (planovac bez nich plan nenapise)"><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1420" y="134" font-size="13" text-anchor="middle">O5</text></g>
+<line x1="1440" y1="70" x2="1550" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="K5" data-poradi="11" data-x="1570" data-proklik="1" role="button" tabindex="0" aria-label="Nezavisla kontrola Codexem (5. kolo, nad predanim s bolesti)"><text x="1570" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1570" y="134" font-size="13" text-anchor="middle">K5</text></g>
+<line x1="1590" y1="70" x2="1700" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="O6" data-poradi="12" data-x="1720" data-proklik="1" role="button" tabindex="0" aria-label="Sesta oprava: podpis a planovac projdou pojistkou zapisu karet, kazde planovani zacina cisty"><text x="1720" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1720" y="134" font-size="13" text-anchor="middle">O6</text></g>
+<line x1="1740" y1="70" x2="1850" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="K6" data-poradi="13" data-x="1870" data-proklik="1" role="button" tabindex="0" aria-label="Nezavisla kontrola Codexem (6. kolo, nad podpisem a spoustecem)"><text x="1870" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1870" y="134" font-size="13" text-anchor="middle">K6</text></g>
+<line x1="1890" y1="70" x2="2000" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U4" data-poradi="14" data-x="2020" data-proklik="1" role="button" tabindex="0" aria-label="Zapnutí a ostrá zkouška na 3 zkušebních kartách (S1, S2, záporný test)"><text x="2020" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="2020" y="134" font-size="13" text-anchor="middle">U4</text></g>
+<line x1="2040" y1="70" x2="2150" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U5" data-poradi="15" data-x="2170" data-proklik="1" role="button" tabindex="0" aria-label="Předání zbytku zadání 231 (mapa sama, posun po kole, pevné místo) přes schránku na kartu UKOL-253"><text x="2170" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="2170" y="134" font-size="13" text-anchor="middle">U5</text></g>
+</svg>
+  </div>
+  <section class="panely-kroku">
+<article class="krok-panel" data-panel-krok="U1" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Spojka 1: hlídač schránky a spouštěč plánovací jízdy <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 5. 11. 14:54</p>
+  <p>Mirek podepsal plán karet 251 a 252; měřidla prošla zkouškami</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Postav v C:/work/stroj/spojky SPOJKU 1 (predani do schranky probudi stroj). Predem precti: C:/work/PRO_CODEXE/UKOL-231/zadani_velin_UKOL-231_2026-11-05.md (oddil DVE SPOJKY), C:/work/stroj/start_jizdy.py (main, posli_ntfy), C:/work/ukoly/zapis_karty.py (zapis_kartu), kartu C:/work/ukoly/UKOL-252_*.json a meridlo C:/work/ukoly/_251_stroj/m_stavba.py - jeho docstring je zavazny kontrakt, nemen ho.
+1) hlidac_schranky.py [--schranka DIR (vychozi C:/work/prava_ruka/schranka)] [--karty DIR (C:/work/ukoly)] [--stav SOUBOR (C:/work/stroj/spojky/stav_schranky.json)] [--od-zacatku] [--nanecisto]. Bez souboru stavu a bez --od-zacatku si jen zapamatuje konec kazdeho souboru (stare zaznamy nespousti). Cte jen nove cele radky podle bajtoveho posunu na soubor. Zaznam pro stroj = JSON, jehoz pole co zacina slovem ZADANI; ostatni radky jen preskoci. Karta = jmeno souboru bez pripony; platna = prave jeden soubor &lt;karta&gt;_*.json v --karty (bez .bak), platny JSON, pole id se rovna, plan nepodepsany (plan_podepsan.podepsano neni true). Platny zaznam: spust odpojene (bez okna, PYTHONUTF8=1) C:/work/stroj/spojky/spoustec_planovani.py --karta &lt;id&gt; --zaznam-otisk &lt;prvnich 16 znaku sha256 radku&gt;. Neplatny: jeden zvonek na hlavni kanal (tema z C:/work/PRO_CODEXE/UKOL-196/zvonek/NTFY_TEMA.txt, server jako posli_ntfy) s titulkem &#x27;Ali děda – chyba předání&#x27; a textem s cislem karty a duvodem, bez tlacitka Podepsat. Kazde rozhodnuti jeden radek do C:/work/stroj/spojky/spojky_log.jsonl. Stav zapisuje i pri --nanecisto; --nanecisto nic nespousti ani neposila. Posledni radek vystupu JSON {&quot;spustit&quot;: [{&quot;karta&quot;, &quot;zaznam_otisk&quot;}], &quot;chyby&quot;: [{&quot;karta&quot;, &quot;duvod&quot;}], &quot;preskoceno&quot;: N}.
+2) spoustec_planovani.py --karta ID --zaznam-otisk X [--karty DIR] [--nanecisto]: pocka, az je planovac volny (zamek C:/work/stroj/spojky/planovac.lock s cislem ziveho procesu; nejvys 60 min, pak zvonek s chybou); zapise C:/work/stroj/spojky/planovani/aktualni.json {karta, cesta_karty, zaznam (cely radek ze schranky), zaznam_otisk, kdy}; branou zapis_kartu (drzitel &#x27;spojky spoustec_planovani&#x27;, cekat_s 5) vrati usek P1 karty UKOL-252 do stavu ceka; spusti python C:/work/stroj/start_jizdy.py &lt;cesta karty UKOL-252&gt; --slozka C:/work/stroj/jizdy/&lt;ID&gt;/_planovani --tema &lt;obsah C:/work/stroj/spojky/TICHE_TEMA.txt&gt; s PYTHONUTF8=1; do &lt;slozka&gt;/_spousteni.log zapise radek &#x27;spoustec=hlidac_schranky zaznam=&lt;otisk&gt;&#x27; a navratovy kod jizdy; po skonceni zavola C:/work/stroj/spojky/zvonek_po_planovani.py --karta ID --kod-jizdy &lt;kod&gt; --slozka &lt;slozka&gt;, pokud existuje (jinak jen radek do spojky_log.jsonl). --nanecisto: nic nedela, posledni radek JSON {&quot;prikaz&quot;: [...]} s presnym prikazem jizdy.
+3) C:/work/stroj/spojky/TICHE_TEMA.txt a C:/work/stroj/spojky/ODPOVED_TEMA.txt: nahodna jmena kanalu (secrets.token_hex(12) s predponou), navzajem ruzna a ruzna od hlavniho; obsah nikam nevypisuj.
+4) Naplanovana uloha Windows &#x27;Spojky-hlidac-schranky&#x27;: opakovani kazdou 1 minutu, pythonw.exe (bez okna) s C:/work/stroj/spojky/hlidac_schranky.py. ZALOZ JI VYPNUTOU (schtasks /change /disable) - zapne se az po prejimce v useku U4.
+Hotovo: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 1 vrati vad 0. Jeho posledni radek uloz beze zmeny do C:/work/stroj/spojky/stavba_U1.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U2" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Spojka 2: zvonek s tlačítky Podepsat / Probrat / Čeká na mě a příjem podpisu <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 5. 11. 15:01</p>
+  <p>U1 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Postav v C:/work/stroj/spojky SPOJKU 2 (vysledek zazvoni Mirkovi a podpis tlacitkem pusti jizdu). Spojka 1 uz stoji (C:/work/stroj/spojky/hlidac_schranky.py, spoustec_planovani.py, TICHE_TEMA.txt, ODPOVED_TEMA.txt). Predem precti C:/work/stroj/start_jizdy.py (posli_ntfy, zvonek_konce_jizdy), C:/work/stroj/odkaz_zpet.py, C:/work/ukoly/brana_uplnosti.py, C:/work/ukoly/zapis_karty.py a meridlo C:/work/ukoly/_251_stroj/m_stavba.py - docstring je zavazny kontrakt, nemen ho.
+1) zvonek_po_planovani.py --karta ID --kod-jizdy N --slozka DIR [--karty DIR (C:/work/ukoly)] [--nanecisto]: posle PRAVE JEDEN zvonek na hlavni kanal (jako posli_ntfy). Kdyz kod 0, brana_uplnosti.py karty vrati kod 0, plan nepodepsany a strop_usd karty (chybi = 0) je 0: vyda jednorazovy kod (secrets, aspon 16 znaku), ulozi ho do C:/work/stroj/spojky/podpisy_cekajici.json {kod: {karta, otisk (z posledniho radku brany), vydano, pouzito: null}} a posle titulek &#x27;Ali děda – plán k podpisu: &lt;ID&gt;&#x27;, zpravu o 4 radcich (co se chtelo, kolik useku a kolik pojede samo, kde se stroj zastavi, cena) a prave tri tlacitka: Podepsat (action http, method POST, url https://ntfy.sh/&lt;obsah ODPOVED_TEMA.txt&gt;, body &#x27;podpis &lt;ID&gt; &lt;kod&gt;&#x27;), Probrat (action view, adresa z odkaz_zpet.py), &#x27;Čeká na mě&#x27; (action view, adresa z C:/work/stroj/spojky/CEKA_NA_ME_URL.txt). Jinak (jizda stoji, brana neprosla, strop &gt; 0): text posledni zpravy ze &lt;slozka&gt;/zpravy.jsonl (nebo duvod), tlacitka Probrat a &#x27;Čeká na mě&#x27;, bez Podepsat. Radek do C:/work/stroj/spojky/zvonky_log.jsonl s ntfy id (bez kodu). --nanecisto nic neposila ani neuklada; posledni radek JSON {&quot;title&quot;, &quot;message&quot;, &quot;actions&quot;}.
+2) prijem_podpisu.py [--zprava TEXT] [--cekajici SOUBOR (C:/work/stroj/spojky/podpisy_cekajici.json)] [--karty DIR] [--nanecisto]: bez --zprava precte nove zpravy kanalu odpovedi (https://ntfy.sh/&lt;ODPOVED_TEMA&gt;/json?poll=1&amp;since=..., posledni zpracovane id si pamatuje v C:/work/stroj/spojky/prijem_stav.json). Zprava &#x27;podpis &lt;ID&gt; &lt;kod&gt;&#x27; plati jen kdyz: kod je v cekajicich pro tutez kartu, nepouzity, mladsi 7 dni, karta nepodepsana a otisk z brany uplnosti se rovna ulozenemu. Platna: oznac kod pouzity, branou zapis_kartu (drzitel &#x27;spojky prijem_podpisu&#x27;, cekat_s 5) zapis plan_podepsan {podepsano: true, kdo: &#x27;Mirek&#x27;, kdy, doslova: &#x27;tlačítko Podepsat ve zvonku &lt;id zpravy&gt;&#x27;, linka: &#x27;ano&#x27;, otisk_planu, otisk_verze: 2, strop_usd: 0} a pole linka; spust python C:/work/ukoly/brana_uplnosti.py &lt;karta&gt; --podpis (musi kod 0) a odpojene spust jizdu python C:/work/stroj/start_jizdy.py &lt;cesta karty&gt; s PYTHONUTF8=1, vystup do C:/work/stroj/jizdy/&lt;ID&gt;/_spousteni.log s radkem &#x27;start po podpisu tlačítkem&#x27;. Neplatna: zvonek &#x27;Ali děda – podpis nepřijat: &lt;ID&gt;&#x27; s duvodem. --nanecisto nic nezapisuje; posledni radek JSON {&quot;prijato&quot;: true/false, &quot;duvod&quot;}.
+3) Naplanovana uloha Windows &#x27;Spojky-prijem-podpisu&#x27;: kazdou 1 minutu, pythonw.exe s C:/work/stroj/spojky/prijem_podpisu.py. ZALOZ JI VYPNUTOU.
+Hotovo: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 2 vrati vad 0 (a --cast 1 dal 0). Posledni radek behu --cast 2 uloz do C:/work/stroj/spojky/stavba_U2.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="O1" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Oprava spojek podle vzoru: cislo zaznamu a zabor, podpisovy listek, planovac bez omezeni <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 11:20</p>
+  <p>Mirek podepsal opraveny plan; zkousky meridel prosly (zk_oprava 7 z 7, zk_cil2 21 z 21)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Oprav spojky v C:/work/stroj/spojky podle smlouva v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji) a podle funkcniho vzoru C:/work/ukoly/_251_oprava/vzor/ (spojky_jadro.py, hlidac_schranky.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py - vzor umi jen rezim s atrapou; muzes z nej vychazet). Predem precti kartu C:/work/ukoly/UKOL-251_*.json (useky U1 a U2 = puvodni smlouva skutecneho provozu, denik 6. 11. = 5 vad) a C:/work/ukoly/_251_plan2/vady_kolo1.txt.
+1) Nove C:/work/stroj/spojky/spojky_jadro.py s funkcemi ze smlouvy; vsechna rozhodnuti ze smlouvy jdou pres nej (mutace.py ho podmenuje a zkousky to musi chytit).
+2) hlidac_schranky.py podle vzoru A; platny zaznam dal skutecne spusti spoustec_planovani.py jako dosud (bez okna, PYTHONUTF8=1); s --atrapa jen radek.
+3) Novy predej_stroji.py.
+4) zvonek_po_planovani.py a prijem_podpisu.py podle vzoru B (listky v C:/work/stroj/spojky/listky). Skutecny provoz zachovej: hlavni kanal z C:/work/PRO_CODEXE/UKOL-196/zvonek/NTFY_TEMA.txt, kanal odpovedi ODPOVED_TEMA.txt, tlacitka Probrat (odkaz_zpet.py) a &#x27;Čeká na mě&#x27; (CEKA_NA_ME_URL.txt), prijem bez --zprava cte ntfy jako dosud (prijem_stav.json), start jizdy odpojene. podpisy_cekajici.json uz nepouzivej (nemaz ho).
+5) Planovac uloh: Spojky-hlidac-schranky a Spojky-prijem-podpisu - opakovani kazdou 1 minutu BEZ omezeni trvani, IgnoreNew; ponech je VYPNUTE.
+Nemen nic v C:/work/ukoly/_251_oprava ani v C:/work/ukoly/_251_stroj. Puvodni soubory pred zmenou uloz vedle s priponou .pred_opravou (nic nemaz).
+Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vrati vad 0 a python C:/work/ukoly/_251_oprava/mutace.py vrati vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O1.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K1" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Nezavisla kontrola Codexem, verdikt vazany na otisk prace (1. kolo) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 12:34</p>
+  <p>O1 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Prover v C:/work/stroj/spojky soubory hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py a spojky_jadro.py proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji) a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt. Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? Zkousky spoustej s piskem ve sve oblasti: python C:/work/ukoly/_251_oprava/m_oprava.py --cast A --pisek C:/work/stroj/spojky/prejimky/_pisek, python C:/work/ukoly/_251_oprava/m_oprava.py --cast B --pisek C:/work/stroj/spojky/prejimky/_pisek a python C:/work/ukoly/_251_oprava/mutace.py --pisek C:/work/stroj/spojky/prejimky/_pisek; jejich cisla uved v poli cisla. Nic neopravuj a nic nemen mimo C:/work/stroj/spojky/prejimky.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a jeho souhrn, otisky a soubor_verdiktu do verdiktu prevezmi programem (ne opisem).
+KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen (verdikt pro tutez praci se nemeni). Jen kdyz python C:/work/ukoly/_251_oprava/m_prejimka.py --verdikty C:/work/stroj/spojky/prejimky/_nahled.jsonl hlasi P2 nebo P3, prepis soubor se STEJNYM verdiktem a vadami a s otisky ze skriptu. Jinak (soubor neexistuje) zapis soubor_verdiktu: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady kodu s radkem], &quot;prostredi&quot;: [omezeni tveho prostredi, napr. PermissionError nebo chybejici prikaz - oddelene od vad kodu], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. NEPREVZATO jen za vadu kodu; kdyz omezeni prostredi odhali, ze se kod chova nebezpecne (napr. pri nezjistitelnem procesu bere zamek jako volny), je to vada kodu. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="O2" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Druha oprava podle verdiktu (jen kdyz NEPREVZATO) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 12:43</p>
+  <p>K1 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Precti C:/work/stroj/spojky/prejimky/posledni_kolo.json a verdikt, na ktery ukazuje. Kdyz je PREVZATO, nic nemen. Kdyz je NEPREVZATO, oprav VSECHNY jeho vady ve stejnych mezich jako usek O1 (smlouva v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji); Planovac nemen); puvodni soubory uloz s priponou .pred_opravou2. V obou pripadech na konci spust python C:/work/ukoly/_251_oprava/m_oprava.py a jeho posledni radek uloz do C:/work/stroj/spojky/oprava_O2.json. Hotovo: m_oprava.py vad 0, mutace.py vad 0 a m_prejimka.py --po-oprave vad 0.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="O3" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Treti oprava: zamek pri nezjistitelnem procesu plati (vada A8 od Codexu) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 13:19</p>
+  <p>Mirek 6. 11. volba 1 (plati NEPREVZATO)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Treti kolo opravy (Mirek 6. 11. 2026, volba 1: plati verdikt NEPREVZATO z 12:47). Oprav v C:/work/stroj/spojky tuto vadu kontrolora: A8: hlidac_schranky.py:95-99,123-124 - pri nezjistitelnem procesu locku muze hlidac povazovat zamek za mrtvy a spustit zaznam; test A8 vratil spusteno=1 misto 0 (Codex, K2 kolo 1, 6. 11. 12:47, souhrn 6a3068abbc167606).
+Pricina (overeno): spojky_jadro.py funkce _zije bere proces jako mrtvy, kdyz overeni (tasklist) skonci chybovym kodem bez vyjimky. Oprav tak, aby NEZJISTITELNY stav (vyjimka nebo chybovy kod) znamenal, ze zamek PLATI. Dopln hacek pro zkousky ze smlouvy: kdyz je v prostredi SPOJKY_ZKOUSKA_TASKLIST_SELZE=1, overeni procesu se provede prikazem, ktery skonci chybovym kodem bez vystupu (vzor: C:/work/ukoly/_251_oprava/vzor/spojky_jadro.py, funkce _zije). Smlouva v docstringu C:/work/ukoly/_251_oprava/m_oprava.py je zavazna, nemen ji ani meridla. Planovac nemen. Puvodni soubory uloz s priponou .pred_opravou3 (nic nemaz). Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne nove kontroly A9), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O3.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K3" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Nezavisla kontrola Codexem (3. kolo, nad opravenou praci) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 13:55</p>
+  <p>O3 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O3 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O3.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="O4" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Ctvrta oprava: nova schranka se cte od zacatku (vada z ostre zkousky) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 14:11</p>
+  <p>K3 hotovo; U4 odhalila vadu (6. 11. 14:05)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Ctvrte kolo opravy: vada z ostre zkousky 6. 11. 13:55. hlidac_schranky.py zapise novou schranku (soubor, ktery se objevi az po prvnim behu hlidace) do stavu na jeji KONEC, takze jeji prvni zaznam pro stroj se nikdy nezpracuje (zkusebni karty UKOL-9921 az 9929: 0 planovani). Oprav podle smlouvy v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji): jen UPLNE PRVNI beh bez souboru stavu preskoci historii vsech schranek; kazda schranka, ktera ve stavu chybi pozdeji, se cte od zacatku. Vzor: C:/work/ukoly/_251_oprava/vzor/hlidac_schranky.py (promenna prvni_beh). Stavajici stav C:/work/stroj/spojky/stav_schranky.json nemaz ani neprepisuj rucne. Planovac nemen (ulohy zustanou vypnute). Puvodni soubory uloz s priponou .pred_opravou4. Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne nove kontroly A10), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O4.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K4" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Nezavisla kontrola Codexem (4. kolo, nad opravou nove schranky) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 14:13</p>
+  <p>O4 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O4 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O4.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="O5" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Pata oprava: predani nese Mirkova slova o bolesti (planovac bez nich plan nenapise) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 14:36</p>
+  <p>K4 hotovo; U4 odhalila vadu (6. 11. 14:24)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Pate kolo opravy: vada z ostre zkousky 6. 11. 14:24. Planovac (sablona UKOL-252) potrebuje v zaznamu pro stroj pole bolest (Mirkova doslovna slova, z nichz plni bolest_potvrzena); bez nej plan nenapise. predej_stroji.py ho neumi predat. Doplň podle smlouvy v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji): prepinac --bolest JSON (objekt {kdo, kdy, doslova, zdroj}; bez pole doslova odmitnout s kodem 2) se zapise do pole bolest zaznamu beze zmeny. Vzor: C:/work/ukoly/_251_oprava/vzor/predej_stroji.py. Nic jineho nemen; Planovac nemen. Puvodni soubor uloz s priponou .pred_opravou5. Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne A11), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O5.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K5" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Nezavisla kontrola Codexem (5. kolo, nad predanim s bolesti) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 14:38</p>
+  <p>O5 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O5 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O5.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="O6" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Sesta oprava: podpis a planovac projdou pojistkou zapisu karet, kazde planovani zacina cisty <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 15:28</p>
+  <p>K5 hotovo; U4 odhalila vadu (6. 11. 14:58)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Seste kolo opravy: vady z ostre zkousky 6. 11. 14:58 (overeno na zkusebni karte UKOL-9931: zapis_kartu vraci ODMITNUTO CIZI_CERSTVY_NAROK, puvodni_micek stroj, prah 4 h). Oprav podle smlouvy v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji):
+1) spojky_jadro.py zapis_podpis: zapis podpisu branou zapis_kartu s povol_prevzeti=True (Mirkovo tuknuti ma prednost pred zamkem planovace).
+2) spoustec_planovani.py: navrat useku P1 sablony UKOL-252 do &#x27;ceka&#x27; branou s povol_prevzeti=True a s KONTROLOU vysledku (jen stav ZAPSANO; jinak chybovy zvonek a konec bez jizdy); pred kazdou planovaci jizdou presun stary sesit ze slozky &lt;karta&gt;/_planovani (stav.json, useky, delnik_log, zpravy.jsonl, reporty, start.lock) do podslozky _predchozi_&lt;cas&gt;. Hotovy vzor obou zmen: C:/work/ukoly/_251_oprava/vzor/spoustec_planovani.py a vzor/spojky_jadro.py.
+Nic jineho nemen, Planovac nemen. Puvodni soubory uloz s priponou .pred_opravou6. Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne S1 a B12), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O6.json.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K6" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Nezavisla kontrola Codexem (6. kolo, nad podpisem a spoustecem) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 15:30</p>
+  <p>O6 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O6 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O6.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U4" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Zapnutí a ostrá zkouška na 3 zkušebních kartách (S1, S2, záporný test) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 6. 11. 16:50</p>
+  <p>K6 hotovo (Codex prevzal opravenou praci)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>1) Zapni naplanovane ulohy: schtasks /change /tn Spojky-hlidac-schranky /enable a schtasks /change /tn Spojky-prijem-podpisu /enable.
+2) Spust python C:/work/ukoly/_251_oprava/scenar_spojek2.py nastrojem pro prikazy s casovym limitem 540000 ms (bezi az 7 minut a sam si drzi beh na pozadi; v dalsim kole ho jen spust znovu).
+3) Jeho posledni radek uloz beze zmeny do C:/work/stroj/spojky/zkouska_U4.json. Nic jineho nedelej: nemen spojky, meridla, scenar, karty ani schranku.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U5" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Předání zbytku zadání 231 (mapa sama, posun po kole, pevné místo) přes schránku na kartu UKOL-253 <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>U4 hotovo (spojky ostre overene)</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Z Pythonu (subprocess se seznamem argumentu, ne pres prikazovy radek) spust C:/work/stroj/spojky/predej_stroji.py s argumenty --karta UKOL-253 --znacka U4-predani-253 --kdo &quot;stroj UKOL-251, usek U5&quot; --bolest &lt;JSON nize&gt; --co &lt;text nize&gt; a jeho posledni radek uloz beze zmeny do C:/work/stroj/spojky/predani_U5.json. Nic jineho nedelej.
+BOLEST (JSON): {&quot;kdo&quot;: &quot;Mirek&quot;, &quot;kdy&quot;: &quot;2026-11-05&quot;, &quot;doslova&quot;: &quot;já na daný problém zaměřím pozornost jenom ve dvou případech&quot;, &quot;zdroj&quot;: &quot;karta UKOL-231, denik 5. 11. 2026 11:19 (vlakno 231-05)&quot;}
+CO: ZADANI pro Velin z UKOL-231 (Zivy obraz prace), Mirek 5. 11. 2026: postavit (1) samo-obnovu mapy karty v Notionu po kazdem zapisu na kartu (krok D2), (2) zapis posunu na kartu po kazdem kole stroje (krok D3), (3) pevne misto pro Mirka - pohled &#x27;Čeká na mě&#x27; jen s tematy v diskusi a blokatory stroje a stranka karty se 3 radky (krok D2b). Plne zadani a kriteria K1-K4: C:/work/PRO_CODEXE/UKOL-231/zadani_velin_UKOL-231_2026-11-05.md, oddily 1-3 (oddil DVE SPOJKY je hotovy v UKOL-251). Mimo rozsah: role a pravidla smycky, uklid 27 starych karet, pravidlo zamku.</p></div></details>
+</article>
+  </section>
+  <section class="detail-kroky">
+<article class="krok-detail stav-hotovo" data-krok-id="U1">
+  <h3><span class="znak" aria-hidden="true">●</span> 1. Spojka 1: hlídač schránky a spouštěč plánovací jízdy <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 5. 11. 14:54</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Postav v C:/work/stroj/spojky SPOJKU 1 (predani do schranky probudi stroj). Predem precti: C:/work/PRO_CODEXE/UKOL-231/zadani_velin_UKOL-231_2026-11-05.md (oddil DVE SPOJKY), C:/work/stroj/start_jizdy.py (main, posli_ntfy), C:/work/ukoly/zapis_karty.py (zapis_kartu), kartu C:/work/ukoly/UKOL-252_*.json a meridlo C:/work/ukoly/_251_stroj/m_stavba.py - jeho docstring je zavazny kontrakt, nemen ho.
+1) hlidac_schranky.py [--schranka DIR (vychozi C:/work/prava_ruka/schranka)] [--karty DIR (C:/work/ukoly)] [--stav SOUBOR (C:/work/stroj/spojky/stav_schranky.json)] [--od-zacatku] [--nanecisto]. Bez souboru stavu a bez --od-zacatku si jen zapamatuje konec kazdeho souboru (stare zaznamy nespousti). Cte jen nove cele radky podle bajtoveho posunu na soubor. Zaznam pro stroj = JSON, jehoz pole co zacina slovem ZADANI; ostatni radky jen preskoci. Karta = jmeno souboru bez pripony; platna = prave jeden soubor &lt;karta&gt;_*.json v --karty (bez .bak), platny JSON, pole id se rovna, plan nepodepsany (plan_podepsan.podepsano neni true). Platny zaznam: spust odpojene (bez okna, PYTHONUTF8=1) C:/work/stroj/spojky/spoustec_planovani.py --karta &lt;id&gt; --zaznam-otisk &lt;prvnich 16 znaku sha256 radku&gt;. Neplatny: jeden zvonek na hlavni kanal (tema z C:/work/PRO_CODEXE/UKOL-196/zvonek/NTFY_TEMA.txt, server jako posli_ntfy) s titulkem &#x27;Ali děda – chyba předání&#x27; a textem s cislem karty a duvodem, bez tlacitka Podepsat. Kazde rozhodnuti jeden radek do C:/work/stroj/spojky/spojky_log.jsonl. Stav zapisuje i pri --nanecisto; --nanecisto nic nespousti ani neposila. Posledni radek vystupu JSON {&quot;spustit&quot;: [{&quot;karta&quot;, &quot;zaznam_otisk&quot;}], &quot;chyby&quot;: [{&quot;karta&quot;, &quot;duvod&quot;}], &quot;preskoceno&quot;: N}.
+2) spoustec_planovani.py --karta ID --zaznam-otisk X [--karty DIR] [--nanecisto]: pocka, az je planovac volny (zamek C:/work/stroj/spojky/planovac.lock s cislem ziveho procesu; nejvys 60 min, pak zvonek s chybou); zapise C:/work/stroj/spojky/planovani/aktualni.json {karta, cesta_karty, zaznam (cely radek ze schranky), zaznam_otisk, kdy}; branou zapis_kartu (drzitel &#x27;spojky spoustec_planovani&#x27;, cekat_s 5) vrati usek P1 karty UKOL-252 do stavu ceka; spusti python C:/work/stroj/start_jizdy.py &lt;cesta karty UKOL-252&gt; --slozka C:/work/stroj/jizdy/&lt;ID&gt;/_planovani --tema &lt;obsah C:/work/stroj/spojky/TICHE_TEMA.txt&gt; s PYTHONUTF8=1; do &lt;slozka&gt;/_spousteni.log zapise radek &#x27;spoustec=hlidac_schranky zaznam=&lt;otisk&gt;&#x27; a navratovy kod jizdy; po skonceni zavola C:/work/stroj/spojky/zvonek_po_planovani.py --karta ID --kod-jizdy &lt;kod&gt; --slozka &lt;slozka&gt;, pokud existuje (jinak jen radek do spojky_log.jsonl). --nanecisto: nic nedela, posledni radek JSON {&quot;prikaz&quot;: [...]} s presnym prikazem jizdy.
+3) C:/work/stroj/spojky/TICHE_TEMA.txt a C:/work/stroj/spojky/ODPOVED_TEMA.txt: nahodna jmena kanalu (secrets.token_hex(12) s predponou), navzajem ruzna a ruzna od hlavniho; obsah nikam nevypisuj.
+4) Naplanovana uloha Windows &#x27;Spojky-hlidac-schranky&#x27;: opakovani kazdou 1 minutu, pythonw.exe (bez okna) s C:/work/stroj/spojky/hlidac_schranky.py. ZALOZ JI VYPNUTOU (schtasks /change /disable) - zapne se az po prejimce v useku U4.
+Hotovo: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 1 vrati vad 0. Jeho posledni radek uloz beze zmeny do C:/work/stroj/spojky/stavba_U1.json.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/stavba_U1.json</p>
+      <ul class="meritka"><li>U1-M1: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 1</li></ul>
+      <ul class="dukaz"><li>5. 11. 14:54: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 1 → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U2">
+  <h3><span class="znak" aria-hidden="true">●</span> 2. Spojka 2: zvonek s tlačítky Podepsat / Probrat / Čeká na mě a příjem podpisu <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 5. 11. 15:01</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Postav v C:/work/stroj/spojky SPOJKU 2 (vysledek zazvoni Mirkovi a podpis tlacitkem pusti jizdu). Spojka 1 uz stoji (C:/work/stroj/spojky/hlidac_schranky.py, spoustec_planovani.py, TICHE_TEMA.txt, ODPOVED_TEMA.txt). Predem precti C:/work/stroj/start_jizdy.py (posli_ntfy, zvonek_konce_jizdy), C:/work/stroj/odkaz_zpet.py, C:/work/ukoly/brana_uplnosti.py, C:/work/ukoly/zapis_karty.py a meridlo C:/work/ukoly/_251_stroj/m_stavba.py - docstring je zavazny kontrakt, nemen ho.
+1) zvonek_po_planovani.py --karta ID --kod-jizdy N --slozka DIR [--karty DIR (C:/work/ukoly)] [--nanecisto]: posle PRAVE JEDEN zvonek na hlavni kanal (jako posli_ntfy). Kdyz kod 0, brana_uplnosti.py karty vrati kod 0, plan nepodepsany a strop_usd karty (chybi = 0) je 0: vyda jednorazovy kod (secrets, aspon 16 znaku), ulozi ho do C:/work/stroj/spojky/podpisy_cekajici.json {kod: {karta, otisk (z posledniho radku brany), vydano, pouzito: null}} a posle titulek &#x27;Ali děda – plán k podpisu: &lt;ID&gt;&#x27;, zpravu o 4 radcich (co se chtelo, kolik useku a kolik pojede samo, kde se stroj zastavi, cena) a prave tri tlacitka: Podepsat (action http, method POST, url https://ntfy.sh/&lt;obsah ODPOVED_TEMA.txt&gt;, body &#x27;podpis &lt;ID&gt; &lt;kod&gt;&#x27;), Probrat (action view, adresa z odkaz_zpet.py), &#x27;Čeká na mě&#x27; (action view, adresa z C:/work/stroj/spojky/CEKA_NA_ME_URL.txt). Jinak (jizda stoji, brana neprosla, strop &gt; 0): text posledni zpravy ze &lt;slozka&gt;/zpravy.jsonl (nebo duvod), tlacitka Probrat a &#x27;Čeká na mě&#x27;, bez Podepsat. Radek do C:/work/stroj/spojky/zvonky_log.jsonl s ntfy id (bez kodu). --nanecisto nic neposila ani neuklada; posledni radek JSON {&quot;title&quot;, &quot;message&quot;, &quot;actions&quot;}.
+2) prijem_podpisu.py [--zprava TEXT] [--cekajici SOUBOR (C:/work/stroj/spojky/podpisy_cekajici.json)] [--karty DIR] [--nanecisto]: bez --zprava precte nove zpravy kanalu odpovedi (https://ntfy.sh/&lt;ODPOVED_TEMA&gt;/json?poll=1&amp;since=..., posledni zpracovane id si pamatuje v C:/work/stroj/spojky/prijem_stav.json). Zprava &#x27;podpis &lt;ID&gt; &lt;kod&gt;&#x27; plati jen kdyz: kod je v cekajicich pro tutez kartu, nepouzity, mladsi 7 dni, karta nepodepsana a otisk z brany uplnosti se rovna ulozenemu. Platna: oznac kod pouzity, branou zapis_kartu (drzitel &#x27;spojky prijem_podpisu&#x27;, cekat_s 5) zapis plan_podepsan {podepsano: true, kdo: &#x27;Mirek&#x27;, kdy, doslova: &#x27;tlačítko Podepsat ve zvonku &lt;id zpravy&gt;&#x27;, linka: &#x27;ano&#x27;, otisk_planu, otisk_verze: 2, strop_usd: 0} a pole linka; spust python C:/work/ukoly/brana_uplnosti.py &lt;karta&gt; --podpis (musi kod 0) a odpojene spust jizdu python C:/work/stroj/start_jizdy.py &lt;cesta karty&gt; s PYTHONUTF8=1, vystup do C:/work/stroj/jizdy/&lt;ID&gt;/_spousteni.log s radkem &#x27;start po podpisu tlačítkem&#x27;. Neplatna: zvonek &#x27;Ali děda – podpis nepřijat: &lt;ID&gt;&#x27; s duvodem. --nanecisto nic nezapisuje; posledni radek JSON {&quot;prijato&quot;: true/false, &quot;duvod&quot;}.
+3) Naplanovana uloha Windows &#x27;Spojky-prijem-podpisu&#x27;: kazdou 1 minutu, pythonw.exe s C:/work/stroj/spojky/prijem_podpisu.py. ZALOZ JI VYPNUTOU.
+Hotovo: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 2 vrati vad 0 (a --cast 1 dal 0). Posledni radek behu --cast 2 uloz do C:/work/stroj/spojky/stavba_U2.json.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/stavba_U2.json</p>
+      <ul class="meritka"><li>U2-M1: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 2</li></ul>
+      <ul class="dukaz"><li>5. 11. 15:01: python C:/work/ukoly/_251_stroj/m_stavba.py --cast 2 → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="O1">
+  <h3><span class="znak" aria-hidden="true">●</span> 3. Oprava spojek podle vzoru: cislo zaznamu a zabor, podpisovy listek, planovac bez omezeni <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 11:20</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Oprav spojky v C:/work/stroj/spojky podle smlouva v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji) a podle funkcniho vzoru C:/work/ukoly/_251_oprava/vzor/ (spojky_jadro.py, hlidac_schranky.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py - vzor umi jen rezim s atrapou; muzes z nej vychazet). Predem precti kartu C:/work/ukoly/UKOL-251_*.json (useky U1 a U2 = puvodni smlouva skutecneho provozu, denik 6. 11. = 5 vad) a C:/work/ukoly/_251_plan2/vady_kolo1.txt.
+1) Nove C:/work/stroj/spojky/spojky_jadro.py s funkcemi ze smlouvy; vsechna rozhodnuti ze smlouvy jdou pres nej (mutace.py ho podmenuje a zkousky to musi chytit).
+2) hlidac_schranky.py podle vzoru A; platny zaznam dal skutecne spusti spoustec_planovani.py jako dosud (bez okna, PYTHONUTF8=1); s --atrapa jen radek.
+3) Novy predej_stroji.py.
+4) zvonek_po_planovani.py a prijem_podpisu.py podle vzoru B (listky v C:/work/stroj/spojky/listky). Skutecny provoz zachovej: hlavni kanal z C:/work/PRO_CODEXE/UKOL-196/zvonek/NTFY_TEMA.txt, kanal odpovedi ODPOVED_TEMA.txt, tlacitka Probrat (odkaz_zpet.py) a &#x27;Čeká na mě&#x27; (CEKA_NA_ME_URL.txt), prijem bez --zprava cte ntfy jako dosud (prijem_stav.json), start jizdy odpojene. podpisy_cekajici.json uz nepouzivej (nemaz ho).
+5) Planovac uloh: Spojky-hlidac-schranky a Spojky-prijem-podpisu - opakovani kazdou 1 minutu BEZ omezeni trvani, IgnoreNew; ponech je VYPNUTE.
+Nemen nic v C:/work/ukoly/_251_oprava ani v C:/work/ukoly/_251_stroj. Puvodni soubory pred zmenou uloz vedle s priponou .pred_opravou (nic nemaz).
+Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vrati vad 0 a python C:/work/ukoly/_251_oprava/mutace.py vrati vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O1.json.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/oprava_O1.json</p>
+      <ul class="meritka"><li>O1-M1: python C:/work/ukoly/_251_oprava/m_oprava.py</li><li>O1-M2: python C:/work/ukoly/_251_oprava/mutace.py</li></ul>
+      <ul class="dukaz"><li>6. 11. 11:20: python C:/work/ukoly/_251_oprava/m_oprava.py → vad 0</li><li>6. 11. 11:20: python C:/work/ukoly/_251_oprava/mutace.py → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="K1">
+  <h3><span class="znak" aria-hidden="true">●</span> 4. Nezavisla kontrola Codexem, verdikt vazany na otisk prace (1. kolo) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 12:34</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Prover v C:/work/stroj/spojky soubory hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py a spojky_jadro.py proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji) a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt. Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? Zkousky spoustej s piskem ve sve oblasti: python C:/work/ukoly/_251_oprava/m_oprava.py --cast A --pisek C:/work/stroj/spojky/prejimky/_pisek, python C:/work/ukoly/_251_oprava/m_oprava.py --cast B --pisek C:/work/stroj/spojky/prejimky/_pisek a python C:/work/ukoly/_251_oprava/mutace.py --pisek C:/work/stroj/spojky/prejimky/_pisek; jejich cisla uved v poli cisla. Nic neopravuj a nic nemen mimo C:/work/stroj/spojky/prejimky.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a jeho souhrn, otisky a soubor_verdiktu do verdiktu prevezmi programem (ne opisem).
+KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen (verdikt pro tutez praci se nemeni). Jen kdyz python C:/work/ukoly/_251_oprava/m_prejimka.py --verdikty C:/work/stroj/spojky/prejimky/_nahled.jsonl hlasi P2 nebo P3, prepis soubor se STEJNYM verdiktem a vadami a s otisky ze skriptu. Jinak (soubor neexistuje) zapis soubor_verdiktu: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady kodu s radkem], &quot;prostredi&quot;: [omezeni tveho prostredi, napr. PermissionError nebo chybejici prikaz - oddelene od vad kodu], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. NEPREVZATO jen za vadu kodu; kdyz omezeni prostredi odhali, ze se kod chova nebezpecne (napr. pri nezjistitelnem procesu bere zamek jako volny), je to vada kodu. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p>
+      <p>Oblast: C:/work/stroj/spojky/prejimky · Výsledný soubor: C:/work/stroj/spojky/prejimky/posledni_kolo.json</p>
+      <ul class="meritka"><li>K1-M1: python C:/work/ukoly/_251_oprava/m_prejimka.py</li></ul>
+      <ul class="dukaz"><li>6. 11. 12:34: python C:/work/ukoly/_251_oprava/m_prejimka.py → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="O2">
+  <h3><span class="znak" aria-hidden="true">●</span> 5. Druha oprava podle verdiktu (jen kdyz NEPREVZATO) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 12:43</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Precti C:/work/stroj/spojky/prejimky/posledni_kolo.json a verdikt, na ktery ukazuje. Kdyz je PREVZATO, nic nemen. Kdyz je NEPREVZATO, oprav VSECHNY jeho vady ve stejnych mezich jako usek O1 (smlouva v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji); Planovac nemen); puvodni soubory uloz s priponou .pred_opravou2. V obou pripadech na konci spust python C:/work/ukoly/_251_oprava/m_oprava.py a jeho posledni radek uloz do C:/work/stroj/spojky/oprava_O2.json. Hotovo: m_oprava.py vad 0, mutace.py vad 0 a m_prejimka.py --po-oprave vad 0.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/oprava_O2.json</p>
+      <ul class="meritka"><li>O2-M1: python C:/work/ukoly/_251_oprava/m_oprava.py</li><li>O2-M2: python C:/work/ukoly/_251_oprava/mutace.py</li><li>O2-M3: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave</li></ul>
+      <ul class="dukaz"><li>6. 11. 12:43: python C:/work/ukoly/_251_oprava/m_oprava.py → vad 0</li><li>6. 11. 12:43: python C:/work/ukoly/_251_oprava/mutace.py → vad 0</li><li>6. 11. 12:43: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="O3">
+  <h3><span class="znak" aria-hidden="true">●</span> 6. Treti oprava: zamek pri nezjistitelnem procesu plati (vada A8 od Codexu) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 13:19</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Treti kolo opravy (Mirek 6. 11. 2026, volba 1: plati verdikt NEPREVZATO z 12:47). Oprav v C:/work/stroj/spojky tuto vadu kontrolora: A8: hlidac_schranky.py:95-99,123-124 - pri nezjistitelnem procesu locku muze hlidac povazovat zamek za mrtvy a spustit zaznam; test A8 vratil spusteno=1 misto 0 (Codex, K2 kolo 1, 6. 11. 12:47, souhrn 6a3068abbc167606).
+Pricina (overeno): spojky_jadro.py funkce _zije bere proces jako mrtvy, kdyz overeni (tasklist) skonci chybovym kodem bez vyjimky. Oprav tak, aby NEZJISTITELNY stav (vyjimka nebo chybovy kod) znamenal, ze zamek PLATI. Dopln hacek pro zkousky ze smlouvy: kdyz je v prostredi SPOJKY_ZKOUSKA_TASKLIST_SELZE=1, overeni procesu se provede prikazem, ktery skonci chybovym kodem bez vystupu (vzor: C:/work/ukoly/_251_oprava/vzor/spojky_jadro.py, funkce _zije). Smlouva v docstringu C:/work/ukoly/_251_oprava/m_oprava.py je zavazna, nemen ji ani meridla. Planovac nemen. Puvodni soubory uloz s priponou .pred_opravou3 (nic nemaz). Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne nove kontroly A9), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O3.json.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/oprava_O3.json</p>
+      <ul class="meritka"><li>O3-M1: python C:/work/ukoly/_251_oprava/m_oprava.py</li><li>O3-M2: python C:/work/ukoly/_251_oprava/mutace.py</li><li>O3-M3: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave</li></ul>
+      <ul class="dukaz"><li>6. 11. 13:19: python C:/work/ukoly/_251_oprava/m_oprava.py → vad 0</li><li>6. 11. 13:19: python C:/work/ukoly/_251_oprava/mutace.py → vad 0</li><li>6. 11. 13:19: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="K3">
+  <h3><span class="znak" aria-hidden="true">●</span> 7. Nezavisla kontrola Codexem (3. kolo, nad opravenou praci) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 13:55</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O3 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O3.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p>
+      <p>Oblast: C:/work/stroj/spojky/prejimky · Výsledný soubor: C:/work/stroj/spojky/prejimky/posledni_kolo.json</p>
+      <ul class="meritka"><li>K3-M1: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato</li></ul>
+      <ul class="dukaz"><li>6. 11. 13:55: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="O4">
+  <h3><span class="znak" aria-hidden="true">●</span> 8. Ctvrta oprava: nova schranka se cte od zacatku (vada z ostre zkousky) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 14:11</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Ctvrte kolo opravy: vada z ostre zkousky 6. 11. 13:55. hlidac_schranky.py zapise novou schranku (soubor, ktery se objevi az po prvnim behu hlidace) do stavu na jeji KONEC, takze jeji prvni zaznam pro stroj se nikdy nezpracuje (zkusebni karty UKOL-9921 az 9929: 0 planovani). Oprav podle smlouvy v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji): jen UPLNE PRVNI beh bez souboru stavu preskoci historii vsech schranek; kazda schranka, ktera ve stavu chybi pozdeji, se cte od zacatku. Vzor: C:/work/ukoly/_251_oprava/vzor/hlidac_schranky.py (promenna prvni_beh). Stavajici stav C:/work/stroj/spojky/stav_schranky.json nemaz ani neprepisuj rucne. Planovac nemen (ulohy zustanou vypnute). Puvodni soubory uloz s priponou .pred_opravou4. Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne nove kontroly A10), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O4.json.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/oprava_O4.json</p>
+      <ul class="meritka"><li>O4-M1: python C:/work/ukoly/_251_oprava/m_oprava.py</li><li>O4-M2: python C:/work/ukoly/_251_oprava/mutace.py</li><li>O4-M3: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave</li></ul>
+      <ul class="dukaz"><li>6. 11. 14:10: python C:/work/ukoly/_251_oprava/m_oprava.py → vad 0</li><li>6. 11. 14:11: python C:/work/ukoly/_251_oprava/mutace.py → vad 0</li><li>6. 11. 14:11: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="K4">
+  <h3><span class="znak" aria-hidden="true">●</span> 9. Nezavisla kontrola Codexem (4. kolo, nad opravou nove schranky) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 14:13</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O4 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O4.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p>
+      <p>Oblast: C:/work/stroj/spojky/prejimky · Výsledný soubor: C:/work/stroj/spojky/prejimky/posledni_kolo.json</p>
+      <ul class="meritka"><li>K4-M1: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato</li></ul>
+      <ul class="dukaz"><li>6. 11. 14:13: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="O5">
+  <h3><span class="znak" aria-hidden="true">●</span> 10. Pata oprava: predani nese Mirkova slova o bolesti (planovac bez nich plan nenapise) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 14:36</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Pate kolo opravy: vada z ostre zkousky 6. 11. 14:24. Planovac (sablona UKOL-252) potrebuje v zaznamu pro stroj pole bolest (Mirkova doslovna slova, z nichz plni bolest_potvrzena); bez nej plan nenapise. predej_stroji.py ho neumi predat. Doplň podle smlouvy v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji): prepinac --bolest JSON (objekt {kdo, kdy, doslova, zdroj}; bez pole doslova odmitnout s kodem 2) se zapise do pole bolest zaznamu beze zmeny. Vzor: C:/work/ukoly/_251_oprava/vzor/predej_stroji.py. Nic jineho nemen; Planovac nemen. Puvodni soubor uloz s priponou .pred_opravou5. Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne A11), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O5.json.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/oprava_O5.json</p>
+      <ul class="meritka"><li>O5-M1: python C:/work/ukoly/_251_oprava/m_oprava.py</li><li>O5-M2: python C:/work/ukoly/_251_oprava/mutace.py</li><li>O5-M3: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave</li></ul>
+      <ul class="dukaz"><li>6. 11. 14:36: python C:/work/ukoly/_251_oprava/m_oprava.py → vad 0</li><li>6. 11. 14:36: python C:/work/ukoly/_251_oprava/mutace.py → vad 0</li><li>6. 11. 14:36: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="K5">
+  <h3><span class="znak" aria-hidden="true">●</span> 11. Nezavisla kontrola Codexem (5. kolo, nad predanim s bolesti) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 14:38</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O5 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O5.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p>
+      <p>Oblast: C:/work/stroj/spojky/prejimky · Výsledný soubor: C:/work/stroj/spojky/prejimky/posledni_kolo.json</p>
+      <ul class="meritka"><li>K4-M1: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato</li></ul>
+      <ul class="dukaz"><li>6. 11. 14:38: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="O6">
+  <h3><span class="znak" aria-hidden="true">●</span> 12. Sesta oprava: podpis a planovac projdou pojistkou zapisu karet, kazde planovani zacina cisty <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 15:28</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Seste kolo opravy: vady z ostre zkousky 6. 11. 14:58 (overeno na zkusebni karte UKOL-9931: zapis_kartu vraci ODMITNUTO CIZI_CERSTVY_NAROK, puvodni_micek stroj, prah 4 h). Oprav podle smlouvy v docstringu C:/work/ukoly/_251_oprava/m_oprava.py (zavazna, nemen ji):
+1) spojky_jadro.py zapis_podpis: zapis podpisu branou zapis_kartu s povol_prevzeti=True (Mirkovo tuknuti ma prednost pred zamkem planovace).
+2) spoustec_planovani.py: navrat useku P1 sablony UKOL-252 do &#x27;ceka&#x27; branou s povol_prevzeti=True a s KONTROLOU vysledku (jen stav ZAPSANO; jinak chybovy zvonek a konec bez jizdy); pred kazdou planovaci jizdou presun stary sesit ze slozky &lt;karta&gt;/_planovani (stav.json, useky, delnik_log, zpravy.jsonl, reporty, start.lock) do podslozky _predchozi_&lt;cas&gt;. Hotovy vzor obou zmen: C:/work/ukoly/_251_oprava/vzor/spoustec_planovani.py a vzor/spojky_jadro.py.
+Nic jineho nemen, Planovac nemen. Puvodni soubory uloz s priponou .pred_opravou6. Hotovo: python C:/work/ukoly/_251_oprava/m_oprava.py vad 0 (vcetne S1 a B12), python C:/work/ukoly/_251_oprava/mutace.py vad 0 a python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave vad 0. Posledni radek m_oprava.py uloz do C:/work/stroj/spojky/oprava_O6.json.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/oprava_O6.json</p>
+      <ul class="meritka"><li>O6-M1: python C:/work/ukoly/_251_oprava/m_oprava.py</li><li>O6-M2: python C:/work/ukoly/_251_oprava/mutace.py</li><li>O6-M3: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave</li></ul>
+      <ul class="dukaz"><li>6. 11. 15:27: python C:/work/ukoly/_251_oprava/m_oprava.py → vad 0</li><li>6. 11. 15:28: python C:/work/ukoly/_251_oprava/mutace.py → vad 0</li><li>6. 11. 15:28: python C:/work/ukoly/_251_oprava/m_prejimka.py --po-oprave → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="K6">
+  <h3><span class="znak" aria-hidden="true">●</span> 13. Nezavisla kontrola Codexem (6. kolo, nad podpisem a spoustecem) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 15:30</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Jsi nezavisly kontrolor (jina rodina nez stavitel Claude Code). Posud KOD v C:/work/stroj/spojky (hlidac_schranky.py, spoustec_planovani.py, zvonek_po_planovani.py, prijem_podpisu.py, predej_stroji.py, spojky_jadro.py) proti smlouve v docstringu C:/work/ukoly/_251_oprava/m_oprava.py a proti 5 vadam v C:/work/ukoly/_251_plan2/vady_kolo1.txt a vade A8 (zamek pri nezjistitelnem procesu). Hledej hlavne: da se plan podepsat jinak nez platnym jednorazovym kodem? muze jeden zaznam spustit dve jizdy? muze vzniknout vic nez jeden zvonek na udalost? pise se na kartu mimo branu zapis_karty.py? zapisuji se kody nebo jmena kanalu na disk? plati zamek, kdyz nejde zjistit, zda proces zije?
+ZKOUSKY NEPOUSTEJ: tvoje uzavrene prostredi nevidi procesy a neumi v pisku zapsat kartu, vysledky by byly falesne. Vysledky zkousek ze skutecneho pocitace jsou na karte C:/work/ukoly/UKOL-251_*.json v poli dukaz useku O6 (m_oprava.py vcetne A9 a mutace.py) a v C:/work/stroj/spojky/oprava_O6.json; prevezmi jejich cisla do pole cisla.
+OTISKY A SOUHRN NIKDY NEPIS RUCNE: spust python C:/work/ukoly/_251_oprava/otisky_prace.py a souhrn, otisky a soubor_verdiktu prevezmi programem. KDYZ soubor_verdiktu UZ EXISTUJE: hodnotu verdiktu ani vady nemen. Jinak zapis soubor_verdiktu jednim zapisem v UTF-8 bez BOM: {&quot;verdikt&quot;: &quot;PREVZATO&quot; nebo &quot;NEPREVZATO&quot;, &quot;vady&quot;: [konkretni vady KODU s radkem], &quot;cisla&quot;: {...}, &quot;otisky&quot;: {...}}. Nakonec zapis C:/work/stroj/spojky/prejimky/posledni_kolo.json {&quot;souhrn&quot;: ..., &quot;soubor&quot;: ...}.</p>
+      <p>Oblast: C:/work/stroj/spojky/prejimky · Výsledný soubor: C:/work/stroj/spojky/prejimky/posledni_kolo.json</p>
+      <ul class="meritka"><li>K4-M1: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato</li></ul>
+      <ul class="dukaz"><li>6. 11. 15:30: python C:/work/ukoly/_251_oprava/m_prejimka.py --musi-prevzato → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U4">
+  <h3><span class="znak" aria-hidden="true">●</span> 14. Zapnutí a ostrá zkouška na 3 zkušebních kartách (S1, S2, záporný test) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 16:50</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>1) Zapni naplanovane ulohy: schtasks /change /tn Spojky-hlidac-schranky /enable a schtasks /change /tn Spojky-prijem-podpisu /enable.
+2) Spust python C:/work/ukoly/_251_oprava/scenar_spojek2.py nastrojem pro prikazy s casovym limitem 540000 ms (bezi az 7 minut a sam si drzi beh na pozadi; v dalsim kole ho jen spust znovu).
+3) Jeho posledni radek uloz beze zmeny do C:/work/stroj/spojky/zkouska_U4.json. Nic jineho nedelej: nemen spojky, meridla, scenar, karty ani schranku.</p>
+      <p>Oblast: C:/work/stroj/spojky · Výsledný soubor: C:/work/stroj/spojky/zkouska_U4.json</p>
+      <ul class="meritka"><li>U4-M1: python C:/work/ukoly/_251_oprava/cil_spojky2.py</li></ul>
+      <ul class="dukaz"><li>6. 11. 16:50: python C:/work/ukoly/_251_oprava/cil_spojky2.py → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U5">
+  <h3><span class="znak" aria-hidden="true">●</span> 15. Předání zbytku zadání 231 (mapa sama, posun po kole, pevné místo) přes schránku na kartu UKOL-253 <span class="stav-text">(hotovo)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Z Pythonu (subprocess se seznamem argumentu, ne pres prikazovy radek) spust C:/work/stroj/spojky/predej_stroji.py s argumenty --karta UKOL-253 --znacka U4-predani-253 --kdo &quot;stroj UKOL-251, usek U5&quot; --bolest &lt;JSON nize&gt; --co &lt;text nize&gt; a jeho posledni radek uloz beze zmeny do C:/work/stroj/spojky/predani_U5.json. Nic jineho nedelej.
+BOLEST (JSON): {&quot;kdo&quot;: &quot;Mirek&quot;, &quot;kdy&quot;: &quot;2026-11-05&quot;, &quot;doslova&quot;: &quot;já na daný problém zaměřím pozornost jenom ve dvou případech&quot;, &quot;zdroj&quot;: &quot;karta UKOL-231, denik 5. 11. 2026 11:19 (vlakno 231-05)&quot;}
+CO: ZADANI pro Velin z UKOL-231 (Zivy obraz prace), Mirek 5. 11. 2026: postavit (1) samo-obnovu mapy karty v Notionu po kazdem zapisu na kartu (krok D2), (2) zapis posunu na kartu po kazdem kole stroje (krok D3), (3) pevne misto pro Mirka - pohled &#x27;Čeká na mě&#x27; jen s tematy v diskusi a blokatory stroje a stranka karty se 3 radky (krok D2b). Plne zadani a kriteria K1-K4: C:/work/PRO_CODEXE/UKOL-231/zadani_velin_UKOL-231_2026-11-05.md, oddily 1-3 (oddil DVE SPOJKY je hotovy v UKOL-251). Mimo rozsah: role a pravidla smycky, uklid 27 starych karet, pravidlo zamku.</p>
+      <p>Oblast: C:/work/prava_ruka/schranka · Výsledný soubor: C:/work/stroj/spojky/predani_U5.json</p>
+      <ul class="meritka"><li>U5-M1: python C:/work/ukoly/_251_stroj/m_ostatni.py predani</li></ul>
+      <ul class="dukaz"><li>6. 11. 20:13: python C:/work/ukoly/_251_stroj/m_ostatni.py predani → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+
+  </section>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
+  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
+</footer>
+<script>
+function rezim(r){
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+}
+function otevriPanel(id){
+  const panely=[...document.querySelectorAll('[data-panel-krok]')];
+  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
+  if(!panel)return;
+  const otevrene=!panel.hidden;
+  panely.forEach(p=>p.hidden=true);
+  if(!otevrene)panel.hidden=false;
+}
+function pripravProklik(){
+  document.querySelectorAll('[data-stanice]').forEach(st=>{
+    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
+    st.addEventListener('click',akce);
+    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
+  });
+  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
+  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
+}
+document.addEventListener('DOMContentLoaded',pripravProklik);
+</script>
+</body>
+</html>
