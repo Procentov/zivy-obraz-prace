@@ -3,22 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="48">
+<meta name="karta-verze" content="49">
 <title>UKOL-9953 · Zkusebni karta pro mereni K1 (obnova stranky A, karta UKOL-253)</title>
 <style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff}
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
 header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
 .prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
 .prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-main.cesta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
-details.krok{border:2px solid #111;border-radius:6px;padding:.3rem .5rem;min-width:9rem}
-details.krok summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;font-size:.95rem}
-details.krok summary::-webkit-details-marker{display:none}
-.znak{font-size:1.3rem;line-height:1}
-.podrobnosti{font-size:.85rem;margin-top:.4rem;border-top:1px solid #999;padding-top:.3rem}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
 footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-body.detail details.podrobnosti-force{display:block}
 .odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
 .odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
 .odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
@@ -28,55 +36,61 @@ body.detail details.podrobnosti-force{display:block}
 </head>
 <body class="celek">
 <header>
-  <p class="radek-1"><strong>Kde jsme:</strong> zkusebni karta, ceka na mereni</p>
-  <p class="radek-2"><strong>Co vzniklo:</strong> zkusebni zapis 10 z 10</p>
-  <p class="radek-3"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> zkusebni karta, ceka na mereni</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Zkusebni krok (bez skutecne prace).</p>
+    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">0</span> z 1 hotovo</p>
   <div class="prepinac">
     <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
     <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
   </div>
 </header>
-<main class="cesta">
-<details class="krok stav-ceka" data-krok-id="1">
-  <summary>
-    <span class="znak" aria-hidden="true">○</span>
-    <span class="poradi">1.</span>
-    <span class="nazev">Zkusebni krok (bez skutecne prace)</span>
-    <span class="stav-text">(čeká)</span>
-    <span class="odbocka-fork" aria-hidden="true" title="2 odbočka/y">⑂</span>
-  </summary>
-  <div class="podrobnosti">
-    <p></p>
-    <p>Kolo: — · Dokonč.: —</p>
-    <div class="odbocky-kroku"><div class="odbocka odbocka-vracena" data-odbocka-id="m1794162173a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">zkouska meridla vracena (vrácena)</span></div>
-<div class="odbocka odbocka-vracena" data-odbocka-id="m1794162390a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">zkouska meridla vracena (vrácena)</span></div></div>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 140 150" width="140" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-ceka" data-stanice="1" data-poradi="1" data-x="70" data-tady="1" data-krok="1"><circle cx="70" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="70" y="134" font-size="13" text-anchor="middle">1</text><text x="92" y="46" font-size="16" aria-hidden="true">⑂</text><text x="70" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+</svg>
   </div>
-</details>
-<details class="krok odbocky-orphan">
+  <section class="detail-kroky">
+<article class="krok-detail stav-ceka" data-krok-id="1">
+  <h3><span class="znak" aria-hidden="true">○</span> 1. Zkusebni krok (bez skutecne prace) <span class="stav-text">(čeká)</span></h3>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-vracena" data-odbocka-id="m1794162173a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">zkouska meridla vracena (vrácena)</span></div>
+<div class="odbocka odbocka-vracena" data-odbocka-id="m1794162390a" data-z-kroku="1" data-konec="vracena"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">↩</span><span class="odbocka-popis">zkouska meridla vracena (vrácena)</span></div></div>
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<details class="krok-detail odbocky-orphan">
   <summary>
     <span class="odbocka-fork" aria-hidden="true" title="4 odbočka/y">⑂</span>
-    <span class="nazev">Odbočky mimo krok</span>
+    Odbočky mimo krok
   </summary>
-  <div class="podrobnosti">
-    <div class="odbocky-kroku"><div class="odbocka odbocka-slepa" data-odbocka-id="m1794162173b" data-z-kroku="2" data-konec="slepa"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">✗</span><span class="odbocka-popis">zkouska meridla slepa (slepá)</span></div>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-slepa" data-odbocka-id="m1794162173b" data-z-kroku="2" data-konec="slepa"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">✗</span><span class="odbocka-popis">zkouska meridla slepa (slepá)</span></div>
 <div class="odbocka odbocka-nova" data-odbocka-id="m1794162173c" data-z-kroku="3" data-konec="nova" data-ukol="UKOL-246"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">zkouska meridla nova (nová)</span> <span class="odbocka-ukol">UKOL-246</span></div>
 <div class="odbocka odbocka-slepa" data-odbocka-id="m1794162390b" data-z-kroku="2" data-konec="slepa"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">✗</span><span class="odbocka-popis">zkouska meridla slepa (slepá)</span></div>
 <div class="odbocka odbocka-nova" data-odbocka-id="m1794162390c" data-z-kroku="3" data-konec="nova" data-ukol="UKOL-246"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">zkouska meridla nova (nová)</span> <span class="odbocka-ukol">UKOL-246</span></div></div>
-  </div>
 </details>
+  </section>
 </main>
 <footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · ◆ blokátor</p>
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
   <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
 </footer>
 <script>
 function rezim(r){
-  var vse=document.querySelectorAll('main.cesta details.krok');
   document.body.classList.remove('celek','detail');
   document.body.classList.add(r);
   document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
   document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
-  vse.forEach(function(d){ d.open = (r === 'detail'); });
 }
 </script>
 </body>
