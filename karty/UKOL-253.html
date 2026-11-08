@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="21">
+<title>UKOL-253 · Živý obraz ve Velínu: mapa se obnoví sama, posun po každém kole, pevné místo Čeká na mě (D2, D3, D2b z UKOL-231)</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff}
+header p{margin:.2rem 0;font-size:1.05rem}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+main.cesta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+details.krok{border:2px solid #111;border-radius:6px;padding:.3rem .5rem;min-width:9rem}
+details.krok summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;font-size:.95rem}
+details.krok summary::-webkit-details-marker{display:none}
+.znak{font-size:1.3rem;line-height:1}
+.podrobnosti{font-size:.85rem;margin-top:.4rem;border-top:1px solid #999;padding-top:.3rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+body.detail details.podrobnosti-force{display:block}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="radek-1"><strong>Kde jsme:</strong> krok 4 - stranka A se sama obnovuje</p>
+  <p class="radek-2"><strong>Co vzniklo:</strong> usek 4 hotovo po 1 kole(ch)</p>
+  <p class="radek-3"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main class="cesta">
+<details class="krok stav-hotovo" data-krok-id="1">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">1.</span>
+    <span class="nazev">Ukazka A: vlastni stranka s mapou uzlu a prepinacem celek/detail na 1 realnem ukolu</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Postav vlastni stranku (ukazka A) s mapou uzlu a prepinacem celek/detail, kreslenou skriptem PRI OTEVRENI z dat jedne skutecne karty (audit UKOL-231 6.11.2026 odd.6, navrh retezec Zivy obraz -&gt; zapis po kole -&gt; novy stroj). Vysledek zapis do C:/work/ukoly/_25…</p>
+    <p>Kolo: 1 · Dokonč.: 2026-11-08T16:18:21+01:00</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="2">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">2.</span>
+    <span class="nazev">Ukazka B: myslenkova mapa primo v Notionu, prepisovana skriptem, na stejnem ukolu (ukoncena vyberem A 8. 11. 2026)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Postav ukazku B: myslenkovou mapu/graf primo na strance Notionu teze karty jako ukazka A, prepisovanou skriptem (ne rucne) - audit UKOL-231 6.11.2026 odd.4. Vysledek zapis do C:/work/ukoly/_253_stroj/ukazka_b_253.json jako {&quot;notion_url&quot;: &lt;odkaz&gt;, &quot;prepsano_sk…</p>
+    <p>Kolo: 1 · Dokonč.: 2026-11-08T16:19:11+01:00</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="3">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">3.</span>
+    <span class="nazev">Zvonek Mirkovi s odkazy na ukazky A a B; Mirek vybere format</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Posli Mirkovi zvonek (Probrat, UKOL-237) s odkazy na ukazku A i B. Mirek je otevre na Foldu a vybere, ktera se stavi naostro (audit UKOL-231 odd.4,6). Stroj se zastavi a ceka na Mirkovu odpoved v deniku karty; nic nerozhoduj za nej.</p>
+    <p>Kolo: — · Dokonč.: 2026-11-08T18:50:39+01:00</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="4">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">4.</span>
+    <span class="nazev">Stranka A kazde karty se po zapisu pres branu prekresli sama (K1)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Udelej z ukazky A ostrou stranku pro KAZDOU kartu: generator C:/work/ukoly/_253_stroj/obraz_a.py &lt;karta&gt; nakresli stranku podle nacrtu A (https://claude.ai/artifact/KLMzwwy1w5B1vQb6G7ygAj: nahore 3 radky kde jsme / co vzniklo / co ceka na tebe, prepinac Celek…</p>
+    <p>Kolo: 1 · Dokonč.: 2026-11-08T19:13:16+01:00</p>
+  </div>
+</details>
+<details class="krok stav-ceka" data-krok-id="4b">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">5.</span>
+    <span class="nazev">Odbocky: zapis z rozhovoru i ze stroje a kresleni na strance A (K6)</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Odbocky: na karte pole odbocky = seznam {id, z_kroku, co, konec: vracena|slepa|nova, ukol, ts, kdo}; skript C:/work/ukoly/_253_stroj/zapis_odbocky.py --karta --id --z-kroku --co --konec [--ukol] zapisuje vyhradne pres branu zapis_karty.py (nic neprepisuje, je…</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-ceka" data-krok-id="5">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">6.</span>
+    <span class="nazev">D3: zapis posunu na kartu po kazdem kole smycky stroje (K2)</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Pridej automaticky skryty krok, ktery po kazdem kole stroje zapise posun na kartu pres branu (dnes jde posun jen do C:/work/stroj/jizdy/&lt;karta&gt;/stav.json). Nevnucovat zapis delnikovi ani kontrole; krok musi prezit budouci zmeny smycky. Zapisy se nesmi navzaje…</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="6">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">7.</span>
+    <span class="nazev">D2b: pohled Ceka na me jen temata+blokatory, razeni dle pravidla (K3 + doplnek 6.11.)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>V pohledu Ceka na me (view 40f64a4c-c9df-8116-a3f8-000c626f640e) nech jen karty s tematem v diskusi s Mirkem nebo blokatorem stroje (rozliseni v datech, napr. pole Duvod cekani = tema/blokator); zadne tecky, palce ani prubezna schvaleni. Razeni (pocita skript…</p>
+    <p>Kolo: 1 · Dokonč.: 2026-11-08T16:04:42+01:00</p>
+  </div>
+</details>
+<details class="krok stav-ceka" data-krok-id="7">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">8.</span>
+    <span class="nazev">Stranka A: 3 radky nahore, prepinac Celek/Detail, odbocky - Mirek potvrdi citelnost na Foldu</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Posli Mirkovi odkaz na ostrou stranku A karty UKOL-253 (z kroku 4) na Fold a pockej na jeho potvrzeni citelnosti zapsane do deniku karty. Citelnost posuzuje Mirek, ne skript. Nic za nej nerozhoduj.</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-ceka" data-krok-id="8">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">9.</span>
+    <span class="nazev">Mirek potvrdi hotovo cele karty na 5 skutecnych ukolech (K4, cil karty 231)</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Over s Mirkem na 5 skutecnych ukolech, ze ze stranky A (a pohledu Ceka na me) do 10 vterin pozna, kde jsme, co vzniklo a kde se prace stocila (K4). Pri souhlasu zapis potvrzeni do deniku karty.</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · ◆ blokátor</p>
+</footer>
+<script>
+function rezim(r){
+  var vse=document.querySelectorAll('main.cesta details.krok');
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+  vse.forEach(function(d){ d.open = (r === 'detail'); });
+}
+</script>
+</body>
+</html>
