@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="49">
+<title>UKOL-202 · Inventura nabídky dodavatelů</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff}
+header p{margin:.2rem 0;font-size:1.05rem}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+main.cesta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+details.krok{border:2px solid #111;border-radius:6px;padding:.3rem .5rem;min-width:9rem}
+details.krok summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;font-size:.95rem}
+details.krok summary::-webkit-details-marker{display:none}
+.znak{font-size:1.3rem;line-height:1}
+.podrobnosti{font-size:.85rem;margin-top:.4rem;border-top:1px solid #999;padding-top:.3rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+body.detail details.podrobnosti-force{display:block}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="radek-1"><strong>Kde jsme:</strong> UZAVŘENO 30. 10. 2026 — cil splnen (cil_u202.py splneno_pct 100; K8 2 pondelni behy rc 0)</p>
+  <p class="radek-2"><strong>Co vzniklo:</strong> UZAVRENO na rozhodnuti Mirka 30. 10. 2026 (vlakno 201-23, volba 1). Cil: cil_u202.py 30. 10. = splneno_pct 100 (15/15 dodavatelu, 0 chybejicich, 308 polozek, 15 der, 0 osirelych). K8 kriterium 1: TYD…</p>
+  <p class="radek-3"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main class="cesta">
+<details class="krok stav-hotovo" data-krok-id="K1">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">1.</span>
+    <span class="nazev">Úplný seznam dodavatelů ze čtyř zdrojů</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Sestav C:/work/inovace/u202/DODAVATELE_U202.json: pole dodavatele (id, nazev, typ ai_zamestnanec|nastroj, aliasy = jine nazvy, pod kterymi se dodavatel ve zdrojich objevuje, zdroje) a pole zdroje_seznamu (pro kazdy ze ctyr zdroju seznam jmen dodavatelu, jak v…</p>
+    <p>Kolo: 1 · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="K2">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">2.</span>
+    <span class="nazev">Odečíst, co už je prověřené (Audit novinek 2026, novinky zaměstnanců, katalog z venku)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Sestav C:/work/inovace/u202/UZ_PROVERENO_U202.json s polem polozky: kazda drive verdiktovana polozka ze zdroju v C:/work/audit_2026/ (01_kandidati_leden_duben.json a 02_kandidati_kveten_srpen.json - kazda polozka seznamu; 05_fronta_temat_serazena.json - pole …</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="K3">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">3.</span>
+    <span class="nazev">Rešerše nabídky — Anthropic (Claude, aplikace, Claude Code, Cowork, adresář konektorů)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Z oficialnich zdroju (adresar konektoru, changelog, dokumentace, cenik) sepis celou soucasnou nabidku Anthropicu dostupnou na nasem planu, ne jen novinky, do C:/work/inovace/u202/nabidka/anthropic.json. Kazda polozka v poli polozky: id, nazev, co_umi (co to u…</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="K4">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">4.</span>
+    <span class="nazev">Rešerše nabídky — Google (AI i Workspace), Notion, Mergado, Slack</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Stejnym postupem sepis celou soucasnou nabidku dostupnou na nasich planech do C:/work/inovace/u202/nabidka/: google_ai.json (Gemini, NotebookLM), google_workspace.json (Gmail, Drive, Tabulky, Kalendar, Apps Script), notion.json, mergado.json, slack.json. Kazd…</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="K5">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">5.</span>
+    <span class="nazev">Rešerše nabídky — ostatní dodavatelé ze seznamu (OpenAI, xAI, Cursor, Perplexity, Upgates, Shopion a další), lehčí průchod</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Pro kazdeho dodavatele ze seznamu C:/work/inovace/u202/DODAVATELE_U202.json, ktery neni Anthropic, Google AI, Google Workspace, Notion, Mergado ani Slack (ti uz maji vlastni krok), sepis soucasnou nabidku dostupnou na nasem planu do C:/work/inovace/u202/nabid…</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="K6">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">6.</span>
+    <span class="nazev">Srovnání s nasazeným, síto, páka a poznámky k bezpečnosti</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Vyber diry v nabidce dodavatelu - dve casti. CAST 1, mechanicky skriptem (uloz ho do C:/work/inovace/u202/): kazdou polozku ze vsech C:/work/inovace/u202/nabidka/*.json porovnej s C:/work/inovace/CO_UMIME.md a s C:/work/inovace/u202/UZ_PROVERENO_U202.json; co…</p>
+    <p>Kolo: 4 · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="K7">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">7.</span>
+    <span class="nazev">Předání děr do žebříčku UKOL-115</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Stroj připraví seřazený seznam děr; po Mirkově souhlasu se každá zapíše jako položka žebříčku UKOL-115 v Notionu a její číslo se vrátí do DIRY_U202.json (pole zebricek_id).</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="K8">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">8.</span>
+    <span class="nazev">Napojení na pravidelný sběr, aby se další novinky dodavatelů nezjišťovaly náhodou</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p>Podle rozhodnutí z podpisu: přidat changelogy dodavatelů ze seznamu K1 jako stálý zdroj fáze sběru (stejně jako katalog agentů u UKOL-95), nebo založit samostatnou měsíční úlohu. V obou případech výstup jako data do C:/work/audit_2026/, porovnání proti DODAVA…</p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · ◆ blokátor</p>
+</footer>
+<script>
+function rezim(r){
+  var vse=document.querySelectorAll('main.cesta details.krok');
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+  vse.forEach(function(d){ d.open = (r === 'detail'); });
+}
+</script>
+</body>
+</html>
