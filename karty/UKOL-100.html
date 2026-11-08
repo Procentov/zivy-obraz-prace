@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="44">
+<title>UKOL-100 · Kapacita oken a dělníci</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff}
+header p{margin:.2rem 0;font-size:1.05rem}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+main.cesta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+details.krok{border:2px solid #111;border-radius:6px;padding:.3rem .5rem;min-width:9rem}
+details.krok summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;font-size:.95rem}
+details.krok summary::-webkit-details-marker{display:none}
+.znak{font-size:1.3rem;line-height:1}
+.podrobnosti{font-size:.85rem;margin-top:.4rem;border-top:1px solid #999;padding-top:.3rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+body.detail details.podrobnosti-force{display:block}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="radek-1"><strong>Kde jsme:</strong> Hotovo - vsech 7 bodu uzavreno s dukazem a vsech 6 kriterii dolozeno (9.9.2026).</p>
+  <p class="radek-2"><strong>Co vzniklo:</strong> Adresy 6 starsich vlaken doplneny z archivu konverzaci: https://claude.ai/chat/8d25dab4-78d0-4fb5-a5ca-54364bcaec4b, https://claude.ai/chat/cef688ae-4e12-4508-9128-528728e391a2, https://claude.ai/cha…</p>
+  <p class="radek-3"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main class="cesta">
+<details class="krok stav-hotovo" data-krok-id="M1">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">1.</span>
+    <span class="nazev">Sesbirat vsechny poznatky k tematu na jedno misto (tato karta)</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="M2">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">2.</span>
+    <span class="nazev">Rozchodit cteni procenta okna tak, aby ho videl i Mirek mimo terminal</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="M3">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">3.</span>
+    <span class="nazev">Tabulka delniku: pausal nebo platba po kusech, cena za vyresenou ulohu, uspesnost z verejnych mereni, cim se zjisti zustatek. Vybrat prvniho a nahradnika</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="M4">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">4.</span>
+    <span class="nazev">Hlidac tempa s varovanim do Slacku pri prekroceni prahu</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="M5">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">5.</span>
+    <span class="nazev">Zruseni ukolu ve fronte ukonci bezici proces</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="M6">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">6.</span>
+    <span class="nazev">Jeden pracovni den provozu s rozdelenou praci jako dukaz</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-hotovo" data-krok-id="M7">
+  <summary>
+    <span class="znak" aria-hidden="true">●</span>
+    <span class="poradi">7.</span>
+    <span class="nazev">Brana ve fronte: Claude Code jako delnik jen se schvalenou polozkou v zadani</span>
+    <span class="stav-text">(hotovo)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · ◆ blokátor</p>
+</footer>
+<script>
+function rezim(r){
+  var vse=document.querySelectorAll('main.cesta details.krok');
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+  vse.forEach(function(d){ d.open = (r === 'detail'); });
+}
+</script>
+</body>
+</html>
