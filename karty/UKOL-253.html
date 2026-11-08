@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="34">
+<meta name="karta-verze" content="35">
 <title>UKOL-253 · Živý obraz ve Velínu: mapa se obnoví sama, posun po každém kole, pevné místo Čeká na mě (D2, D3, D2b z UKOL-231)</title>
 <style>
 body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
@@ -39,10 +39,10 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
   <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
   <div id="tri-radky">
     <p data-radek="kde"><strong>Kde jsme:</strong> krok 4 - stranka A se sama obnovuje</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Vzhled stranky A podle auditu &#x27;jak se to dela venku&#x27; (Barak B7).</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Stranka A: 3 radky nahore, prepinac Celek/Detail, odbocky - Mirek potvrdi citelnost na Foldu.</p>
     <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
   </div>
-  <p class="plakat"><span class="plakat-cislo">6</span> z 10 hotovo</p>
+  <p class="plakat"><span class="plakat-cislo">7</span> z 10 hotovo</p>
   <div class="prepinac">
     <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
     <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
@@ -61,13 +61,13 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 <line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-hotovo" data-stanice="4b" data-poradi="5" data-x="670"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">4b</text></g>
 <line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="4c" data-poradi="6" data-x="820" data-tady="1" data-krok="4c"><circle cx="820" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="820" y="134" font-size="13" text-anchor="middle">4c</text><text x="820" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-hotovo" data-stanice="4c" data-poradi="6" data-x="820"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="820" y="134" font-size="13" text-anchor="middle">4c</text></g>
+<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-odlozeno" data-stanice="5" data-poradi="7" data-x="970"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">□</text><text x="970" y="134" font-size="13" text-anchor="middle">5</text><text x="992" y="46" font-size="16" aria-hidden="true">⑂</text></g>
 <line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
 <g class="stanice stav-hotovo" data-stanice="6" data-poradi="8" data-x="1120"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">6</text></g>
 <line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="7" data-poradi="9" data-x="1270"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1270" y="134" font-size="13" text-anchor="middle">7</text></g>
+<g class="stanice stav-ceka" data-stanice="7" data-poradi="9" data-x="1270" data-tady="1" data-krok="7"><circle cx="1270" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1270" y="134" font-size="13" text-anchor="middle">7</text><text x="1270" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
 <line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
 <g class="stanice stav-ceka" data-stanice="8" data-poradi="10" data-x="1420"><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">8</text></g>
 </svg>
@@ -138,8 +138,8 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
     </div>
   </details>
 </article>
-<article class="krok-detail stav-ceka" data-krok-id="4c">
-  <h3><span class="znak" aria-hidden="true">○</span> 6. Vzhled stranky A podle auditu &#x27;jak se to dela venku&#x27; (Barak B7) <span class="stav-text">(čeká)</span></h3>
+<article class="krok-detail stav-hotovo" data-krok-id="4c">
+  <h3><span class="znak" aria-hidden="true">●</span> 6. Vzhled stranky A podle auditu &#x27;jak se to dela venku&#x27; (Barak B7) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 21:35</span></h3>
   
   <details class="zadani-wrap">
     <summary>Technické zadání</summary>
@@ -147,7 +147,7 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
       <p>Uprav vzhled stranky A (generator C:/work/ukoly/_253_stroj/obraz_a.py) podle auditu &#x27;jak se to dela venku&#x27; z projektu Barak: C:/work/ukoly/_UKOL-159_tahak_situace_forma_zdroj_v2_20260924.md (radky 1 trat, 6 klikaci vysvetleni, 11 predstav mi kartu a pravidla pro poruchu barvocitu) a vzorniku https://claude.ai/artifact/9EAnxVV5d7ffgb3VbGZeLJ. Mirek 8. 11. 2026: &#x27;z hlediska UX to chce upravit&#x27;. Dnes je nahore surovy technicky denik, misto mapy seznam textu, technicka zadani na ocich a casy jako 2026-11-08T16:18:21. Udelej: (1) nahore veta &#x27;Kam te vedu&#x27; a tri radky kde jsme / co vzniklo / co ceka na tebe lidskou cestinou s diakritikou, kazdy nejvys 140 znaku, bez cest, nazvu skriptu a casovych razitek; zdroj: pole posledni_iterace_lidsky, pozice a micek karty, ne surovy denik; &#x27;ceka na tebe&#x27; podle micku (zacina Mirek -&gt; co presne od nej, jinak &#x27;Nic&#x27;); (2) pohled Celek = NAKRESLENA trat zleva doprava (svg): stanice = kroky karty v poradi, oznacene id karty (4b zustava 4b), stav tvarem a carou (plna = hotovo, carky = bezi, tecky = ceka, odlozeno jinym tvarem), aktualni krok tlustym ramem a napisem TADY, odbocky jen znackou vidlicky u stanice; na mobilu trat posuvna do strany ve vlastnim ramu, stranka sama nikdy; (3) pohled Detail = kroky lidskym nazvem s diakritikou; technicke zadani, cesty a denik v ZAVRENEM rozbalovacim prvku (details), datum lidsky (8. 11. 20:02); (4) v hlavicce velke cislo &#x27;hotovo X z Y&#x27; (plakat); (5) ovladaci prvky aspon 24x24 px, informaci nikdy nenese barva. Smlouva struktury, kterou meri meridlo C:/work/ukoly/_253_stroj/meridlo_ux_253.py: svg data-trat=1; stanice data-stanice=&lt;id&gt; data-poradi=1..N data-x rostouci; prave jeden data-tady=1 s data-krok = prvni krok, ktery neni hotovo ani odlozeno; blok id=tri-radky s data-radek=kde|vzniklo|ceka a data-ceka-na=mirek|nikdo; technicka zadani class=zadani jen v zavrenem details. Neporus smlouvu kroku 4 a 4b (meta karta-verze, data-odbocka-*). Vysledek: C:/work/ukoly/_253_stroj/k4c_ux_253.json jako {&quot;generator&quot;: .., &quot;zmeny&quot;: [..]}.</p>
       <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:\work\ukoly\_253_stroj\k4c_ux_253.json</p>
       <ul class="meritka"><li>U4c-M1: python C:\work\ukoly\_253_stroj\meridlo_ux_253.py --karta UKOL-253</li><li>U4c-M2: python C:\work\ukoly\_253_stroj\meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953</li></ul>
-      <ul class="dukaz"></ul>
+      <ul class="dukaz"><li>8. 11. 21:33: python C:\work\ukoly\_253_stroj\meridlo_ux_253.py --karta UKOL-253 → vad 0</li><li>8. 11. 21:35: python C:\work\ukoly\_253_stroj\meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953 → vad 0</li></ul>
     </div>
   </details>
 </article>
