@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="27">
+<title>UKOL-216 · Procentov – systém včasného varování (výpadek košíku a objednávek)</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
+header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
+.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
+.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
+.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
+.odbocka-znak{font-size:1rem}
+.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> Karta je hotová.</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Karta je celá hotová.</p>
+    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">6</span> z 6 hotovo</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 890 150" width="890" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-hotovo" data-stanice="U1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Nativní cesta první: umí to Google Analytics (vlastní statistiky s upozorněním), Clarity nebo hosting samy?"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">U1</text></g>
+<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Hodinový hlídač čísel: podíl návštěv s košíkem a s dokončenou objednávkou zvlášť telefon/počítač proti stejným hodinám 4 předchozích týdnů + režim --zpetne (zpětný test 1.–17. 10.)"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">U2</text></g>
+<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U3" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Robot tlačítka Do košíku: každých 30 min, telefon i počítač, 3 produkty, souhlas s cookie, poplach po 2 neúspěších po sobě; zápis do robot_log.jsonl"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">U3</text></g>
+<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U4" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Poplach e-mailem Mirkovi a naplánování obou hlídačů v plánovači úloh (hlídač čísel každou hodinu 7–22, robot každých 30 min)"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">U4</text></g>
+<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U5a" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Tyden ostreho provozu: stroj spocita plane poplachy, uspesnost robota a beh planovace a porovna s cilem"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">U5a</text></g>
+<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U5b" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Mirek potvrdi uzavreni karty (stroj se pred timto usekem zastavi a zepta)"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="820" y="134" font-size="13" text-anchor="middle">U5b</text></g>
+</svg>
+  </div>
+  <section class="panely-kroku">
+<article class="krok-panel" data-panel-krok="U1" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Nativní cesta první: umí to Google Analytics (vlastní statistiky s upozorněním), Clarity nebo hosting samy? <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>karta podepsaná</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U2" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Hodinový hlídač čísel: podíl návštěv s košíkem a s dokončenou objednávkou zvlášť telefon/počítač proti stejným hodinám 4 předchozích týdnů + režim --zpetne (zpětný test 1.–17. 10.) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>U1 hotovo; přístup ke GA4 (vlastnost 500054460) funguje</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Postav hlídač podle karty UKOL-216, úsek U2.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U3" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Robot tlačítka Do košíku: každých 30 min, telefon i počítač, 3 produkty, souhlas s cookie, poplach po 2 neúspěších po sobě; zápis do robot_log.jsonl <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>U2 hotovo; základ je skript</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Postav robota podle karty UKOL-216, úsek U3.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U4" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Poplach e-mailem Mirkovi a naplánování obou hlídačů v plánovači úloh (hlídač čísel každou hodinu 7–22, robot každých 30 min) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>U2 a U3 hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Napoj poplach a plánovač podle karty UKOL-216, úsek U4.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U5a" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Tyden ostreho provozu: stroj spocita plane poplachy, uspesnost robota a beh planovace a porovna s cilem <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 26. 10. 15:38</p>
+  <p>U4 hotovo; robot a hlidac bezi v planovaci od 19. 10.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Spust prikaz: python C:/work/hlidky/vcasne_varovani/cil_meridlo.py . Jeho posledni radek (JSON) uloz beze zmeny do souboru C:/work/ukoly/_216_stroj/tyden_216.json. Nic jineho nedelej: nemen hlidace, robota, poplach ani planovac, nic nemaz.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="U5b" hidden>
+  <h3><span class="znak" aria-hidden="true">●</span> Mirek potvrdi uzavreni karty (stroj se pred timto usekem zastavi a zepta) <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 30. 10. 12:11</p>
+  <p>U5a hotovo</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+  </section>
+  <section class="detail-kroky">
+<article class="krok-detail stav-hotovo" data-krok-id="U1">
+  <h3><span class="znak" aria-hidden="true">●</span> 1. Nativní cesta první: umí to Google Analytics (vlastní statistiky s upozorněním), Clarity nebo hosting samy? <span class="stav-text">(hotovo)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U2">
+  <h3><span class="znak" aria-hidden="true">●</span> 2. Hodinový hlídač čísel: podíl návštěv s košíkem a s dokončenou objednávkou zvlášť telefon/počítač proti stejným hodinám 4 předchozích týdnů + režim --zpetne (zpětný test 1.–17. 10.) <span class="stav-text">(hotovo)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Postav hlídač podle karty UKOL-216, úsek U2.</p>
+      <p>Oblast: C:/work/hlidky/vcasne_varovani · Výsledný soubor: C:/work/hlidky/vcasne_varovani/zpetny_test.json</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U3">
+  <h3><span class="znak" aria-hidden="true">●</span> 3. Robot tlačítka Do košíku: každých 30 min, telefon i počítač, 3 produkty, souhlas s cookie, poplach po 2 neúspěších po sobě; zápis do robot_log.jsonl <span class="stav-text">(hotovo)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Postav robota podle karty UKOL-216, úsek U3.</p>
+      <p>Oblast: C:/work/hlidky/vcasne_varovani · Výsledný soubor: C:/work/hlidky/vcasne_varovani/robot_log.jsonl</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U4">
+  <h3><span class="znak" aria-hidden="true">●</span> 4. Poplach e-mailem Mirkovi a naplánování obou hlídačů v plánovači úloh (hlídač čísel každou hodinu 7–22, robot každých 30 min) <span class="stav-text">(hotovo)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Napoj poplach a plánovač podle karty UKOL-216, úsek U4.</p>
+      <p>Oblast: C:/work/hlidky/vcasne_varovani · Výsledný soubor: C:/work/hlidky/vcasne_varovani/poplach_test.json</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U5a">
+  <h3><span class="znak" aria-hidden="true">●</span> 5. Tyden ostreho provozu: stroj spocita plane poplachy, uspesnost robota a beh planovace a porovna s cilem <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 26. 10. 15:38</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Spust prikaz: python C:/work/hlidky/vcasne_varovani/cil_meridlo.py . Jeho posledni radek (JSON) uloz beze zmeny do souboru C:/work/ukoly/_216_stroj/tyden_216.json. Nic jineho nedelej: nemen hlidace, robota, poplach ani planovac, nic nemaz.</p>
+      <p>Oblast: C:/work/ukoly/_216_stroj · Výsledný soubor: C:/work/ukoly/_216_stroj/tyden_216.json</p>
+      <ul class="meritka"><li>U5a-M1: python C:/work/ukoly/_216_stroj/meridlo_u5a.py</li></ul>
+      <ul class="dukaz"><li>26. 10. 15:38: python C:/work/ukoly/_216_stroj/meridlo_u5a.py → vad 0</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U5b">
+  <h3><span class="znak" aria-hidden="true">●</span> 6. Mirek potvrdi uzavreni karty (stroj se pred timto usekem zastavi a zepta) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 30. 10. 12:11</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+
+  </section>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
+  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
+</footer>
+<script>
+function rezim(r){
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+}
+function otevriPanel(id){
+  const panely=[...document.querySelectorAll('[data-panel-krok]')];
+  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
+  if(!panel)return;
+  const otevrene=!panel.hidden;
+  panely.forEach(p=>p.hidden=true);
+  if(!otevrene)panel.hidden=false;
+}
+function pripravProklik(){
+  document.querySelectorAll('[data-stanice]').forEach(st=>{
+    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
+    st.addEventListener('click',akce);
+    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
+  });
+  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
+  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
+}
+document.addEventListener('DOMContentLoaded',pripravProklik);
+</script>
+</body>
+</html>
