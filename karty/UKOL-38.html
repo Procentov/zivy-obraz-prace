@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="12">
+<title>UKOL-38 · Historie bidů v měsíční bidovací tabulce FAVI</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff}
+header p{margin:.2rem 0;font-size:1.05rem}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+main.cesta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+details.krok{border:2px solid #111;border-radius:6px;padding:.3rem .5rem;min-width:9rem}
+details.krok summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;font-size:.95rem}
+details.krok summary::-webkit-details-marker{display:none}
+.znak{font-size:1.3rem;line-height:1}
+.podrobnosti{font-size:.85rem;margin-top:.4rem;border-top:1px solid #999;padding-top:.3rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+body.detail details.podrobnosti-force{display:block}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="radek-1"><strong>Kde jsme:</strong> M1</p>
+  <p class="radek-2"><strong>Co vzniklo:</strong> RIZIKO K PREVZETI (nalez vlakna Mozkovna 49-04, 23. 10. 2026, jen hlaseni - karta 49 nic neopravuje): C:/work/_u38_pilot/master_bidding.py (mesicni bidovaci tabulka FAVI) na radcich 5-8 importuje mod…</p>
+  <p class="radek-3"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main class="cesta">
+<details class="krok stav-ceka" data-krok-id="M1">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">1.</span>
+    <span class="nazev">Zjistit, za kolik měsíců zpět je historie cen kliku v tabulce od Advisia vůbec dostupná</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-ceka" data-krok-id="M2">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">2.</span>
+    <span class="nazev">Rozšířit skript bidovací tabulky o historii 6 měsíců</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-ceka" data-krok-id="M3">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">3.</span>
+    <span class="nazev">Doplnit označení rodin, kde má přiškrcení smysl</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+<details class="krok stav-ceka" data-krok-id="M4">
+  <summary>
+    <span class="znak" aria-hidden="true">○</span>
+    <span class="poradi">4.</span>
+    <span class="nazev">Ověřit na uzavřeném měsíci a zapojit do měsíčního cyklu</span>
+    <span class="stav-text">(čeká)</span>
+  </summary>
+  <div class="podrobnosti">
+    <p></p>
+    <p>Kolo: — · Dokonč.: —</p>
+  </div>
+</details>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · ◆ blokátor</p>
+</footer>
+<script>
+function rezim(r){
+  var vse=document.querySelectorAll('main.cesta details.krok');
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+  vse.forEach(function(d){ d.open = (r === 'detail'); });
+}
+</script>
+</body>
+</html>
