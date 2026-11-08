@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="15">
+<title>UKOL-257 · Pilot Art Decoration</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
+header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
+.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
+.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
+.odbocka-znak{font-size:1rem}
+.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> U1</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Zalozit nove modely hromadnym importem jako SKRYTE.</p>
+    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">3</span> z 8 hotovo</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 1190 150" width="1190" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-hotovo" data-stanice="U1" data-poradi="1" data-x="70"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">U1</text></g>
+<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U2" data-poradi="2" data-x="220"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">U2</text></g>
+<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="U3" data-poradi="3" data-x="370"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">U3</text></g>
+<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-ceka" data-stanice="U4" data-poradi="4" data-x="520" data-tady="1" data-krok="U4"><circle cx="520" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="520" y="134" font-size="13" text-anchor="middle">U4</text><text x="520" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-ceka" data-stanice="U5" data-poradi="5" data-x="670"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="670" y="134" font-size="13" text-anchor="middle">U5</text></g>
+<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-ceka" data-stanice="U6" data-poradi="6" data-x="820"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="820" y="134" font-size="13" text-anchor="middle">U6</text></g>
+<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-ceka" data-stanice="U7" data-poradi="7" data-x="970"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="970" y="134" font-size="13" text-anchor="middle">U7</text></g>
+<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-ceka" data-stanice="U8" data-poradi="8" data-x="1120"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1120" y="134" font-size="13" text-anchor="middle">U8</text></g>
+</svg>
+  </div>
+  <section class="detail-kroky">
+<article class="krok-detail stav-hotovo" data-krok-id="U1">
+  <h3><span class="znak" aria-hidden="true">●</span> 1. Zkouska importu na jednom skrytem vyrobku: zalozi se novy vyrobek a stahne se hlavni fotka z adresy <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 16:02</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Vezmi prvni radek se stavem nevedeme z C:/work/ukoly/_u249/m4b_pilot.csv, najdi jeho kartu v C:/work/ukoly/_u249/m2/karty.csv (sloupec sku = symbol) a z karty ArtD Home vytahni adresu hlavni fotky. Hromadnym importem zaloz JEDEN novy vyrobek se sloupci id;name;status;img;price_dph;stock (id=0, name=&#x27;ZKOUSKA - nezverejnovat&#x27;, status=0 = skryty, img=adresa fotky, price_dph = nase_hranice_kc z m4b, stock=0). Kdyz e-shop fotku sam nestahne, zkus tlacitko Stahnout obrazky na strance importu. Zjisti ID noveho vyrobku a zapis C:/work/ukoly/_u257/u1_seznam.csv s hlavickou id_produktu;id_varianty;symbol;hranice_kc a jednim radkem. Do C:/work/ukoly/_u257/u1_postup.md zapis, co fungovalo (fotka z adresy ano/ne, jak). PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/u1_seznam.csv</p>
+      <ul class="meritka"><li>U1a: python C:/work/ukoly/_u257/kontrola_karet.py C:/work/ukoly/_u257/u1_seznam.csv</li></ul>
+      <ul class="dukaz"><li>6. 11. 16:02: python C:/work/ukoly/_u257/kontrola_karet.py C:/work/ukoly/_u257/u1_seznam.csv → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U2">
+  <h3><span class="znak" aria-hidden="true">●</span> 2. Overit u 14 chybejicich provedeni, zda je uz nevedeme pod jinym kodem <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 16:04</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>U 14 radku se stavem vedeme_model_jine_provedeni v C:/work/ukoly/_u249/m4b_pilot.csv dohledej v nasem katalogu (C:/work/art_decoration/m20_stav_dnes.csv, C:/work/art_decoration/p5_karty.json) shodu podle cisla modelu, rozmeru a barvy. Zapis C:/work/ukoly/_u257/u2_dvojcata.csv s hlavickou symbol;nazev;verdikt;id_produktu;id_varianty;duvod, verdikt je opravdu_chybi nebo uz_vedeme; u opravdu_chybi do id_produktu dej ID vedeneho vyrobku stejneho modelu, ke kteremu se provedeni prida jako varianta. Nic nezapisuj do e-shopu. PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/u2_dvojcata.csv</p>
+      <ul class="meritka"><li>U2a: python C:/work/ukoly/_u257/soubor_kontrola.py C:/work/ukoly/_u257/u2_dvojcata.csv --sloupce symbol,verdikt,id_produktu --povolene verdikt=opravdu_chybi|uz_vedeme</li></ul>
+      <ul class="dukaz"><li>6. 11. 16:04: python C:/work/ukoly/_u257/soubor_kontrola.py C:/work/ukoly/_u257/u2_dvojcata.csv --sloupce symbol,verdikt,id_produktu --povolene verdikt=opravdu_chybi|uz_vedeme → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-hotovo" data-krok-id="U3">
+  <h3><span class="znak" aria-hidden="true">●</span> 3. Pripravit podklady ke vsem pilotnim vyrobkum: cesky nazev a popis, fotky, kategorie, cena = nejnizsi povolena <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 6. 11. 16:17</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Pro 26 radku se stavem nevedeme z m4b_pilot.csv a pro radky s verdiktem opravdu_chybi z u2_dvojcata.csv nacti kartu ArtD Home (adresa v karty.csv, nejvys 1 dotaz za sekundu), vytahni adresy fotek (hlavni prvni), polsky popis, rozmery a EAN; preloz nazev a popis do cestiny (nazev ve stylu nasich vyrobku AD); prirad nasi kategorii (ID kategorie z vedeneho vyrobku AD stejneho typu, C:/work/art_decoration/p5_karty.json). Zapis C:/work/ukoly/_u257/u3_podklady.csv s hlavickou typ;symbol;id_produktu_rodice;nazev;popis;foto_url;foto_dalsi;ean;kategorie;cena_kc;hranice_kc, typ = novy_model nebo provedeni (provedeni ma id_produktu_rodice z u2). hranice_kc = nase_hranice_kc z m4b_pilot.csv, cena_kc = hranice_kc. Nic nezapisuj do e-shopu. PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/u3_podklady.csv</p>
+      <ul class="meritka"><li>U3a: python C:/work/ukoly/_u257/soubor_kontrola.py C:/work/ukoly/_u257/u3_podklady.csv --sloupce typ,symbol,nazev,popis,foto_url,kategorie,cena_kc,hranice_kc --cena cena_kc --hranice hranice_kc</li></ul>
+      <ul class="dukaz"><li>6. 11. 16:17: python C:/work/ukoly/_u257/soubor_kontrola.py C:/work/ukoly/_u257/u3_podklady.csv --sloupce typ,symbol,nazev,popis,foto_url,kategorie,cena_kc,hranice_kc --cena cena_kc --hranice hranice_kc → vad None</li></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="U4">
+  <h3><span class="znak" aria-hidden="true">○</span> 4. Zalozit nove modely hromadnym importem jako SKRYTE <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Radky typ=novy_model z u3_podklady.csv zaloz hromadnym importem jako SKRYTE (status=0, stock=0, id=0) se sloupci id;name;desc;cat;cat_default;img;price_dph;ean;supplier a s fotkou podle postupu v C:/work/ukoly/_u257/u1_postup.md. Dodavatel Art Decoration. Pak zjisti ID novych vyrobku a zapis C:/work/ukoly/_u257/u4_zalozeno.csv s hlavickou id_produktu;id_varianty;symbol;hranice_kc (hranice_kc z u3). Zakladej po davkach, pred kazdou davkou zkontroluj, ze vyrobek se stejnym nazvem uz neexistuje. PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/u4_zalozeno.csv</p>
+      <ul class="meritka"><li>U4a: python C:/work/ukoly/_u257/soubor_kontrola.py C:/work/ukoly/_u257/u4_zalozeno.csv --sloupce id_produktu,symbol --pocet-z C:/work/ukoly/_u257/u3_podklady.csv typ=novy_model</li><li>U4b: python C:/work/ukoly/_u257/kontrola_karet.py C:/work/ukoly/_u257/u4_zalozeno.csv</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="U5">
+  <h3><span class="znak" aria-hidden="true">○</span> 5. Doplnit chybejici provedeni jako varianty u vyrobku, ktere vedeme <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Pro radky typ=provedeni z u3_podklady.csv pridej k vedenemu vyrobku (id_produktu_rodice) novou variantu pres formular karty v adminu (prod-edit.php, zalozka Varianty; hromadny import variantu nezalozi). Cena varianty = cena_kc, sklad 0, fotka varianty z foto_url. Zapis C:/work/ukoly/_u257/u5_varianty.csv s hlavickou id_produktu;id_varianty;symbol;hranice_kc. Kdyz u2 nema zadne opravdu_chybi, zapis jen hlavicku. Nesahej na ostatni varianty karty. PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/u5_varianty.csv</p>
+      <ul class="meritka"><li>U5a: python C:/work/ukoly/_u257/soubor_kontrola.py C:/work/ukoly/_u257/u5_varianty.csv --sloupce id_produktu,id_varianty --pocet-z C:/work/ukoly/_u257/u3_podklady.csv typ=provedeni</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="U6">
+  <h3><span class="znak" aria-hidden="true">○</span> 6. Zverejnit pilot, pustit do Googlu a FAVI, zapsat datum zverejneni = start 6 tydnu <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Spoj u4_zalozeno.csv a u5_varianty.csv do C:/work/ukoly/_u257/u6_pilot.csv (stejna hlavicka). Nove modely z u4 prepni na viditelne (import id;status=1;xml_google=1). Zarad pilotni vyrobky do seznamu povolenych pro FAVI podle skillu favi-whitelist-mergado (C:/work/skills/favi-whitelist-mergado/SKILL.md). Zjisti v centralnim skladu C:/work/databaze/procentov.duckdb, pod jakou rodinou vede pilotni vyrobky (tabulka rodiny_den, vystaveni_rodiny); kdyz tam jeste nejsou, odvod rodinu stejne jako u vedenych vyrobku AD. Zapis C:/work/ukoly/_u257/pilot_stav.json {datum_zverejneni: dnesni datum, produkty: [{id_produktu, rodina, symbol}]}. Zkusebni vyrobek z U1 nech skryty. PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/pilot_stav.json</p>
+      <ul class="meritka"><li>U6a: python C:/work/ukoly/_u257/kontrola_karet.py C:/work/ukoly/_u257/u6_pilot.csv --viditelne</li><li>U6b: python C:/work/ukoly/_u257/cil_pilot.py</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="U7">
+  <h3><span class="znak" aria-hidden="true">○</span> 7. Tydenni mereni 6 tydnu a pojistka reklamy: naplanovana uloha meri zisk a pri 4 000 Kc vypne reklamu <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Napis C:/work/ukoly/_u257/u7_tyden.py: spusti C:/work/ukoly/_u257/cil_pilot.py a pripise radek do C:/work/ukoly/_u257/u7_tydny.csv (datum;okno_dni;trzba_kc;nakup_kc;reklama_kc;zisk_kc); kdyz reklama_kc &gt;= 4000, vyradi pilotni vyrobky z placene reklamy (import id;xml_google=0 a odebrani ze seznamu FAVI podle skillu favi-whitelist-mergado) a zapise to do C:/work/ukoly/_u257/u7_pojistka.json; kdyz okno_dni &gt;= 43, spusti znovu jizdu stroje: python C:/work/stroj/start_jizdy.py UKOL-257. Zaloz v Planovaci uloh Windows ulohu s presnym nazvem UKOL-257_pilot_tyden, ktera skript spousti kazde pondeli v 6:00 do 31. 12. 2026, a jednou ho spust hned. PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/u7_tydny.csv</p>
+      <ul class="meritka"><li>U7a: python C:/work/ukoly/_u257/u7_uloha.py</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="U8">
+  <h3><span class="znak" aria-hidden="true">○</span> 8. Po 6 tydnech pripravit Mirkovi zisk v Kc po vyrobcich, zarazeni podle noveho metru a navrh dalsi etapy <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Spust C:/work/ukoly/_u257/cil_pilot.py. Kdyz okno_dni je mensi nez 42, NEDELEJ NIC a hned skonci (jizdu znovu spusti tydenni uloha z U7). Jinak zapis C:/work/ukoly/_u257/u8_zisk_po_vyrobcich.csv (symbol;nazev;trzba_kc;nakup_kc;reklama_kc;zisk_kc;skupina podle noveho metru) a C:/work/ukoly/_u257/u8_navrh.md: zisk celkem, 5 nejlepsich a 5 nejhorsich, navrh dalsi etapy ve trech moznostech (pokracovat, upravit, ukoncit) s doporucenim. Rozhoduje Mirek, ty jen pripravujes. PRAVIDLA: zapisuj jen do C:/work/ukoly/_u257/. Do adminu Procentova (https://procentov.cz/admin/) chodis jen pres prihlaseny Chrome pro automat (skill C:/work/skills/web-write/SKILL.md, cookies z Chromu jako C:/work/art_decoration/p1_cteni_karet.py). Hromadny import: POST na prod-import.php, pole action=import_csv, set[charset]=UTF-8, set[delimiter]=; (strednik), soubor v poli file - nic dalsiho (skill shopion-ceny-import). NIKDY: nesahej na jine nez pilotni vyrobky; nespoustej modul dodavatele Art. Decoration (Aktualizace produktu / feedu); nemaz; neobjednavej; nepis nikomu ven; cena nikdy pod hranici (nakup x 1,95 x 1,21, C:/work/parametry/cenova_pravidla.md). Kazdy zapis over znovunactenim karty. Kdyz je prace rozdelana z minuleho kola, pokracuj tam, kde vysledny soubor konci.</p>
+      <p>Oblast: C:/work/ukoly/_u257/ · Výsledný soubor: C:/work/ukoly/_u257/u8_zisk_po_vyrobcich.csv</p>
+      <ul class="meritka"><li>U8a: python C:/work/ukoly/_u257/cil_pilot.py</li><li>U8b: python C:/work/ukoly/_u257/soubor_kontrola.py C:/work/ukoly/_u257/u8_zisk_po_vyrobcich.csv --sloupce symbol,zisk_kc</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+
+  </section>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
+  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
+</footer>
+<script>
+function rezim(r){
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+}
+</script>
+</body>
+</html>
