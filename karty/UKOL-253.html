@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="43">
+<meta name="karta-verze" content="44">
 <title>UKOL-253 · Živý obraz ve Velínu: mapa se obnoví sama, posun po každém kole, pevné místo Čeká na mě (D2, D3, D2b z UKOL-231)</title>
 <style>
 body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
@@ -40,11 +40,11 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 <header>
   <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
   <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok 8 – Tvoje potvrzení na 5 skutečných úkolech</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Tvoje potvrzení na 5 skutečných úkolech.</p>
+    <p data-radek="kde"><strong>Kde jsme:</strong> krok 4e – Mapa úkolu se špendlíkem a barvami</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Mapa úkolu se špendlíkem a barvami.</p>
     <p data-radek="ceka" data-ceka-na="mirek"><strong>Čeká na tebe:</strong> krok 8: tvoje rozhodnutí</p>
   </div>
-  <p class="plakat"><span class="plakat-cislo">9</span> z 10 hotovo</p>
+  <p class="plakat"><span class="plakat-cislo">9</span> z 11 hotovo</p>
   <div class="prepinac">
     <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
     <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
@@ -52,7 +52,7 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 </header>
 <main>
   <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 1490 150" width="1490" height="150" role="img" aria-label="Trať kroků karty">
+<svg data-trat="1" viewBox="0 0 1640 150" width="1640" height="150" role="img" aria-label="Trať kroků karty">
 <g class="stanice stav-hotovo" data-stanice="1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Ukázka A: vlastní stránka s mapou kroků"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">1</text><text x="92" y="46" font-size="16" aria-hidden="true">⑂</text></g>
 <line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-hotovo" data-stanice="2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Ukázka B: mapa přímo v Notionu (skončila, vybrána A)"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">2</text><text x="242" y="46" font-size="16" aria-hidden="true">⑂</text></g>
@@ -71,7 +71,9 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 <line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-hotovo" data-stanice="7" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Tvoje kontrola čitelnosti na Foldu"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1270" y="134" font-size="13" text-anchor="middle">7</text></g>
 <line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="8" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Tvoje potvrzení na 5 skutečných úkolech" data-tady="1" data-krok="8"><circle cx="1420" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">8</text><text x="1420" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+<g class="stanice stav-ceka" data-stanice="4e" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Mapa úkolu se špendlíkem a barvami" data-tady="1" data-krok="4e"><circle cx="1420" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">4e</text><text x="1420" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+<line x1="1440" y1="70" x2="1550" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-ceka" data-stanice="8" data-poradi="11" data-x="1570" data-proklik="1" role="button" tabindex="0" aria-label="Tvoje potvrzení na 5 skutečných úkolech"><text x="1570" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1570" y="134" font-size="13" text-anchor="middle">8</text></g>
 </svg>
   </div>
   <section class="panely-kroku">
@@ -137,6 +139,13 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
   <p>Krok 6 hotovo</p>
   
   <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Posli Mirkovi odkaz na ostrou stranku A karty UKOL-253 (z kroku 4) na Fold a pockej na jeho potvrzeni citelnosti zapsane do deniku karty. Citelnost posuzuje Mirek, ne skript. Nic za nej nerozhoduj.</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="4e" hidden>
+  <h3><span class="znak" aria-hidden="true">○</span> Mapa úkolu se špendlíkem a barvami <span class="stav-text">(čeká)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok 7 hotovo; krok 8 neprosel (Mirek 9. 11.: celek nic nerika); nacrt 3 schvalen volbou 1; vzor na disku nacrt3_mapa_ukolu.html</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Predelej generator stranky ukolu C:/work/ukoly/_253_stroj/obraz_a.py do podoby podle vzoru C:/work/ukoly/_253_stroj/nacrt3_mapa_ukolu.html (Mirek schvalil 9. 11. 2026, volba 1). Plati pro stranky VSECH karet. Vzhled (CSS a barvy z palety pro oslabeny barvocit, poradi bloku, znacky a legendu) prevezmi ze vzoru doslova. Poradi shora dolu: stitek &#x27;🗺 MAPA ÚKOLU&#x27; (prvek data-mapa-ukolu=&quot;1&quot;), nazev ukolu lidsky, radek &#x27;Úkol N · projekt · cíl jednou větou&#x27;; blok Jsi tady (data-jsi-tady=&quot;1&quot; data-krok=&quot;&lt;aktualni krok = prvni krok, ktery neni hotovo ani odlozeno; u hotove karty &#x27;hotovo&#x27;&gt;&quot;) s titulkem aktualniho kroku velkym pismem, &#x27;krok X z Y&#x27;, paskem ctverecku, pocty, radkem Na tahu (data-na-tahu = mirek|stroj|nikdo ze stav.json jizdy jako v kroku 4d; pri mirek oranzovy akcent data-akcent=&quot;oranzova&quot; s textem &#x27;👉 Na tahu jsi TY: &lt;co ma udelat&gt;&#x27; - jedina oranzova na strance; jinak sedy &#x27;Na tahu: stroj ...&#x27;) a kratkym popisem aktualniho kroku; aktualni krok nese v bloku i prvek data-bod=&quot;&lt;id&gt;&quot; data-titulek. Pak zony: data-zona=&quot;rozdelane&quot; (otevrena; kroky, ktere nejsou hotovo ani ceka - bezi ⏳, blokator/odlozeno ⚠), data-zona=&quot;pred&quot; (otevrena, carkovane; cekajici kroky), data-zona=&quot;hotovo&quot; (SBALENA: seznam data-seznam=&quot;1&quot; s atributem hidden), data-zona=&quot;odbocky&quot; (sbalena; zachovej atributy data-odbocka-*, data-konec a data-z-kroku ze smlouvy kroku 4b). Kazdy krok mimo spendlik = tlacitko data-bod=&quot;&lt;id&gt;&quot; data-titulek=&quot;&lt;titulek&gt;&quot; aria-expanded=&quot;false&quot; s aria-controls na skryty detail (hidden); tuknuti rozbali, druhe sbali. Detail: stav slovem, datum lidsky, co vzniklo jednou vetou, odbocky; technika jen v zavrenem &lt;details&gt;. TITULKY: 2 az 7 slov (cil 3 az 6), cesky s diakritikou, bez kodu typu K1, U2, D2b, M13 (cislo ukolu UKOL-123 smi). Zdroj: pole nazev_lidsky kroku; kdyz chybi, soubor C:/work/ukoly/_253_stroj/titulky_lidsky.json ve tvaru {&quot;UKOL-xx&quot;: {&quot;&lt;id kroku&gt;&quot;: &quot;titulek&quot;}}; kdyz chybi i tam, z nazvu kroku vyhod kody a zavorky a vezmi prvnich 6 slov. Soubor titulky_lidsky.json napln SAM jako jazykovy model (bez dalsich placenych volani) pro vsechny kroky vsech karet v C:/work/ukoly, ktere nejsou uzavrene ani hotove; titulek vystihuje, co krok dela. Na karty nezapisuj. Viditelny text stranky (mimo &lt;details&gt;) nesmi obsahovat kody - i v radku cile a v popisech je vyhod nebo nahrad slovy. Zadne posouvani do strany (zadne overflow-x: auto/scroll), zadna vodorovna trat svg data-trat. Zachovej: meta karta-verze, tmavy rezim, samo-obnovu (strazce C:/work/ukoly/_253_stroj/strazce_obraz_a.py nemen), nahravani na GitHub Pages. Po uprave pregeneruj stranky vsech neuzavrenych karet (obraz_a.py &lt;UKOL-xx&gt;, po jedne; chyba jedne karty nezastavi ostatni). Hotovo meri C:/work/ukoly/_253_stroj/meridlo_u4e_253.py (smlouva R1-R8 v jeho hlavicce; karty 253, 257, 251, 198, 213, 243), samo-obnova (meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953) a odbocky (meridlo_obraz_a_253.py --rezim odbocky --karta UKOL-9953). Vysledek: C:/work/ukoly/_253_stroj/k4e_mapa_253.json jako {&quot;generator&quot;: .., &quot;titulku&quot;: N, &quot;karet_pregenerovano&quot;: N, &quot;chyby&quot;: [..]}.</p></div></details>
 </article>
 <article class="krok-panel" data-panel-krok="8" hidden>
   <h3><span class="znak" aria-hidden="true">○</span> Tvoje potvrzení na 5 skutečných úkolech <span class="stav-text">(čeká)</span></h3>
@@ -264,8 +273,21 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
     </div>
   </details>
 </article>
+<article class="krok-detail stav-ceka" data-krok-id="4e">
+  <h3><span class="znak" aria-hidden="true">○</span> 10. Mapa úkolu se špendlíkem a barvami <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>Predelej generator stranky ukolu C:/work/ukoly/_253_stroj/obraz_a.py do podoby podle vzoru C:/work/ukoly/_253_stroj/nacrt3_mapa_ukolu.html (Mirek schvalil 9. 11. 2026, volba 1). Plati pro stranky VSECH karet. Vzhled (CSS a barvy z palety pro oslabeny barvocit, poradi bloku, znacky a legendu) prevezmi ze vzoru doslova. Poradi shora dolu: stitek &#x27;🗺 MAPA ÚKOLU&#x27; (prvek data-mapa-ukolu=&quot;1&quot;), nazev ukolu lidsky, radek &#x27;Úkol N · projekt · cíl jednou větou&#x27;; blok Jsi tady (data-jsi-tady=&quot;1&quot; data-krok=&quot;&lt;aktualni krok = prvni krok, ktery neni hotovo ani odlozeno; u hotove karty &#x27;hotovo&#x27;&gt;&quot;) s titulkem aktualniho kroku velkym pismem, &#x27;krok X z Y&#x27;, paskem ctverecku, pocty, radkem Na tahu (data-na-tahu = mirek|stroj|nikdo ze stav.json jizdy jako v kroku 4d; pri mirek oranzovy akcent data-akcent=&quot;oranzova&quot; s textem &#x27;👉 Na tahu jsi TY: &lt;co ma udelat&gt;&#x27; - jedina oranzova na strance; jinak sedy &#x27;Na tahu: stroj ...&#x27;) a kratkym popisem aktualniho kroku; aktualni krok nese v bloku i prvek data-bod=&quot;&lt;id&gt;&quot; data-titulek. Pak zony: data-zona=&quot;rozdelane&quot; (otevrena; kroky, ktere nejsou hotovo ani ceka - bezi ⏳, blokator/odlozeno ⚠), data-zona=&quot;pred&quot; (otevrena, carkovane; cekajici kroky), data-zona=&quot;hotovo&quot; (SBALENA: seznam data-seznam=&quot;1&quot; s atributem hidden), data-zona=&quot;odbocky&quot; (sbalena; zachovej atributy data-odbocka-*, data-konec a data-z-kroku ze smlouvy kroku 4b). Kazdy krok mimo spendlik = tlacitko data-bod=&quot;&lt;id&gt;&quot; data-titulek=&quot;&lt;titulek&gt;&quot; aria-expanded=&quot;false&quot; s aria-controls na skryty detail (hidden); tuknuti rozbali, druhe sbali. Detail: stav slovem, datum lidsky, co vzniklo jednou vetou, odbocky; technika jen v zavrenem &lt;details&gt;. TITULKY: 2 az 7 slov (cil 3 az 6), cesky s diakritikou, bez kodu typu K1, U2, D2b, M13 (cislo ukolu UKOL-123 smi). Zdroj: pole nazev_lidsky kroku; kdyz chybi, soubor C:/work/ukoly/_253_stroj/titulky_lidsky.json ve tvaru {&quot;UKOL-xx&quot;: {&quot;&lt;id kroku&gt;&quot;: &quot;titulek&quot;}}; kdyz chybi i tam, z nazvu kroku vyhod kody a zavorky a vezmi prvnich 6 slov. Soubor titulky_lidsky.json napln SAM jako jazykovy model (bez dalsich placenych volani) pro vsechny kroky vsech karet v C:/work/ukoly, ktere nejsou uzavrene ani hotove; titulek vystihuje, co krok dela. Na karty nezapisuj. Viditelny text stranky (mimo &lt;details&gt;) nesmi obsahovat kody - i v radku cile a v popisech je vyhod nebo nahrad slovy. Zadne posouvani do strany (zadne overflow-x: auto/scroll), zadna vodorovna trat svg data-trat. Zachovej: meta karta-verze, tmavy rezim, samo-obnovu (strazce C:/work/ukoly/_253_stroj/strazce_obraz_a.py nemen), nahravani na GitHub Pages. Po uprave pregeneruj stranky vsech neuzavrenych karet (obraz_a.py &lt;UKOL-xx&gt;, po jedne; chyba jedne karty nezastavi ostatni). Hotovo meri C:/work/ukoly/_253_stroj/meridlo_u4e_253.py (smlouva R1-R8 v jeho hlavicce; karty 253, 257, 251, 198, 213, 243), samo-obnova (meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953) a odbocky (meridlo_obraz_a_253.py --rezim odbocky --karta UKOL-9953). Vysledek: C:/work/ukoly/_253_stroj/k4e_mapa_253.json jako {&quot;generator&quot;: .., &quot;titulku&quot;: N, &quot;karet_pregenerovano&quot;: N, &quot;chyby&quot;: [..]}.</p>
+      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:/work/ukoly/_253_stroj/k4e_mapa_253.json</p>
+      <ul class="meritka"><li>U4e-M1: python C:/work/ukoly/_253_stroj/meridlo_u4e_253.py</li><li>U4e-M2: python C:/work/ukoly/_253_stroj/meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953</li><li>U4e-M3: python C:/work/ukoly/_253_stroj/meridlo_obraz_a_253.py --rezim odbocky --karta UKOL-9953</li></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
 <article class="krok-detail stav-ceka" data-krok-id="8">
-  <h3><span class="znak" aria-hidden="true">○</span> 10. Tvoje potvrzení na 5 skutečných úkolech <span class="stav-text">(čeká)</span></h3>
+  <h3><span class="znak" aria-hidden="true">○</span> 11. Tvoje potvrzení na 5 skutečných úkolech <span class="stav-text">(čeká)</span></h3>
   
   <details class="zadani-wrap">
     <summary>Technické zadání</summary>
