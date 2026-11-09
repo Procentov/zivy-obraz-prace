@@ -1,292 +1,73 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="195">
-<title>UKOL-170 · Procentov — zapomenuté hvězdy</title>
-<style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
-header p{margin:.2rem 0;font-size:1.05rem}
-.vedu{font-weight:bold}
-#tri-radky p{margin:.2rem 0;font-size:1rem}
-.plakat{margin:.5rem 0;font-size:1.1rem}
-.plakat-cislo{font-size:2.6rem;font-weight:bold}
-.prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
-.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
-.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
-.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
-body.detail .trat-ram{display:none}
-body.celek .detail-kroky{display:none}
-.detail-kroky{margin:1rem 0}
-.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
-.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
-.krok-detail details{margin-top:.4rem;font-size:.85rem}
-.krok-detail summary{cursor:pointer;min-height:24px}
-.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
-.zadani ul{margin:.2rem 0;padding-left:1.1rem}
-footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
-.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
-.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
-.odbocka-znak{font-size:1rem}
-.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
-</style>
-</head>
-<body class="celek">
-<header>
-  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
-  <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok H6 – Vyhodnoceni noveho cile: prispevek celeho uctu rok proti roku (10-12/2026 vs 10-12/2025), podil reklamy &lt;= 22 %; 2. 11. prvni cis…</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Vyhodnoceni noveho cile: prispevek celeho uctu rok proti roku (10-12/2026 vs 10-12/2025), podil reklamy &lt;= 22 %; 2. 11. prvni…</p>
-    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
-  </div>
-  <p class="plakat"><span class="plakat-cislo">6</span> z 9 hotovo</p>
-  <div class="prepinac">
-    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
-    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
-  </div>
-</header>
-<main>
-  <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 1340 150" width="1340" height="150" role="img" aria-label="Trať kroků karty">
-<g class="stanice stav-hotovo" data-stanice="H1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Soupis zapomenutych hvezd s duvodem (jen cteni)"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">H1</text></g>
-<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="H2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Navrh k vraceni (seznam pro test navratu na FAVI)"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">H2</text></g>
-<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="H3" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Mirkovo ANO"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">H3</text></g>
-<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="H4" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Vraceni do feedu FAVI CZ (test navratu)"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">H4</text></g>
-<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="H5" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Mereni testu: kolik zbyde ze stovky (prispevek) kazdy tyden, PNO jen jako kontrolka; opravit uspech 20 %, objednavky misto kusu, zaklad 12 tydnu"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">H5</text></g>
-<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="H6" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Vyhodnoceni noveho cile: prispevek celeho uctu rok proti roku (10-12/2026 vs 10-12/2025), podil reklamy &lt;= 22 %; 2. 11. prvni cislo + verdikt spornych P12, 2. 12., 2. 1. 2027 tri mesice" data-tady="1" data-krok="H6"><circle cx="820" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="820" y="134" font-size="13" text-anchor="middle">H6</text><text x="820" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-zruseno" data-stanice="H7" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Az potom: branu prepocitat podle zisku (od 9/2025) a doplnit chybejici zbozi v Googlu"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">✕</text><text x="970" y="134" font-size="13" text-anchor="middle">H7</text></g>
-<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
-<g class="stanice stav-hotovo" data-stanice="H8" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Predat odbocky: propalovace FAVI na kartu 34, hlidani cele reklamy do UKOL-164"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">H8</text></g>
-<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="H9" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Vymena FAVI podle noveho metru (3M): prepocitat skriptem VEN ven a navrat (3M vydelava i bez reklamy), predlozit Mirkovi, overit ve feedu; do prepoctu na seznam FAVI NESAHAT; Google beze zmeny (v2); merit prospech"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1270" y="134" font-size="13" text-anchor="middle">H9</text></g>
-</svg>
-  </div>
-  <section class="panely-kroku">
-<article class="krok-panel" data-panel-krok="H1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Soupis zapomenutych hvezd s duvodem (jen cteni) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H2" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Navrh k vraceni (seznam pro test navratu na FAVI) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H3" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Mirkovo ANO <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H4" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Vraceni do feedu FAVI CZ (test navratu) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H5" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Mereni testu: kolik zbyde ze stovky (prispevek) kazdy tyden, PNO jen jako kontrolka; opravit uspech 20 %, objednavky misto kusu, zaklad 12 tydnu <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H6" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Vyhodnoceni noveho cile: prispevek celeho uctu rok proti roku (10-12/2026 vs 10-12/2025), podil reklamy &lt;= 22 %; 2. 11. prvni cislo + verdikt spornych P12, 2. 12., 2. 1. 2027 tri mesice <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H7" hidden>
-  <h3><span class="znak" aria-hidden="true">✕</span> Az potom: branu prepocitat podle zisku (od 9/2025) a doplnit chybejici zbozi v Googlu <span class="stav-text">(zrušeno)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H8" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Predat odbocky: propalovace FAVI na kartu 34, hlidani cele reklamy do UKOL-164 <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="H9" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Vymena FAVI podle noveho metru (3M): prepocitat skriptem VEN ven a navrat (3M vydelava i bez reklamy), predlozit Mirkovi, overit ve feedu; do prepoctu na seznam FAVI NESAHAT; Google beze zmeny (v2); merit prospech <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok je popsán na kartě.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-  </section>
-  <section class="detail-kroky">
-<article class="krok-detail stav-hotovo" data-krok-id="H1">
-  <h3><span class="znak" aria-hidden="true">●</span> 1. Soupis zapomenutych hvezd s duvodem (jen cteni) <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="H2">
-  <h3><span class="znak" aria-hidden="true">●</span> 2. Navrh k vraceni (seznam pro test navratu na FAVI) <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="H3">
-  <h3><span class="znak" aria-hidden="true">●</span> 3. Mirkovo ANO <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="H4">
-  <h3><span class="znak" aria-hidden="true">●</span> 4. Vraceni do feedu FAVI CZ (test navratu) <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="H5">
-  <h3><span class="znak" aria-hidden="true">●</span> 5. Mereni testu: kolik zbyde ze stovky (prispevek) kazdy tyden, PNO jen jako kontrolka; opravit uspech 20 %, objednavky misto kusu, zaklad 12 tydnu <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="H6">
-  <h3><span class="znak" aria-hidden="true">○</span> 6. Vyhodnoceni noveho cile: prispevek celeho uctu rok proti roku (10-12/2026 vs 10-12/2025), podil reklamy &lt;= 22 %; 2. 11. prvni cislo + verdikt spornych P12, 2. 12., 2. 1. 2027 tri mesice <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-zruseno" data-krok-id="H7">
-  <h3><span class="znak" aria-hidden="true">✕</span> 7. Az potom: branu prepocitat podle zisku (od 9/2025) a doplnit chybejici zbozi v Googlu <span class="stav-text">(zrušeno)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="H8">
-  <h3><span class="znak" aria-hidden="true">●</span> 8. Predat odbocky: propalovace FAVI na kartu 34, hlidani cele reklamy do UKOL-164 <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="H9">
-  <h3><span class="znak" aria-hidden="true">○</span> 9. Vymena FAVI podle noveho metru (3M): prepocitat skriptem VEN ven a navrat (3M vydelava i bez reklamy), predlozit Mirkovi, overit ve feedu; do prepoctu na seznam FAVI NESAHAT; Google beze zmeny (v2); merit prospech <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-
-  </section>
-</main>
-<footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
-  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
-</footer>
-<script>
-function rezim(r){
-  document.body.classList.remove('celek','detail');
-  document.body.classList.add(r);
-  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
-  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="karta-verze" content="196"><title>UKOL-170 · Procentov — zapomenuté hvězdy</title><style>:root{
+  --papir:#ffffff; --inkoust:#1a1a1a; --sede:#5c5c5c; --linka:#1a1a1a; --jemna:#c4c4c4; --plocha:#f1f1f1;
+  --tady:#0072B2; --tady-svetla:#e6f1f8; --na-tebe:#E69F00; --na-tebe-text:#1a1a1a;
+  --rozdelane:#56B4E9; --rozdelane-svetla:#eef7fd; --stoji:#D55E00; --odbocka:#CC79A7; --hotovo:#7a7a7a;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-function otevriPanel(id){
-  const panely=[...document.querySelectorAll('[data-panel-krok]')];
-  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
-  if(!panel)return;
-  const otevrene=!panel.hidden;
-  panely.forEach(p=>p.hidden=true);
-  if(!otevrene)panel.hidden=false;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+    --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
 }
-function pripravProklik(){
-  document.querySelectorAll('[data-stanice]').forEach(st=>{
-    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
-    st.addEventListener('click',akce);
-    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
-  });
-  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
-  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
-}
-document.addEventListener('DOMContentLoaded',pripravProklik);
-</script>
-</body>
-</html>
+:root[data-theme="dark"]{ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+  --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0; background:var(--papir); color:var(--inkoust);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:18px; line-height:1.45;}
+main{max-width:620px; margin:0 auto; padding:16px 14px 48px;}
+.mapa-stitek{font-size:.8rem; font-weight:800; letter-spacing:.12em; margin:0;}
+h1{font-size:1.4rem; line-height:1.2; margin:2px 0 2px; font-weight:800;}
+.ukol-pod{font-size:.85rem; color:var(--sede); margin:0 0 12px;}
+.tady{border:4px solid var(--tady); background:var(--tady-svetla); margin:0 0 16px; border-radius:6px; overflow:hidden;}
+.tady .spendlik{background:var(--tady); color:#ffffff; font-size:.95rem; font-weight:800; letter-spacing:.1em; margin:0; padding:7px 14px;}
+.tady .vnitrek{padding:10px 14px 14px;}
+.tady .krok-ted{font-size:1.35rem; font-weight:800; margin:0 0 2px; line-height:1.25;}
+.tady .krok-cislo{font-size:.85rem; color:var(--sede); margin:0 0 8px;}
+.tady .natahu{display:inline-block; margin:10px 0 0; font-size:1rem; font-weight:800; padding:8px 12px; border-radius:6px;
+  background:var(--na-tebe); color:var(--na-tebe-text);}
+.tady .natahu.jiny{background:var(--plocha); color:var(--inkoust); font-weight:600; border:1px solid var(--jemna);}
+.pasek{display:flex; gap:4px; margin:6px 0 2px; flex-wrap:wrap; align-items:center;}
+.pasek span{width:16px; height:16px; border:2px solid var(--hotovo); background:var(--hotovo); border-radius:2px;}
+.pasek span.z{border-color:var(--rozdelane); background:linear-gradient(90deg,var(--rozdelane) 50%,transparent 50%);}
+.pasek span.c{border:2px dashed var(--jemna); background:transparent;}
+.pasek span.t{width:26px; height:26px; border:4px solid var(--tady); background:var(--papir); position:relative;}
+.pasek span.t::after{content:"▶"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:var(--tady);}
+.popisek{font-size:.8rem; color:var(--sede); margin:2px 0 0;}
+.detail-ted{margin-top:12px; padding-top:8px; border-top:1px solid var(--jemna); font-size:.88rem; color:var(--sede);}
+.detail-ted p{margin:0 0 6px;}
+section.zona{margin:0 0 10px;}
+button.zona-hlava{display:flex; align-items:center; gap:10px; width:100%; min-height:48px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); border-left:6px solid var(--hotovo); padding:8px 12px; cursor:pointer; border-radius:4px;}
+section.hotovo button.zona-hlava{color:var(--sede);}
+section.zcasti button.zona-hlava{border-left-color:var(--rozdelane); background:var(--rozdelane-svetla); font-weight:600;}
+section.zcasti.stoji button.zona-hlava{border-left-color:var(--stoji);}
+section.odbocky button.zona-hlava{border-left-color:var(--odbocka); color:var(--sede);}
+button.zona-hlava:focus-visible, button.bod:focus-visible{outline:3px solid var(--linka); outline-offset:2px;}
+.zona-hlava .zn{font-size:1.15rem; width:26px; text-align:center;}
+.zona-hlava .nazev{flex:1; font-weight:600;}
+.zona-hlava .pocet{font-weight:800; font-size:.9rem;}
+.zona-hlava .sipka{color:var(--sede); font-size:.85rem;}
+section.pred button.zona-hlava{border-style:dashed; border-left:6px dashed var(--jemna);}
+ol.body{list-style:none; margin:6px 0 0; padding:0 0 0 14px; border-left:2px solid var(--jemna);}
+ol.body li{margin:0 0 6px;}
+button.bod{display:flex; gap:10px; align-items:flex-start; width:100%; min-height:44px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); padding:8px 10px; cursor:pointer; border-radius:3px;}
+section.pred button.bod{border-style:dashed;}
+button.bod .zn{width:22px; text-align:center; flex:0 0 22px;}
+section.hotovo button.bod{color:var(--sede);}
+button.bod .t{flex:1;}
+.bod-detail{margin:4px 0 8px 32px; font-size:.88rem; padding:8px 10px; border-left:3px solid var(--jemna); background:var(--plocha);}
+.bod-detail p{margin:0 0 4px;}
+.legenda{margin-top:18px; font-size:.82rem; color:var(--sede); border-top:2px dashed var(--jemna); padding-top:10px;}</style></head><body><main>
+<p class="mapa-stitek" data-mapa-ukolu="1">🗺 MAPA ÚKOLU</p><h1>Procentov — zapomenuté hvězdy</h1><p class="ukol-pod">Úkol 170 · Procentov — prodej a zisk · cíl: získat jasný přehled o práci a dalším kroku.</p>
+<div class="tady" id="tady" data-jsi-tady="1" data-krok="H6"><p class="spendlik">▶ JSI TADY</p><div class="vnitrek"><p class="krok-ted">Vyhodnocení nového cíle meziročně</p><p class="krok-cislo">krok 7 z 9</p><div class="pasek" role="img" aria-label="6 hotovo, jsi u kroku 7 z 9"><span></span><span></span><span></span><span></span><span></span><span class="t"></span><span class="c"></span><span></span><span class="c"></span></div><p class="popisek">6 hotovo · 1 před námi</p><p class="natahu jiny" data-na-tahu="nikdo">Na tahu: nikdo.</p><div class="detail-ted"><p>Krok je připraven</p><button class="bod" type="button" data-bod="H6" data-titulek="Vyhodnocení nového cíle meziročně" aria-expanded="false" aria-controls="detail-H6"><span class="zn">☐</span><span class="t">Vyhodnocení nového cíle meziročně</span></button><div class="bod-detail" id="detail-H6" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></div></div></div>
+<section class="zona zcasti" data-zona="rozdelane"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-rozdelane"><span class="zn">⏳</span><span class="nazev">Rozdělané</span><span class="pocet">1</span><span class="sipka">▴</span></button><ol class="body" id="zona-rozdelane" data-seznam="0"><li><button class="bod" type="button" data-bod="H7" data-titulek="Az potom: branu prepocitat podle zisku" aria-expanded="false" aria-controls="detail-H7"><span class="zn">✕</span><span class="t">Az potom: branu prepocitat podle zisku</span></button><div class="bod-detail" id="detail-H7" hidden><p><strong>Stav:</strong> zrušeno · <strong>Datum:</strong> —</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona pred pred" data-zona="pred"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-pred"><span class="zn">☐</span><span class="nazev">Před námi</span><span class="pocet">1</span><span class="sipka">▴</span></button><ol class="body" id="zona-pred" data-seznam="0"><li><button class="bod" type="button" data-bod="H9" data-titulek="Výměna FAVI podle nového metru" aria-expanded="false" aria-controls="detail-H9"><span class="zn">☐</span><span class="t">Výměna FAVI podle nového metru</span></button><div class="bod-detail" id="detail-H9" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> 4. 10. 2026</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona hotovo" data-zona="hotovo"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-hotovo"><span class="zn">✓</span><span class="nazev">Za námi, hotovo</span><span class="pocet">6</span><span class="sipka">▾</span></button><ol class="body" id="zona-hotovo" data-seznam="1" hidden><li><button class="bod" type="button" data-bod="H1" data-titulek="Soupis zapomenutych hvezd s duvodem" aria-expanded="false" aria-controls="detail-H1"><span class="zn">✓</span><span class="t">Soupis zapomenutych hvezd s duvodem</span></button><div class="bod-detail" id="detail-H1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="H2" data-titulek="Navrh k vraceni" aria-expanded="false" aria-controls="detail-H2"><span class="zn">✓</span><span class="t">Navrh k vraceni</span></button><div class="bod-detail" id="detail-H2" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="H3" data-titulek="Mirkovo ANO" aria-expanded="false" aria-controls="detail-H3"><span class="zn">✓</span><span class="t">Mirkovo ANO</span></button><div class="bod-detail" id="detail-H3" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="H4" data-titulek="Vraceni do feedu FAVI CZ" aria-expanded="false" aria-controls="detail-H4"><span class="zn">✓</span><span class="t">Vraceni do feedu FAVI CZ</span></button><div class="bod-detail" id="detail-H4" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="H5" data-titulek="Mereni testu: kolik zbyde ze stovky" aria-expanded="false" aria-controls="detail-H5"><span class="zn">✓</span><span class="t">Mereni testu: kolik zbyde ze stovky</span></button><div class="bod-detail" id="detail-H5" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 3. 10. 2026</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="H8" data-titulek="Predat odbocky: propalovace FAVI na kartu" aria-expanded="false" aria-controls="detail-H8"><span class="zn">✓</span><span class="t">Predat odbocky: propalovace FAVI na kartu</span></button><div class="bod-detail" id="detail-H8" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>Krok je připraven</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona odbocky" data-zona="odbocky"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-odbocky"><span class="zn">→</span><span class="nazev">Odbočky jinam</span><span class="pocet">0</span><span class="sipka">▾</span></button><ol class="body" id="zona-odbocky" data-seznam="0" hidden></ol></section>
+<p class="legenda">Modrý rámeček ▶ = jsi tady · oranžové 👉 = na tahu jsi ty (jediná oranžová na stránce) · šedé ✔ = hotovo, ztlumené · světle modrý pruh ⏳ = rozdělané · cihlový pruh ⚠ = stojí · čárkované ☐ = před námi · fialový pruh → = odbočka · barva vždy jen zopakuje značku a slovo · ťukni na řádek = rozbalí se, znovu = sbalí se</p></main><script>document.addEventListener("click", e=>{
+  const b = e.target.closest("button.zona-hlava, button.bod");
+  if (!b) return;
+  const t = document.getElementById(b.getAttribute("aria-controls"));
+  const otevrit = t.hidden; t.hidden = !otevrit; b.setAttribute("aria-expanded", String(otevrit));
+  const s2 = b.querySelector(".sipka"); if (s2) s2.textContent = otevrit ? "▴" : "▾";
+});</script></body></html>
