@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="39">
+<meta name="karta-verze" content="42">
 <title>UKOL-253 · Živý obraz ve Velínu: mapa se obnoví sama, posun po každém kole, pevné místo Čeká na mě (D2, D3, D2b z UKOL-231)</title>
 <style>
 body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
@@ -40,11 +40,11 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 <header>
   <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
   <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok 7 – Tvoje kontrola čitelnosti na Foldu</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Tvoje kontrola čitelnosti na Foldu.</p>
+    <p data-radek="kde"><strong>Kde jsme:</strong> krok 8 – Tvoje potvrzení na 5 skutečných úkolech</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Tvoje potvrzení na 5 skutečných úkolech.</p>
     <p data-radek="ceka" data-ceka-na="mirek"><strong>Čeká na tebe:</strong> krok 5: tvoje rozhodnutí · krok 7: tvoje rozhodnutí · krok 8: čeká na předchozí</p>
   </div>
-  <p class="plakat"><span class="plakat-cislo">8</span> z 11 hotovo</p>
+  <p class="plakat"><span class="plakat-cislo">9</span> z 10 hotovo</p>
   <div class="prepinac">
     <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
     <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
@@ -52,14 +52,14 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 </header>
 <main>
   <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 1640 150" width="1640" height="150" role="img" aria-label="Trať kroků karty">
+<svg data-trat="1" viewBox="0 0 1490 150" width="1490" height="150" role="img" aria-label="Trať kroků karty">
 <g class="stanice stav-hotovo" data-stanice="1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Ukázka A: vlastní stránka s mapou kroků"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">1</text><text x="92" y="46" font-size="16" aria-hidden="true">⑂</text></g>
 <line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-hotovo" data-stanice="2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Ukázka B: mapa přímo v Notionu (skončila, vybrána A)"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">2</text><text x="242" y="46" font-size="16" aria-hidden="true">⑂</text></g>
 <line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-hotovo" data-stanice="3" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Tvůj výběr podoby stránky"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">3</text><text x="392" y="46" font-size="16" aria-hidden="true">⑂</text></g>
 <line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="4" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Stránka se po každém zápisu překreslí sama"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">4</text></g>
+<g class="stanice stav-hotovo" data-stanice="4" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Stránka se po každém zápisu překreslí sama"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">4</text><text x="542" y="46" font-size="16" aria-hidden="true">⑂</text></g>
 <line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-hotovo" data-stanice="4b" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Odbočky na stránce"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">4b</text></g>
 <line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
@@ -67,13 +67,11 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 <line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
 <g class="stanice stav-hotovo" data-stanice="4d" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Proklik na stanice a pravdivé horní řádky"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="970" y="134" font-size="13" text-anchor="middle">4d</text></g>
 <line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-odlozeno" data-stanice="5" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Zápis posunu po každém kole stroje"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">□</text><text x="1120" y="134" font-size="13" text-anchor="middle">5</text><text x="1142" y="46" font-size="16" aria-hidden="true">⑂</text></g>
-<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
-<g class="stanice stav-hotovo" data-stanice="6" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Pohled Čeká na mě: jen témata a blokátory"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1270" y="134" font-size="13" text-anchor="middle">6</text></g>
+<g class="stanice stav-hotovo" data-stanice="6" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Pohled Čeká na mě: jen témata a blokátory"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">6</text></g>
+<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+<g class="stanice stav-hotovo" data-stanice="7" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Tvoje kontrola čitelnosti na Foldu"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1270" y="134" font-size="13" text-anchor="middle">7</text></g>
 <line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="7" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Tvoje kontrola čitelnosti na Foldu" data-tady="1" data-krok="7"><circle cx="1420" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">7</text><text x="1420" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="1440" y1="70" x2="1550" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="8" data-poradi="11" data-x="1570" data-proklik="1" role="button" tabindex="0" aria-label="Tvoje potvrzení na 5 skutečných úkolech"><text x="1570" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1570" y="134" font-size="13" text-anchor="middle">8</text></g>
+<g class="stanice stav-ceka" data-stanice="8" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Tvoje potvrzení na 5 skutečných úkolech" data-tady="1" data-krok="8"><circle cx="1420" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">8</text><text x="1420" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
 </svg>
   </div>
   <section class="panely-kroku">
@@ -102,7 +100,7 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
   <h3><span class="znak" aria-hidden="true">●</span> Stránka se po každém zápisu překreslí sama <span class="stav-text">(hotovo)</span></h3>
   <p><strong>Hotovo:</strong> 8. 11. 20:02</p>
   <p>Krok 3 hotovo (Mirek vybral format); zadani_velin odd.1</p>
-  
+  <div class="odbocky-kroku"><div class="odbocka odbocka-nova" data-odbocka-id="r253-k5" data-z-kroku="4" data-konec="nova" data-ukol="UKOL-255"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">Zápis posunu po každém kole stroje patří do stroje - přesunuto do dílny (nová)</span> <span class="odbocka-ukol">UKOL-255</span></div></div>
   <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Udelej z ukazky A ostrou stranku pro KAZDOU kartu: generator C:/work/ukoly/_253_stroj/obraz_a.py &lt;karta&gt; nakresli stranku podle nacrtu A (https://claude.ai/artifact/KLMzwwy1w5B1vQb6G7ygAj: nahore 3 radky kde jsme / co vzniklo / co ceka na tebe, prepinac Celek/Detail, hlavni cesta zleva doprava z kroku karty, informaci nese tvar znacky, nikdy barva - Mirek ma poruchu barvocitu) a nahraje ji na https://procentov.github.io/zivy-obraz-prace/karty/&lt;UKOL-xx&gt;.html (repo Procentov/zivy-obraz-prace; verejne - Mirek 8. 11. 2026 souhlasil). Spoustej ho SAM po kazdem uspesnem zapisu pres branu C:/work/ukoly/zapis_karty.py - odpojene, nesmi zdrzet ani shodit zapis karty, nesmi zapisovat pole, ktere spadne na CIZI_CERSTVY_NAROK. Stranka MUSI nest &lt;meta name=&quot;karta-verze&quot; content=&quot;&lt;verze karty z brany&gt;&quot;&gt;. Do zrcadla mapy v Notionu (mapa_z_karty.py) pridej nahoru radek s odkazem na stranku karty. Zaloz zkusebni kartu UKOL-9953 (jen pro mereni, zadna skutecna prace). Hotovo meri meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953: 10 zapisu, vsechny na strance do 100 s (limit mereni stroje 120 s). Vysledek zapis do C:/work/ukoly/_253_stroj/k1_obnova_253.json jako {&quot;url_vzor&quot;: .., &quot;kde_spousteno&quot;: .., &quot;generator&quot;: ..}. VADA Z OSTREHO PROVOZU (8. 11. 2026 ~20:00, vlakno 251-02): 4 zapisy odbocek tesne po sobe na karte UKOL-253 (zapis_odbocky.py, kod 0) -&gt; na strance jen 2 z 4, stranka zustala na karta-verze 27, karta ma 29, ani po dalsich minutach se nedokreslila. Posledni prekresleni se ztrati, kdyz se zapisy prekryvaji. Oprav tak, aby po posledni zmene karty stranka VZDY dobehla na posledni verzi (napr. po dokonceni prekresleni porovnej verzi karty a kresli znovu; nahravani nesmi skoncit konfliktem). Over i na karte UKOL-253: vsechny 4 odbocky r251a-d na strance.</p></div></details>
 </article>
 <article class="krok-panel" data-panel-krok="4b" hidden>
@@ -126,13 +124,6 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
   
   <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Uprav generator stranky A C:/work/ukoly/_253_stroj/obraz_a.py a strazce C:/work/ukoly/_253_stroj/strazce_obraz_a.py. Duvod: Mirek 8. 11. 2026 22:09 na Foldu: &#x27;Muzeme pruchozi body udelat na proklik?&#x27; a nalez na jeho snimku: horni radky lzou (Kde jsme: krok 4, ackoli jsme u kroku 7; Ceka na tebe: Nic, ackoli na nem stoji kroky 5 a 7; nazvy bez diakritiky; TADY mimo obrazovku). Udelej: (1) PROKLIK: kazda stanice trati (prvek data-stanice) dostane data-proklik=&quot;1&quot;, role=&quot;button&quot;, tabindex=&quot;0&quot; a dotykovou plochu aspon 44x44 px; ke kazdemu kroku karty prave jeden panel data-panel-krok=&quot;&lt;id&gt;&quot; pod trati, po nacteni skryty atributem hidden; tuknuti na stanici (i Enter) otevre jeho panel a zavre ostatni, druhe tuknuti ho zavre; funguje v pohledu Celek. Panel: lidsky nazev kroku, stav slovem a znackou (tvar, ne barva), datum hotovo lidsky (8. 11. 20:02), co z kroku vzniklo jednou vetou bez cest, skriptu a casovych razitek, odbocky kroku; technicke zadani jen v zavrenem details. (2) KDE JSME pocitej z kroku karty: &#x27;krok &lt;id&gt; – &lt;lidsky nazev&gt;&#x27; pro prvni krok, ktery neni hotovo ani odlozeno; kdyz takovy neni, &#x27;Karta je hotová&#x27;. Pole pozice na karte NEPOUZIVEJ. (3) CEKA NA TEBE pocitej ze stavu jizdy C:/work/stroj/jizdy/&lt;karta&gt;/stav.json, pole stoji: useky s kdo == Mirek -&gt; data-ceka-na=&quot;mirek&quot; a radek jmenuje kazdy z nich presne ve tvaru &#x27;krok &lt;id&gt;&#x27; s kratkym lidskym duvodem (cely radek nejvys 140 znaku); zadny -&gt; data-ceka-na=&quot;nikdo&quot; a &#x27;Nic – stroj pracuje dál&#x27;. Chybi-li stav.json, plati nikdo. Pole micek ani micek_duvod NEPOUZIVEJ. Strazce prekresli stranku karty i pri zmene jejiho stav.json, nejen pri zmene verze karty; po uprave strazce ho restartuj (stary proces ukonci, novy spust odpojene a bez okna jako dosud). (4) LIDSKY NAZEV: ma-li krok na karte pole nazev_lidsky, pouzij ho vsude na strance misto nazev. (5) Po otevreni trat sama najede na stanici TADY (scrollIntoView nebo scrollLeft v ramu trati; stranka sama do strany nejede). Neporus smlouvu kroku 4, 4b a 4c (meta karta-verze, data-trat, data-stanice/poradi/x, data-tady/data-krok, tri-radky, data-odbocka-*, technicke zadani v zavrenem details); jedina vyjimka: data-ceka-na se ridi stav.json, ne mickem. Na karty nezapisuj. Na konci spust obraz_a.py UKOL-253 a UKOL-9953. Hotovo meri C:/work/ukoly/_253_stroj/meridlo_u4d_253.py --karta UKOL-253 (smlouva P1-P7 v jeho hlavicce) a samo-obnova se nesmi rozbit (meridlo_obraz_a_253.py --rezim obnova --karta UKOL-9953). Vysledek: C:/work/ukoly/_253_stroj/k4d_proklik_253.json jako {&quot;generator&quot;: .., &quot;strazce&quot;: .., &quot;zmeny&quot;: [..]}.</p></div></details>
 </article>
-<article class="krok-panel" data-panel-krok="5" hidden>
-  <h3><span class="znak" aria-hidden="true">□</span> Zápis posunu po každém kole stroje <span class="stav-text">(odloženo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Krok 4 hotovo; zadani_velin odd.2</p>
-  <div class="odbocky-kroku"><div class="odbocka odbocka-nova" data-odbocka-id="r251d" data-z-kroku="5" data-konec="nova" data-ukol="UKOL-255"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">Zapis posunu po kazdem kole stroje patri dilne - predano jako podnet (nová)</span> <span class="odbocka-ukol">UKOL-255</span></div></div>
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Pridej automaticky skryty krok, ktery po kazdem kole stroje zapise posun na kartu pres branu (dnes jde posun jen do C:/work/stroj/jizdy/&lt;karta&gt;/stav.json). Nevnucovat zapis delnikovi ani kontrole; krok musi prezit budouci zmeny smycky. Zapisy se nesmi navzajem prepsat (denik jen pribyva, cislo verze karty rika poradi). Over na aspon 5 kolech skutecne jizdy: kazde kolo ma zaznam posunu, 0 prepsanych cizich zapisu. Vysledek zapis do C:/work/ukoly/_253_stroj/k2_test_253.json jako {&quot;kola&quot;: [{&quot;verze_pred&quot;: .., &quot;verze_po&quot;: .., &quot;posun_zapsan&quot;: true}, ...], &quot;prepsanych_cizich&quot;: 0}.</p></div></details>
-</article>
 <article class="krok-panel" data-panel-krok="6" hidden>
   <h3><span class="znak" aria-hidden="true">●</span> Pohled Čeká na mě: jen témata a blokátory <span class="stav-text">(hotovo)</span></h3>
   <p><strong>Hotovo:</strong> 8. 11. 16:04</p>
@@ -141,8 +132,8 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
   <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>V pohledu Ceka na me (view 40f64a4c-c9df-8116-a3f8-000c626f640e) nech jen karty s tematem v diskusi s Mirkem nebo blokatorem stroje (rozliseni v datech, napr. pole Duvod cekani = tema/blokator); zadne tecky, palce ani prubezna schvaleni. Razeni (pocita skript pri kazdem obnoveni, nikdy rucne): 1) hranice/blokator nahoru, 2) priorita vysoka-&gt;stredni-&gt;nizka, 3) pri shode nejcerstvejsi pohyb nahoru, 4) micek u stroje bez pohybu &gt; 24 h -&gt; znacka zaseknute, nahoru do bodu 1 (prah 24 h muze Mirek zmenit). Over na 5 zkusebnich kartach s ruznou prioritou/stavem/starim pohybu: poradi sedi pravidlu 5 z 5. Vysledek zapis do C:/work/ukoly/_253_stroj/k3_test_253.json jako {&quot;karty&quot;: [{&quot;id&quot;: .., &quot;ma_byt_v_B&quot;: bool, &quot;je_v_B&quot;: bool}, ...5], &quot;poradi_B&quot;: [...], &quot;ocekavane_poradi&quot;: [...]}.</p></div></details>
 </article>
 <article class="krok-panel" data-panel-krok="7" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Tvoje kontrola čitelnosti na Foldu <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
+  <h3><span class="znak" aria-hidden="true">●</span> Tvoje kontrola čitelnosti na Foldu <span class="stav-text">(hotovo)</span></h3>
+  <p><strong>Hotovo:</strong> 9. 11. 05:24</p>
   <p>Krok 6 hotovo</p>
   
   <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Posli Mirkovi odkaz na ostrou stranku A karty UKOL-253 (z kroku 4) na Fold a pockej na jeho potvrzeni citelnosti zapsane do deniku karty. Citelnost posuzuje Mirek, ne skript. Nic za nej nerozhoduj.</p></div></details>
@@ -197,7 +188,7 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
 </article>
 <article class="krok-detail stav-hotovo" data-krok-id="4">
   <h3><span class="znak" aria-hidden="true">●</span> 4. Stránka se po každém zápisu překreslí sama <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 20:02</span></h3>
-  
+  <div class="odbocky-kroku"><div class="odbocka odbocka-nova" data-odbocka-id="r253-k5" data-z-kroku="4" data-konec="nova" data-ukol="UKOL-255"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">Zápis posunu po každém kole stroje patří do stroje - přesunuto do dílny (nová)</span> <span class="odbocka-ukol">UKOL-255</span></div></div>
   <details class="zadani-wrap">
     <summary>Technické zadání</summary>
     <div class="zadani">
@@ -247,21 +238,8 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
     </div>
   </details>
 </article>
-<article class="krok-detail stav-odlozeno" data-krok-id="5">
-  <h3><span class="znak" aria-hidden="true">□</span> 8. Zápis posunu po každém kole stroje <span class="stav-text">(odloženo)</span></h3>
-  <div class="odbocky-kroku"><div class="odbocka odbocka-nova" data-odbocka-id="r251d" data-z-kroku="5" data-konec="nova" data-ukol="UKOL-255"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">Zapis posunu po kazdem kole stroje patri dilne - predano jako podnet (nová)</span> <span class="odbocka-ukol">UKOL-255</span></div></div>
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Pridej automaticky skryty krok, ktery po kazdem kole stroje zapise posun na kartu pres branu (dnes jde posun jen do C:/work/stroj/jizdy/&lt;karta&gt;/stav.json). Nevnucovat zapis delnikovi ani kontrole; krok musi prezit budouci zmeny smycky. Zapisy se nesmi navzajem prepsat (denik jen pribyva, cislo verze karty rika poradi). Over na aspon 5 kolech skutecne jizdy: kazde kolo ma zaznam posunu, 0 prepsanych cizich zapisu. Vysledek zapis do C:/work/ukoly/_253_stroj/k2_test_253.json jako {&quot;kola&quot;: [{&quot;verze_pred&quot;: .., &quot;verze_po&quot;: .., &quot;posun_zapsan&quot;: true}, ...], &quot;prepsanych_cizich&quot;: 0}.</p>
-      <p>Oblast: C:/work/ukoly/_253_stroj · Výsledný soubor: C:/work/ukoly/_253_stroj/k2_test_253.json</p>
-      <ul class="meritka"><li>U5-M2: python C:\work\ukoly\_253_stroj\meridlo_u5b_253.py</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
 <article class="krok-detail stav-hotovo" data-krok-id="6">
-  <h3><span class="znak" aria-hidden="true">●</span> 9. Pohled Čeká na mě: jen témata a blokátory <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 16:04</span></h3>
+  <h3><span class="znak" aria-hidden="true">●</span> 8. Pohled Čeká na mě: jen témata a blokátory <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 8. 11. 16:04</span></h3>
   
   <details class="zadani-wrap">
     <summary>Technické zadání</summary>
@@ -273,8 +251,8 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
     </div>
   </details>
 </article>
-<article class="krok-detail stav-ceka" data-krok-id="7">
-  <h3><span class="znak" aria-hidden="true">○</span> 10. Tvoje kontrola čitelnosti na Foldu <span class="stav-text">(čeká)</span></h3>
+<article class="krok-detail stav-hotovo" data-krok-id="7">
+  <h3><span class="znak" aria-hidden="true">●</span> 9. Tvoje kontrola čitelnosti na Foldu <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 9. 11. 05:24</span></h3>
   
   <details class="zadani-wrap">
     <summary>Technické zadání</summary>
@@ -282,12 +260,12 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
       <p>Posli Mirkovi odkaz na ostrou stranku A karty UKOL-253 (z kroku 4) na Fold a pockej na jeho potvrzeni citelnosti zapsane do deniku karty. Citelnost posuzuje Mirek, ne skript. Nic za nej nerozhoduj.</p>
       <p>Oblast: — · Výsledný soubor: —</p>
       <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
+      <ul class="dukaz"><li>—:  → vad 0</li></ul>
     </div>
   </details>
 </article>
 <article class="krok-detail stav-ceka" data-krok-id="8">
-  <h3><span class="znak" aria-hidden="true">○</span> 11. Tvoje potvrzení na 5 skutečných úkolech <span class="stav-text">(čeká)</span></h3>
+  <h3><span class="znak" aria-hidden="true">○</span> 10. Tvoje potvrzení na 5 skutečných úkolech <span class="stav-text">(čeká)</span></h3>
   
   <details class="zadani-wrap">
     <summary>Technické zadání</summary>
@@ -299,7 +277,13 @@ footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px soli
     </div>
   </details>
 </article>
-
+<details class="krok-detail odbocky-orphan">
+  <summary>
+    <span class="odbocka-fork" aria-hidden="true" title="1 odbočka/y">⑂</span>
+    Odbočky mimo krok
+  </summary>
+  <div class="odbocky-kroku"><div class="odbocka odbocka-nova" data-odbocka-id="r251d" data-z-kroku="5" data-konec="nova" data-ukol="UKOL-255"><span class="odbocka-vetev" aria-hidden="true">↳</span><span class="odbocka-znak" aria-hidden="true">→</span><span class="odbocka-popis">Zapis posunu po kazdem kole stroje patri dilne - predano jako podnet (nová)</span> <span class="odbocka-ukol">UKOL-255</span></div></div>
+</details>
   </section>
 </main>
 <footer class="legenda">
