@@ -1,270 +1,73 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="91">
-<title>UKOL-213 · Kde jsme — teplý start u karet přes víc vláken</title>
-<style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
-header p{margin:.2rem 0;font-size:1.05rem}
-.vedu{font-weight:bold}
-#tri-radky p{margin:.2rem 0;font-size:1rem}
-.plakat{margin:.5rem 0;font-size:1.1rem}
-.plakat-cislo{font-size:2.6rem;font-weight:bold}
-.prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
-.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
-.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
-.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
-body.detail .trat-ram{display:none}
-body.celek .detail-kroky{display:none}
-.detail-kroky{margin:1rem 0}
-.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
-.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
-.krok-detail details{margin-top:.4rem;font-size:.85rem}
-.krok-detail summary{cursor:pointer;min-height:24px}
-.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
-.zadani ul{margin:.2rem 0;padding-left:1.1rem}
-footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
-.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
-.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
-.odbocka-znak{font-size:1rem}
-.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
-</style>
-</head>
-<body class="celek">
-<header>
-  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
-  <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok N2b – Zapecetena zkouska: vytahovac na 5 kartach z ciloveho stavu, ktere nikdy nevidel; pocita se jen prvni porovnani</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Zapecetena zkouska: vytahovac na 5 kartach z ciloveho stavu, ktere nikdy nevidel; pocita se jen prvni porovnani.</p>
-    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
-  </div>
-  <p class="plakat"><span class="plakat-cislo">3</span> z 8 hotovo</p>
-  <div class="prepinac">
-    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
-    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
-  </div>
-</header>
-<main>
-  <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 1190 150" width="1190" height="150" role="img" aria-label="Trať kroků karty">
-<g class="stanice stav-hotovo" data-stanice="N1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Navrh odpovedi: Claude u 10 karet navrhne Mirkuv posledni pozadavek s citaci a az dvema dalsimi kandidaty"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">N1</text></g>
-<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="N1b" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Mirek oznacil vytazene zpravy u 10 karet jako pozadavek, dotaz nebo nic (hlasem 3. 11., misto vyberu A/B/C)"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">N1b</text></g>
-<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="N2" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Vytahovac pozadavku (stavi Codex): z archivu zapise do registru (jen pridava) pozadavky, otazky a rozhodnuti; ladi se na 5 kartach podle Mirkovych stitku pozadavek / dotaz"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">N2</text></g>
-<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="N2b" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Zapecetena zkouska: vytahovac na 5 kartach z ciloveho stavu, ktere nikdy nevidel; pocita se jen prvni porovnani" data-tady="1" data-krok="N2b"><circle cx="520" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="520" y="134" font-size="13" text-anchor="middle">N2b</text><text x="520" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="N3" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Zadani Velinu: mapa kde jsme vykresli schvaleny vzor (pavouk, problem a cil, tabule 6 radku, ramecek prace mimo kartu) z karty a registru; nahore posledni nehotove zadani se stavem a zvlast dotazy bez odpovedi"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="670" y="134" font-size="13" text-anchor="middle">N3</text></g>
-<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="N4" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Cerstvost: vytahovac jde pustit na povel pri &#x27;kde jsme&#x27;, ne az pri rannim svozu"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="820" y="134" font-size="13" text-anchor="middle">N4</text></g>
-<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="N5" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Zkouska s Mirkem jednou davkou: 5 obrazovek, u kazde odpovi 1 = nasel a rozhodl bez jineho okna / 2 = ne a proc"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="970" y="134" font-size="13" text-anchor="middle">N5</text></g>
-<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="N6" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Skilly kde-jsme a nastupni-report prepnout na novy tvar (tvorba-skillu, ZIP Mirkovi k nahrani); sladeno s krokem S8 karty 49"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1120" y="134" font-size="13" text-anchor="middle">N6</text></g>
-</svg>
-  </div>
-  <section class="panely-kroku">
-<article class="krok-panel" data-panel-krok="N1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Navrh odpovedi: Claude u 10 karet navrhne Mirkuv posledni pozadavek s citaci a az dvema dalsimi kandidaty <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 3. 11. 10:54</p>
-  <p>plan podepsany; vyber 10 karet, snimek archivu a vstup zmrazeny 3. 11. , snimek/, pravda/vstup/)</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Ve slozce C:/work/ukoly/_u213/pravda/vstup/ jsou pro 10 karet vsechny Mirkovy zpravy (zprava_id, cas, odkaz, vlakno, text). Pro kazdou kartu urci jeho POSLEDNI pozadavek. Pozadavek = Mirek po asistentovi neco chce (udelat, zjistit, vysvetlit, zmenit), otazka se pocita. Volba cislem, &#x27;ok&#x27;, tecka, carka, souhlas a podekovani pozadavek nejsou. Zprava zacinajici &#x27;NÁZEV VLÁKNA:&#x27; je predavka napsana asistentem; pozadavek z ni ber jen z textu, ktery Mirek dopsal sam. Zapis C:/work/ukoly/_u213/pravda/navrh.json ve tvaru {rodina: &#x27;claude_code&#x27;, karty: [{karta, zprava_id, cas, citace (doslovny usek, aspon 15 znaku), odkaz, kandidati: [{zprava_id, citace}] (0 az 2 dalsi zpravy, ktere by mohly byt spravnou odpovedi, nejpravdepodobnejsi prvni), pozdejsi: [{zprava_id, proc_neni_pozadavek}] (KAZDA pozdejsi zprava te karty, ktera neni hole cislo, tecka nebo ok)}]}. Cti JEN slozku C:/work/ukoly/_u213/pravda/vstup/; registr ani vytahovac necti.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="N1b" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Mirek oznacil vytazene zpravy u 10 karet jako pozadavek, dotaz nebo nic (hlasem 3. 11., misto vyberu A/B/C) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 3. 11. 12:57</p>
-  <p>N1 hotovo; asistent v chatu ukaze 10 karet s navrhem a kandidaty (bocni stranka); odpoved zapise a overi (kriterium K1)</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="N2" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Vytahovac pozadavku (stavi Codex): z archivu zapise do registru (jen pridava) pozadavky, otazky a rozhodnuti; ladi se na 5 kartach podle Mirkovych stitku pozadavek / dotaz <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 3. 11. 14:28</p>
-  <p>N1b hotovo: (Mirkovy stitky 5 ladicich karet, 9 zprav) a archiv_kopie/ v oblasti</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Postav C:/work/ukoly/_u213/vytahovac/vytahovac.py s rozhranim: python vytahovac.py --vyber &lt;vyber_karet.json&gt; --registr &lt;slozka&gt; --archiv &lt;slozka chats&gt;. Pro kazdou kartu z vyberu projdi VYHRADNE Mirkovy zpravy (bloky &#x27;HUMAN [cas]&#x27;) v souborech vlaken te karty pod --archiv (jmeno souboru zacina cislem karty a poradim vlakna, napr. 228-17_; slozky __archive_version_* ignoruj; stejne uuid na konci jmena = jedno vlakno). Do &lt;slozka&gt;/&lt;karta&gt;.jsonl JEN PRIDEJ radky {zprava_id: &#x27;&lt;uuid vlakna&gt;@&lt;cas presne jak stoji v archivu&gt;&#x27;, cas, citace (doslovny usek zpravy, aspon 10 znaku nebo cela kratsi zprava), odkaz: &#x27;https://claude.ai/chat/&lt;uuid&gt;&#x27;, typ: pozadavek | otazka | rozhodnuti, navrh_stavu: {stav, dukaz}}. Pozadavek = Mirek chce, aby asistent neco udelal, zjistil, pripravil nebo zmenil; otazka smerujici k dalsi praci (&#x27;co tady resime dal?&#x27;, &#x27;kdo drzi ten kod?&#x27;) je pozadavek a jeden pozadavek muze stat ve dvou zpravach za sebou. Otazka na pochopeni, ujisteni nebo dovysvetleni toho, co asistent napsal (&#x27;co to ma spolecneho s kapitolou 4?&#x27;, &#x27;co je plan jedna?&#x27;, &#x27;v cem je linka jina?&#x27;) je typ otazka, NE pozadavek. Volba cislem, &#x27;ok&#x27;, tecka, carka, souhlas a podekovani jsou rozhodnuti nebo nic. Useknuty kousek bez smyslu (napr. &#x27;Sp&#x27;) neni pozadavek. Zprava zacinajici &#x27;NÁZEV VLÁKNA:&#x27; je predavka napsana asistentem; pozadavek z ni ber jen z textu, ktery Mirek dopsal sam. U otazky dej do navrh_stavu, zda na ni asistent odpovedel (zodpovezena / bez odpovedi). Citace bere jen Mirkuv vlastni text: blok priloh zacinajici radkem &#x27;files:&#x27; nebo &#x27;attachments:&#x27; (a vse za nim) do citace nepatri. Kdyz meridlo hlasi vadu v uz zapsanych radcich, presun cely registr do C:/work/ukoly/_u213/vytahovac/_pokus_&lt;N&gt;/ a postav ho znovu; pravidlo &#x27;jen pridava&#x27; plati pro opakovane spusteni nad hotovym registrem. Druhe spusteni nesmi zmenit stare radky ani zdvojit zpravu. Bez site. Ladit smis jen podle C:/work/ukoly/_u213/vytahovac/pravda_ladeni.json (5 karet, u vybranych zprav Mirkuv stitek pozadavek / dotaz / nic; dotaz odpovida typu otazka, nic znamena, ze zprava neni pozadavek). Nakonec spust: python C:/work/ukoly/_u213/vytahovac/vytahovac.py --vyber C:/work/ukoly/_u213/stroj/vyber_karet.json --registr C:/work/ukoly/_u213/vytahovac/registr --archiv C:/work/ukoly/_u213/vytahovac/archiv_kopie/chats. Mimo slozku C:/work/ukoly/_u213/vytahovac/ nic necti ani nepis; slozku pravda/ (zapecetene odpovedi) nikdy necti.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="N2b" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Zapecetena zkouska: vytahovac na 5 kartach z ciloveho stavu, ktere nikdy nevidel; pocita se jen prvni porovnani <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>N2 hotovo (ladeni: 9 z 9 stitku a posledni pozadavek 5 z 5)</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Nic nemen. Jen over, ze existuje C:/work/ukoly/_u213/vytahovac/registr/ pro vsech 10 karet z C:/work/ukoly/_u213/stroj/vyber_karet.json, a zapis do C:/work/ukoly/_u213/vytahovac/_n2b_hotovo.txt jeden radek &#x27;registr pripraven&#x27;. Vytahovac ani registr po zapecetene zkousce neopravuj; kdyz meridlo neprojde, zastav se.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="N3" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Zadani Velinu: mapa kde jsme vykresli schvaleny vzor (pavouk, problem a cil, tabule 6 radku, ramecek prace mimo kartu) z karty a registru; nahore posledni nehotove zadani se stavem a zvlast dotazy bez odpovedi <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>N2b hotovo; vzor = artefakt VHgQKHVy81dUdX4NEohcAj, doplneni 6; stavbu kresliciho nastroje dela Velin (hranice projektu)</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="N4" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Cerstvost: vytahovac jde pustit na povel pri &#x27;kde jsme&#x27;, ne az pri rannim svozu <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>N2b hotovo</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Over, jestli svoz archivu (C:/work/export_konverzaci/) jde pustit mimo 9:00 jednim prikazem; kdyz ano, napis spoustec C:/work/ukoly/_u213/kde_jsme_cerstve.py (svoz jen novych vlaken + vytahovac pro jednu kartu). Kdyz ne, zapis duvod do vysledneho souboru.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="N5" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Zkouska s Mirkem jednou davkou: 5 obrazovek, u kazde odpovi 1 = nasel a rozhodl bez jineho okna / 2 = ne a proc <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>N3 dodano Velinem a tvarovy test K5 0 vad; N4 hotovo</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="N6" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Skilly kde-jsme a nastupni-report prepnout na novy tvar (tvorba-skillu, ZIP Mirkovi k nahrani); sladeno s krokem S8 karty 49 <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>N5: cil 5 z 5 splnen</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-  </section>
-  <section class="detail-kroky">
-<article class="krok-detail stav-hotovo" data-krok-id="N1">
-  <h3><span class="znak" aria-hidden="true">●</span> 1. Navrh odpovedi: Claude u 10 karet navrhne Mirkuv posledni pozadavek s citaci a az dvema dalsimi kandidaty <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 3. 11. 10:54</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Ve slozce C:/work/ukoly/_u213/pravda/vstup/ jsou pro 10 karet vsechny Mirkovy zpravy (zprava_id, cas, odkaz, vlakno, text). Pro kazdou kartu urci jeho POSLEDNI pozadavek. Pozadavek = Mirek po asistentovi neco chce (udelat, zjistit, vysvetlit, zmenit), otazka se pocita. Volba cislem, &#x27;ok&#x27;, tecka, carka, souhlas a podekovani pozadavek nejsou. Zprava zacinajici &#x27;NÁZEV VLÁKNA:&#x27; je predavka napsana asistentem; pozadavek z ni ber jen z textu, ktery Mirek dopsal sam. Zapis C:/work/ukoly/_u213/pravda/navrh.json ve tvaru {rodina: &#x27;claude_code&#x27;, karty: [{karta, zprava_id, cas, citace (doslovny usek, aspon 15 znaku), odkaz, kandidati: [{zprava_id, citace}] (0 az 2 dalsi zpravy, ktere by mohly byt spravnou odpovedi, nejpravdepodobnejsi prvni), pozdejsi: [{zprava_id, proc_neni_pozadavek}] (KAZDA pozdejsi zprava te karty, ktera neni hole cislo, tecka nebo ok)}]}. Cti JEN slozku C:/work/ukoly/_u213/pravda/vstup/; registr ani vytahovac necti.</p>
-      <p>Oblast: C:/work/ukoly/_u213/pravda/ · Výsledný soubor: C:/work/ukoly/_u213/pravda/navrh.json</p>
-      <ul class="meritka"><li>N1-M1: python C:/work/ukoly/_u213/stroj/over_pravdu.py</li></ul>
-      <ul class="dukaz"><li>3. 11. 10:54: python C:/work/ukoly/_u213/stroj/over_pravdu.py → vad 0</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="N1b">
-  <h3><span class="znak" aria-hidden="true">●</span> 2. Mirek oznacil vytazene zpravy u 10 karet jako pozadavek, dotaz nebo nic (hlasem 3. 11., misto vyberu A/B/C) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 3. 11. 12:57</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="N2">
-  <h3><span class="znak" aria-hidden="true">●</span> 3. Vytahovac pozadavku (stavi Codex): z archivu zapise do registru (jen pridava) pozadavky, otazky a rozhodnuti; ladi se na 5 kartach podle Mirkovych stitku pozadavek / dotaz <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 3. 11. 14:28</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Postav C:/work/ukoly/_u213/vytahovac/vytahovac.py s rozhranim: python vytahovac.py --vyber &lt;vyber_karet.json&gt; --registr &lt;slozka&gt; --archiv &lt;slozka chats&gt;. Pro kazdou kartu z vyberu projdi VYHRADNE Mirkovy zpravy (bloky &#x27;HUMAN [cas]&#x27;) v souborech vlaken te karty pod --archiv (jmeno souboru zacina cislem karty a poradim vlakna, napr. 228-17_; slozky __archive_version_* ignoruj; stejne uuid na konci jmena = jedno vlakno). Do &lt;slozka&gt;/&lt;karta&gt;.jsonl JEN PRIDEJ radky {zprava_id: &#x27;&lt;uuid vlakna&gt;@&lt;cas presne jak stoji v archivu&gt;&#x27;, cas, citace (doslovny usek zpravy, aspon 10 znaku nebo cela kratsi zprava), odkaz: &#x27;https://claude.ai/chat/&lt;uuid&gt;&#x27;, typ: pozadavek | otazka | rozhodnuti, navrh_stavu: {stav, dukaz}}. Pozadavek = Mirek chce, aby asistent neco udelal, zjistil, pripravil nebo zmenil; otazka smerujici k dalsi praci (&#x27;co tady resime dal?&#x27;, &#x27;kdo drzi ten kod?&#x27;) je pozadavek a jeden pozadavek muze stat ve dvou zpravach za sebou. Otazka na pochopeni, ujisteni nebo dovysvetleni toho, co asistent napsal (&#x27;co to ma spolecneho s kapitolou 4?&#x27;, &#x27;co je plan jedna?&#x27;, &#x27;v cem je linka jina?&#x27;) je typ otazka, NE pozadavek. Volba cislem, &#x27;ok&#x27;, tecka, carka, souhlas a podekovani jsou rozhodnuti nebo nic. Useknuty kousek bez smyslu (napr. &#x27;Sp&#x27;) neni pozadavek. Zprava zacinajici &#x27;NÁZEV VLÁKNA:&#x27; je predavka napsana asistentem; pozadavek z ni ber jen z textu, ktery Mirek dopsal sam. U otazky dej do navrh_stavu, zda na ni asistent odpovedel (zodpovezena / bez odpovedi). Citace bere jen Mirkuv vlastni text: blok priloh zacinajici radkem &#x27;files:&#x27; nebo &#x27;attachments:&#x27; (a vse za nim) do citace nepatri. Kdyz meridlo hlasi vadu v uz zapsanych radcich, presun cely registr do C:/work/ukoly/_u213/vytahovac/_pokus_&lt;N&gt;/ a postav ho znovu; pravidlo &#x27;jen pridava&#x27; plati pro opakovane spusteni nad hotovym registrem. Druhe spusteni nesmi zmenit stare radky ani zdvojit zpravu. Bez site. Ladit smis jen podle C:/work/ukoly/_u213/vytahovac/pravda_ladeni.json (5 karet, u vybranych zprav Mirkuv stitek pozadavek / dotaz / nic; dotaz odpovida typu otazka, nic znamena, ze zprava neni pozadavek). Nakonec spust: python C:/work/ukoly/_u213/vytahovac/vytahovac.py --vyber C:/work/ukoly/_u213/stroj/vyber_karet.json --registr C:/work/ukoly/_u213/vytahovac/registr --archiv C:/work/ukoly/_u213/vytahovac/archiv_kopie/chats. Mimo slozku C:/work/ukoly/_u213/vytahovac/ nic necti ani nepis; slozku pravda/ (zapecetene odpovedi) nikdy necti.</p>
-      <p>Oblast: C:/work/ukoly/_u213/vytahovac/ · Výsledný soubor: C:/work/ukoly/_u213/vytahovac/vytahovac.py</p>
-      <ul class="meritka"><li>N2-M1: python C:/work/ukoly/_u213/stroj/meridlo_n2.py</li><li>N2-M2: python C:/work/ukoly/_u213/stroj/porovnej_registr_v4.py --sada ladeni</li></ul>
-      <ul class="dukaz"><li>3. 11. 14:28: python C:/work/ukoly/_u213/stroj/meridlo_n2.py → vad 0</li><li>3. 11. 14:28: python C:/work/ukoly/_u213/stroj/porovnej_registr_v4.py --sada ladeni → vad 0</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="N2b">
-  <h3><span class="znak" aria-hidden="true">○</span> 4. Zapecetena zkouska: vytahovac na 5 kartach z ciloveho stavu, ktere nikdy nevidel; pocita se jen prvni porovnani <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Nic nemen. Jen over, ze existuje C:/work/ukoly/_u213/vytahovac/registr/ pro vsech 10 karet z C:/work/ukoly/_u213/stroj/vyber_karet.json, a zapis do C:/work/ukoly/_u213/vytahovac/_n2b_hotovo.txt jeden radek &#x27;registr pripraven&#x27;. Vytahovac ani registr po zapecetene zkousce neopravuj; kdyz meridlo neprojde, zastav se.</p>
-      <p>Oblast: C:/work/ukoly/_u213/vytahovac/ · Výsledný soubor: C:/work/ukoly/_u213/vytahovac/_n2b_hotovo.txt</p>
-      <ul class="meritka"><li>N2b-M1: python C:/work/ukoly/_u213/stroj/porovnej_registr_v4.py --sada zapecetena --publikuj C:/work/ukoly/_u213/_pravda_kde_jsme.json</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="N3">
-  <h3><span class="znak" aria-hidden="true">○</span> 5. Zadani Velinu: mapa kde jsme vykresli schvaleny vzor (pavouk, problem a cil, tabule 6 radku, ramecek prace mimo kartu) z karty a registru; nahore posledni nehotove zadani se stavem a zvlast dotazy bez odpovedi <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="N4">
-  <h3><span class="znak" aria-hidden="true">○</span> 6. Cerstvost: vytahovac jde pustit na povel pri &#x27;kde jsme&#x27;, ne az pri rannim svozu <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Over, jestli svoz archivu (C:/work/export_konverzaci/) jde pustit mimo 9:00 jednim prikazem; kdyz ano, napis spoustec C:/work/ukoly/_u213/kde_jsme_cerstve.py (svoz jen novych vlaken + vytahovac pro jednu kartu). Kdyz ne, zapis duvod do vysledneho souboru.</p>
-      <p>Oblast: C:/work/ukoly/_u213/ · Výsledný soubor: C:/work/ukoly/_u213/_cerstvost.json</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="N5">
-  <h3><span class="znak" aria-hidden="true">○</span> 7. Zkouska s Mirkem jednou davkou: 5 obrazovek, u kazde odpovi 1 = nasel a rozhodl bez jineho okna / 2 = ne a proc <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="N6">
-  <h3><span class="znak" aria-hidden="true">○</span> 8. Skilly kde-jsme a nastupni-report prepnout na novy tvar (tvorba-skillu, ZIP Mirkovi k nahrani); sladeno s krokem S8 karty 49 <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-
-  </section>
-</main>
-<footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
-  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
-</footer>
-<script>
-function rezim(r){
-  document.body.classList.remove('celek','detail');
-  document.body.classList.add(r);
-  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
-  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="karta-verze" content="91"><title>UKOL-213 · Kde jsme — teplý start u karet přes víc vláken</title><style>:root{
+  --papir:#ffffff; --inkoust:#1a1a1a; --sede:#5c5c5c; --linka:#1a1a1a; --jemna:#c4c4c4; --plocha:#f1f1f1;
+  --tady:#0072B2; --tady-svetla:#e6f1f8; --na-tebe:#E69F00; --na-tebe-text:#1a1a1a;
+  --rozdelane:#56B4E9; --rozdelane-svetla:#eef7fd; --stoji:#D55E00; --odbocka:#CC79A7; --hotovo:#7a7a7a;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-function otevriPanel(id){
-  const panely=[...document.querySelectorAll('[data-panel-krok]')];
-  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
-  if(!panel)return;
-  const otevrene=!panel.hidden;
-  panely.forEach(p=>p.hidden=true);
-  if(!otevrene)panel.hidden=false;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+    --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
 }
-function pripravProklik(){
-  document.querySelectorAll('[data-stanice]').forEach(st=>{
-    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
-    st.addEventListener('click',akce);
-    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
-  });
-  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
-  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
-}
-document.addEventListener('DOMContentLoaded',pripravProklik);
-</script>
-</body>
-</html>
+:root[data-theme="dark"]{ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+  --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0; background:var(--papir); color:var(--inkoust);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:18px; line-height:1.45;}
+main{max-width:620px; margin:0 auto; padding:16px 14px 48px;}
+.mapa-stitek{font-size:.8rem; font-weight:800; letter-spacing:.12em; margin:0;}
+h1{font-size:1.4rem; line-height:1.2; margin:2px 0 2px; font-weight:800;}
+.ukol-pod{font-size:.85rem; color:var(--sede); margin:0 0 12px;}
+.tady{border:4px solid var(--tady); background:var(--tady-svetla); margin:0 0 16px; border-radius:6px; overflow:hidden;}
+.tady .spendlik{background:var(--tady); color:#ffffff; font-size:.95rem; font-weight:800; letter-spacing:.1em; margin:0; padding:7px 14px;}
+.tady .vnitrek{padding:10px 14px 14px;}
+.tady .krok-ted{font-size:1.35rem; font-weight:800; margin:0 0 2px; line-height:1.25;}
+.tady .krok-cislo{font-size:.85rem; color:var(--sede); margin:0 0 8px;}
+.tady .natahu{display:inline-block; margin:10px 0 0; font-size:1rem; font-weight:800; padding:8px 12px; border-radius:6px;
+  background:var(--na-tebe); color:var(--na-tebe-text);}
+.tady .natahu.jiny{background:var(--plocha); color:var(--inkoust); font-weight:600; border:1px solid var(--jemna);}
+.pasek{display:flex; gap:4px; margin:6px 0 2px; flex-wrap:wrap; align-items:center;}
+.pasek span{width:16px; height:16px; border:2px solid var(--hotovo); background:var(--hotovo); border-radius:2px;}
+.pasek span.z{border-color:var(--rozdelane); background:linear-gradient(90deg,var(--rozdelane) 50%,transparent 50%);}
+.pasek span.c{border:2px dashed var(--jemna); background:transparent;}
+.pasek span.t{width:26px; height:26px; border:4px solid var(--tady); background:var(--papir); position:relative;}
+.pasek span.t::after{content:"▶"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:var(--tady);}
+.popisek{font-size:.8rem; color:var(--sede); margin:2px 0 0;}
+.detail-ted{margin-top:12px; padding-top:8px; border-top:1px solid var(--jemna); font-size:.88rem; color:var(--sede);}
+.detail-ted p{margin:0 0 6px;}
+section.zona{margin:0 0 10px;}
+button.zona-hlava{display:flex; align-items:center; gap:10px; width:100%; min-height:48px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); border-left:6px solid var(--hotovo); padding:8px 12px; cursor:pointer; border-radius:4px;}
+section.hotovo button.zona-hlava{color:var(--sede);}
+section.zcasti button.zona-hlava{border-left-color:var(--rozdelane); background:var(--rozdelane-svetla); font-weight:600;}
+section.zcasti.stoji button.zona-hlava{border-left-color:var(--stoji);}
+section.odbocky button.zona-hlava{border-left-color:var(--odbocka); color:var(--sede);}
+button.zona-hlava:focus-visible, button.bod:focus-visible{outline:3px solid var(--linka); outline-offset:2px;}
+.zona-hlava .zn{font-size:1.15rem; width:26px; text-align:center;}
+.zona-hlava .nazev{flex:1; font-weight:600;}
+.zona-hlava .pocet{font-weight:800; font-size:.9rem;}
+.zona-hlava .sipka{color:var(--sede); font-size:.85rem;}
+section.pred button.zona-hlava{border-style:dashed; border-left:6px dashed var(--jemna);}
+ol.body{list-style:none; margin:6px 0 0; padding:0 0 0 14px; border-left:2px solid var(--jemna);}
+ol.body li{margin:0 0 6px;}
+button.bod{display:flex; gap:10px; align-items:flex-start; width:100%; min-height:44px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); padding:8px 10px; cursor:pointer; border-radius:3px;}
+section.pred button.bod{border-style:dashed;}
+button.bod .zn{width:22px; text-align:center; flex:0 0 22px;}
+section.hotovo button.bod{color:var(--sede);}
+button.bod .t{flex:1;}
+.bod-detail{margin:4px 0 8px 32px; font-size:.88rem; padding:8px 10px; border-left:3px solid var(--jemna); background:var(--plocha);}
+.bod-detail p{margin:0 0 4px;}
+.legenda{margin-top:18px; font-size:.82rem; color:var(--sede); border-top:2px dashed var(--jemna); padding-top:10px;}</style></head><body><main>
+<p class="mapa-stitek" data-mapa-ukolu="1">🗺 MAPA ÚKOLU</p><h1>Kde jsme — teplý start u karet přes víc vláken</h1><p class="ukol-pod">Úkol 213 · Mozkovna · cíl: získat jasný přehled o práci a dalším kroku.</p>
+<div class="tady" id="tady" data-jsi-tady="1" data-krok="N2b"><p class="spendlik">▶ JSI TADY</p><div class="vnitrek"><p class="krok-ted">Zapečetěná zkouška vytahovače na kartách</p><p class="krok-cislo">krok 4 z 8</p><div class="pasek" role="img" aria-label="3 hotovo, jsi u kroku 4 z 8"><span></span><span></span><span></span><span class="t"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span></div><p class="popisek">3 hotovo · 4 před námi</p><p class="natahu jiny" data-na-tahu="stroj">Na tahu: stroj pracuje dál.</p><div class="detail-ted"><p>hotovo</p><button class="bod" type="button" data-bod="N2b" data-titulek="Zapečetěná zkouška vytahovače na kartách" aria-expanded="false" aria-controls="detail-N2b"><span class="zn">☐</span><span class="t">Zapečetěná zkouška vytahovače na kartách</span></button><div class="bod-detail" id="detail-N2b" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>Nic nemen. Jen over, ze existuje C:/work/ukoly/_u213/vytahovac/registr/ pro vsech 10 karet z C:/work/ukoly/_u213/stroj/vyber_karet.json, a zapis do C:/work/ukoly/_u213/vytahovac/_n2b_hotovo.txt jeden radek &#x27;registr pripraven&#x27;. Vytahovac ani registr po zapecetene zkousce neopravuj; kdyz meridlo neprojde, zastav se.</p></details></div></div></div></div>
+<section class="zona zcasti" data-zona="rozdelane"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-rozdelane"><span class="zn">⏳</span><span class="nazev">Rozdělané</span><span class="pocet">0</span><span class="sipka">▴</span></button><ol class="body" id="zona-rozdelane" data-seznam="0"></ol></section><section class="zona pred pred" data-zona="pred"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-pred"><span class="zn">☐</span><span class="nazev">Před námi</span><span class="pocet">4</span><span class="sipka">▴</span></button><ol class="body" id="zona-pred" data-seznam="0"><li><button class="bod" type="button" data-bod="N3" data-titulek="Mapa velínu podle schváleného vzoru" aria-expanded="false" aria-controls="detail-N3"><span class="zn">☐</span><span class="t">Mapa velínu podle schváleného vzoru</span></button><div class="bod-detail" id="detail-N3" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo; vzor = artefakt VHgQKHVy81dUdX4NEohcAj, doplneni 6; stavbu kresliciho nastroje dela Velin</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="N4" data-titulek="Spuštění vytahovače na povel" aria-expanded="false" aria-controls="detail-N4"><span class="zn">☐</span><span class="t">Spuštění vytahovače na povel</span></button><div class="bod-detail" id="detail-N4" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>Over, jestli svoz archivu (C:/work/export_konverzaci/) jde pustit mimo 9:00 jednim prikazem; kdyz ano, napis spoustec C:/work/ukoly/_u213/kde_jsme_cerstve.py (svoz jen novych vlaken + vytahovac pro jednu kartu). Kdyz ne, zapis duvod do vysledneho souboru.</p></details></div></li><li><button class="bod" type="button" data-bod="N5" data-titulek="Zkouška pěti obrazovek s Mirkem" aria-expanded="false" aria-controls="detail-N5"><span class="zn">☐</span><span class="t">Zkouška pěti obrazovek s Mirkem</span></button><div class="bod-detail" id="detail-N5" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>dodano Velinem a tvarovy test 0 vad; hotovo</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="N6" data-titulek="Přepnutí skillů na nový tvar" aria-expanded="false" aria-controls="detail-N6"><span class="zn">☐</span><span class="t">Přepnutí skillů na nový tvar</span></button><div class="bod-detail" id="detail-N6" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>cil 5 z 5 splnen</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona hotovo" data-zona="hotovo"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-hotovo"><span class="zn">✓</span><span class="nazev">Za námi, hotovo</span><span class="pocet">3</span><span class="sipka">▾</span></button><ol class="body" id="zona-hotovo" data-seznam="1" hidden><li><button class="bod" type="button" data-bod="N1" data-titulek="Navrh odpovedi: Claude u 10 karet" aria-expanded="false" aria-controls="detail-N1"><span class="zn">✓</span><span class="t">Navrh odpovedi: Claude u 10 karet</span></button><div class="bod-detail" id="detail-N1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 3. 11. 2026</p><p>plan podepsany; vyber 10 karet, snimek archivu a vstup zmrazeny 3. 11. , snimek/, pravda/vstup/)</p><details><summary>Technika</summary><p>Ve slozce C:/work/ukoly/_u213/pravda/vstup/ jsou pro 10 karet vsechny Mirkovy zpravy (zprava_id, cas, odkaz, vlakno, text). Pro kazdou kartu urci jeho POSLEDNI pozadavek. Pozadavek = Mirek po asistentovi neco chce (udelat, zjistit, vysvetlit, zmenit), otazka se pocita. Volba cislem, &#x27;ok&#x27;, tecka, carka, souhlas a podekovani pozadavek nejsou. Zprava zacinajici &#x27;NÁZEV VLÁKNA:&#x27; je predavka napsana asistentem; pozadavek z ni ber jen z textu, ktery Mirek dopsal sam. Zapis C:/work/ukoly/_u213/pravda/navrh.json ve tvaru {rodina: &#x27;claude_code&#x27;, karty: [{karta, zprava_id, cas, citace (doslovny usek, aspon 15 znaku), odkaz, kandidati: [{zprava_id, citace}] (0 az 2 dalsi zpravy, ktere by mohly byt spravnou odpovedi, nejpravdepodobnejsi prvni), pozdejsi: [{zprava_id, proc_neni_pozadavek}] (KAZDA pozdejsi zprava te karty, ktera neni hole cislo, tecka nebo ok)}]}. Cti JEN slozku C:/work/ukoly/_u213/pravda/vstup/; registr ani vytahovac necti.</p></details></div></li><li><button class="bod" type="button" data-bod="N1b" data-titulek="Mirek oznacil vytazene zpravy u 10" aria-expanded="false" aria-controls="detail-N1b"><span class="zn">✓</span><span class="t">Mirek oznacil vytazene zpravy u 10</span></button><div class="bod-detail" id="detail-N1b" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 3. 11. 2026</p><p>hotovo; asistent v chatu ukaze 10 karet s navrhem a kandidaty ; odpoved zapise a overi</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="N2" data-titulek="Vytahovac pozadavku : z archivu zapise" aria-expanded="false" aria-controls="detail-N2"><span class="zn">✓</span><span class="t">Vytahovac pozadavku : z archivu zapise</span></button><div class="bod-detail" id="detail-N2" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 3. 11. 2026</p><p>hotovo: a archiv_kopie/ v oblasti</p><details><summary>Technika</summary><p>Postav C:/work/ukoly/_u213/vytahovac/vytahovac.py s rozhranim: python vytahovac.py --vyber &lt;vyber_karet.json&gt; --registr &lt;slozka&gt; --archiv &lt;slozka chats&gt;. Pro kazdou kartu z vyberu projdi VYHRADNE Mirkovy zpravy (bloky &#x27;HUMAN [cas]&#x27;) v souborech vlaken te karty pod --archiv (jmeno souboru zacina cislem karty a poradim vlakna, napr. 228-17_; slozky __archive_version_* ignoruj; stejne uuid na konci jmena = jedno vlakno). Do &lt;slozka&gt;/&lt;karta&gt;.jsonl JEN PRIDEJ radky {zprava_id: &#x27;&lt;uuid vlakna&gt;@&lt;cas presne jak stoji v archivu&gt;&#x27;, cas, citace (doslovny usek zpravy, aspon 10 znaku nebo cela kratsi zprava), odkaz: &#x27;https://claude.ai/chat/&lt;uuid&gt;&#x27;, typ: pozadavek | otazka | rozhodnuti, navrh_stavu: {stav, dukaz}}. Pozadavek = Mirek chce, aby asistent neco udelal, zjistil, pripravil nebo zmenil; otazka smerujici k dalsi praci (&#x27;co tady resime dal?&#x27;, &#x27;kdo drzi ten kod?&#x27;) je pozadavek a jeden pozadavek muze stat ve dvou zpravach za sebou. Otazka na pochopeni, ujisteni nebo dovysvetleni toho, co asistent napsal (&#x27;co to ma spolecneho s kapitolou 4?&#x27;, &#x27;co je plan jedna?&#x27;, &#x27;v cem je linka jina?&#x27;) je typ otazka, NE pozadavek. Volba cislem, &#x27;ok&#x27;, tecka, carka, souhlas a podekovani jsou rozhodnuti nebo nic. Useknuty kousek bez smyslu (napr. &#x27;Sp&#x27;) neni pozadavek. Zprava zacinajici &#x27;NÁZEV VLÁKNA:&#x27; je predavka napsana asistentem; pozadavek z ni ber jen z textu, ktery Mirek dopsal sam. U otazky dej do navrh_stavu, zda na ni asistent odpovedel (zodpovezena / bez odpovedi). Citace bere jen Mirkuv vlastni text: blok priloh zacinajici radkem &#x27;files:&#x27; nebo &#x27;attachments:&#x27; (a vse za nim) do citace nepatri. Kdyz meridlo hlasi vadu v uz zapsanych radcich, presun cely registr do C:/work/ukoly/_u213/vytahovac/_pokus_&lt;N&gt;/ a postav ho znovu; pravidlo &#x27;jen pridava&#x27; plati pro opakovane spusteni nad hotovym registrem. Druhe spusteni nesmi zmenit stare radky ani zdvojit zpravu. Bez site. Ladit smis jen podle C:/work/ukoly/_u213/vytahovac/pravda_ladeni.json (5 karet, u vybranych zprav Mirkuv stitek pozadavek / dotaz / nic; dotaz odpovida typu otazka, nic znamena, ze zprava neni pozadavek). Nakonec spust: python C:/work/ukoly/_u213/vytahovac/vytahovac.py --vyber C:/work/ukoly/_u213/stroj/vyber_karet.json --registr C:/work/ukoly/_u213/vytahovac/registr --archiv C:/work/ukoly/_u213/vytahovac/archiv_kopie/chats. Mimo slozku C:/work/ukoly/_u213/vytahovac/ nic necti ani nepis; slozku pravda/ (zapecetene odpovedi) nikdy necti.</p></details></div></li></ol></section><section class="zona odbocky" data-zona="odbocky"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-odbocky"><span class="zn">→</span><span class="nazev">Odbočky jinam</span><span class="pocet">0</span><span class="sipka">▾</span></button><ol class="body" id="zona-odbocky" data-seznam="0" hidden></ol></section>
+<p class="legenda">Modrý rámeček ▶ = jsi tady · oranžové 👉 = na tahu jsi ty (jediná oranžová na stránce) · šedé ✔ = hotovo, ztlumené · světle modrý pruh ⏳ = rozdělané · cihlový pruh ⚠ = stojí · čárkované ☐ = před námi · fialový pruh → = odbočka · barva vždy jen zopakuje značku a slovo · ťukni na řádek = rozbalí se, znovu = sbalí se</p></main><script>document.addEventListener("click", e=>{
+  const b = e.target.closest("button.zona-hlava, button.bod");
+  if (!b) return;
+  const t = document.getElementById(b.getAttribute("aria-controls"));
+  const otevrit = t.hidden; t.hidden = !otevrit; b.setAttribute("aria-expanded", String(otevrit));
+  const s2 = b.querySelector(".sipka"); if (s2) s2.textContent = otevrit ? "▴" : "▾";
+});</script></body></html>
