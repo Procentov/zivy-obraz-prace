@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="karta-verze" content="90">
+<title>UKOL-192 · Procentov — páky tržeb a nákladů Q4 2026</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
+header p{margin:.2rem 0;font-size:1.05rem}
+.vedu{font-weight:bold}
+#tri-radky p{margin:.2rem 0;font-size:1rem}
+.plakat{margin:.5rem 0;font-size:1.1rem}
+.plakat-cislo{font-size:2.6rem;font-weight:bold}
+.prepinac{margin:.6rem 0}
+.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
+.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
+.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
+.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
+.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
+body.detail .trat-ram{display:none}
+body.celek .detail-kroky{display:none}
+.detail-kroky{margin:1rem 0}
+.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
+.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
+.krok-detail details{margin-top:.4rem;font-size:.85rem}
+.krok-detail summary{cursor:pointer;min-height:24px}
+.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
+.zadani ul{margin:.2rem 0;padding-left:1.1rem}
+footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
+.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
+.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
+.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
+.odbocka-znak{font-size:1rem}
+.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
+</style>
+</head>
+<body class="celek">
+<header>
+  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
+  <div id="tri-radky">
+    <p data-radek="kde"><strong>Kde jsme:</strong> krok K10 – Zebricek paku podle sily venku (21. 10., artefakt http 1 ceny pod nakupem 5/5, 2 Google Nakupy 5/5, 3 ocas 4, 4 FAVI rizeni 4, 5…</p>
+    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Zebricek paku podle sily venku (21. 10., artefakt http 1 ceny pod nakupem 5/5, 2 Google Nakupy 5/5, 3 ocas 4, 4 FAVI rizeni 4…</p>
+    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
+  </div>
+  <p class="plakat"><span class="plakat-cislo">0</span> z 10 hotovo</p>
+  <div class="prepinac">
+    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
+    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
+  </div>
+</header>
+<main>
+  <div class="trat-ram">
+<svg data-trat="1" viewBox="0 0 1490 150" width="1490" height="150" role="img" aria-label="Trať kroků karty">
+<g class="stanice stav-bezi" data-stanice="K10" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Zebricek paku podle sily venku (21. 10., artefakt https://claude.ai/artifact/K8GZ8itAXpCgRbzASdTcA5): 1 ceny pod nakupem 5/5, 2 Google Nakupy 5/5, 3 ocas 4, 4 FAVI rizeni 4, 5 doprava 4, 6 kosik mobil 4, 7 Vanoce 4, 8 e-mail 3, 9 Biano 3, 10 SEO 3, 11 sortiment 3, 12 chatbot 2, 13 Zbozi/Sklik 2, 14 Heureka 1, 15 Meta 1, 16 Black Friday 1. Bod 1 ted: overit nakupni ceny u 53 rodin prodavanych pod nakupem (jen cteni), pak navrh opravy ceny/podlahy." data-tady="1" data-krok="K10"><circle cx="70" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">▶</text><text x="70" y="134" font-size="13" text-anchor="middle">K10</text><text x="70" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
+<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,6"/>
+<g class="stanice stav-bezi" data-stanice="K1" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Google neplacený — diagnóza ze Search Console a Merchant Center, pak oprava podle nálezu"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">▶</text><text x="220" y="134" font-size="13" text-anchor="middle">K1</text></g>
+<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,6"/>
+<g class="stanice stav-bezi" data-stanice="K9" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="HLAVNI PAKA dle diagnozy 15.10.: pokles objednavek z FAVI (2024 4,79 -&gt; 2026 2,74 mil. za leden-zari). Prvni: overit, kolik je zamerne skrtnuti kvuli zisku (UKOL-34, whitelist, bidding) a kolik nam uteklo; merit ziskem, ne trzbou. Resit v novem vlakne."><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">▶</text><text x="370" y="134" font-size="13" text-anchor="middle">K9</text></g>
+<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,6"/>
+<g class="stanice stav-deleguje" data-stanice="K2" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Reklama 27,7 % -&gt; 22 % obratu — vede karta UKOL-34, zde jen sledování A4"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">□</text><text x="520" y="134" font-size="13" text-anchor="middle">K2</text></g>
+<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
+<g class="stanice stav-bezi" data-stanice="K3" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="E-mail LeadHub — Mirek obnoví kartu/předplatné, pak ruční aktivace kampaní a automatů"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">▶</text><text x="670" y="134" font-size="13" text-anchor="middle">K3</text></g>
+<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,6"/>
+<g class="stanice stav-ceka" data-stanice="K4" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Vánoční uzávěrka objednávek — řešit až po oznámeních dodavatelů o posledních dodávkách (začátek listopadu); Black Friday škrtnut (Mirek 14. 10.)"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="820" y="134" font-size="13" text-anchor="middle">K4</text></g>
+<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
+<g class="stanice stav-deleguje" data-stanice="K5" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Ceny proti trhu — vyhodnocení zdražení 7 rodin (karta UKOL-169)"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">□</text><text x="970" y="134" font-size="13" text-anchor="middle">K5</text></g>
+<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
+<g class="stanice stav-deleguje" data-stanice="K6" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Pokladna a chyby webu (karta UKOL-162)"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">□</text><text x="1120" y="134" font-size="13" text-anchor="middle">K6</text></g>
+<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
+<g class="stanice stav-pozdeji" data-stanice="K7" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Až potom: doplatek dopravy, fixní náklady, měření, sklad hvězd, AI asistenti, srovnávače, Facebook, Biano; doplnit vratky/storna, opakované nákupy, ekonomiku objednávky, SK web"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">□</text><text x="1270" y="134" font-size="13" text-anchor="middle">K7</text></g>
+<line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
+<g class="stanice stav-ceka" data-stanice="K8" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Doprava (doplatek 411 626 Kč/rok, UKOL-30) — PŘIPOMENOUT MIRKOVI, až budou K1–K6 hotové; teprve pak rozhodne o zařazení"><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">K8</text></g>
+</svg>
+  </div>
+  <section class="panely-kroku">
+<article class="krok-panel" data-panel-krok="K10" hidden>
+  <h3><span class="znak" aria-hidden="true">▶</span> Zebricek paku podle sily venku (21. 10., artefakt https://claude.ai/artifact/K8GZ8itAXpCgRbzASdTcA5): 1 ceny pod nakupem 5/5, 2 Google Nakupy 5/5, 3 ocas 4, 4 FAVI rizeni 4, 5 doprava 4, 6 kosik mobil 4, 7 Vanoce 4, 8 e-mail 3, 9 Biano 3, 10 SEO 3, 11 sortiment 3, 12 chatbot 2, 13 Zbozi/Sklik 2, 14 Heureka 1, 15 Meta 1, 16 Black Friday 1. Bod 1 ted: overit nakupni ceny u 53 rodin prodavanych pod nakupem (jen cteni), pak navrh opravy ceny/podlahy. <span class="stav-text">(běží)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K1" hidden>
+  <h3><span class="znak" aria-hidden="true">▶</span> Google neplacený — diagnóza ze Search Console a Merchant Center, pak oprava podle nálezu <span class="stav-text">(běží)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K9" hidden>
+  <h3><span class="znak" aria-hidden="true">▶</span> HLAVNI PAKA dle diagnozy 15.10.: pokles objednavek z FAVI (2024 4,79 -&gt; 2026 2,74 mil. za leden-zari). Prvni: overit, kolik je zamerne skrtnuti kvuli zisku (UKOL-34, whitelist, bidding) a kolik nam uteklo; merit ziskem, ne trzbou. Resit v novem vlakne. <span class="stav-text">(běží)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K2" hidden>
+  <h3><span class="znak" aria-hidden="true">□</span> Reklama 27,7 % -&gt; 22 % obratu — vede karta UKOL-34, zde jen sledování A4 <span class="stav-text">(deleguje)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K3" hidden>
+  <h3><span class="znak" aria-hidden="true">▶</span> E-mail LeadHub — Mirek obnoví kartu/předplatné, pak ruční aktivace kampaní a automatů <span class="stav-text">(běží)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K4" hidden>
+  <h3><span class="znak" aria-hidden="true">○</span> Vánoční uzávěrka objednávek — řešit až po oznámeních dodavatelů o posledních dodávkách (začátek listopadu); Black Friday škrtnut (Mirek 14. 10.) <span class="stav-text">(čeká)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K5" hidden>
+  <h3><span class="znak" aria-hidden="true">□</span> Ceny proti trhu — vyhodnocení zdražení 7 rodin (karta UKOL-169) <span class="stav-text">(deleguje)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K6" hidden>
+  <h3><span class="znak" aria-hidden="true">□</span> Pokladna a chyby webu (karta UKOL-162) <span class="stav-text">(deleguje)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K7" hidden>
+  <h3><span class="znak" aria-hidden="true">□</span> Až potom: doplatek dopravy, fixní náklady, měření, sklad hvězd, AI asistenti, srovnávače, Facebook, Biano; doplnit vratky/storna, opakované nákupy, ekonomiku objednávky, SK web <span class="stav-text">(pozdeji)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+<article class="krok-panel" data-panel-krok="K8" hidden>
+  <h3><span class="znak" aria-hidden="true">○</span> Doprava (doplatek 411 626 Kč/rok, UKOL-30) — PŘIPOMENOUT MIRKOVI, až budou K1–K6 hotové; teprve pak rozhodne o zařazení <span class="stav-text">(čeká)</span></h3>
+  <p><strong>Hotovo:</strong> —</p>
+  <p>Krok je popsán na kartě.</p>
+  
+  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
+</article>
+  </section>
+  <section class="detail-kroky">
+<article class="krok-detail stav-bezi" data-krok-id="K10">
+  <h3><span class="znak" aria-hidden="true">▶</span> 1. Zebricek paku podle sily venku (21. 10., artefakt https://claude.ai/artifact/K8GZ8itAXpCgRbzASdTcA5): 1 ceny pod nakupem 5/5, 2 Google Nakupy 5/5, 3 ocas 4, 4 FAVI rizeni 4, 5 doprava 4, 6 kosik mobil 4, 7 Vanoce 4, 8 e-mail 3, 9 Biano 3, 10 SEO 3, 11 sortiment 3, 12 chatbot 2, 13 Zbozi/Sklik 2, 14 Heureka 1, 15 Meta 1, 16 Black Friday 1. Bod 1 ted: overit nakupni ceny u 53 rodin prodavanych pod nakupem (jen cteni), pak navrh opravy ceny/podlahy. <span class="stav-text">(běží)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-bezi" data-krok-id="K1">
+  <h3><span class="znak" aria-hidden="true">▶</span> 2. Google neplacený — diagnóza ze Search Console a Merchant Center, pak oprava podle nálezu <span class="stav-text">(běží)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-bezi" data-krok-id="K9">
+  <h3><span class="znak" aria-hidden="true">▶</span> 3. HLAVNI PAKA dle diagnozy 15.10.: pokles objednavek z FAVI (2024 4,79 -&gt; 2026 2,74 mil. za leden-zari). Prvni: overit, kolik je zamerne skrtnuti kvuli zisku (UKOL-34, whitelist, bidding) a kolik nam uteklo; merit ziskem, ne trzbou. Resit v novem vlakne. <span class="stav-text">(běží)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-deleguje" data-krok-id="K2">
+  <h3><span class="znak" aria-hidden="true">□</span> 4. Reklama 27,7 % -&gt; 22 % obratu — vede karta UKOL-34, zde jen sledování A4 <span class="stav-text">(deleguje)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-bezi" data-krok-id="K3">
+  <h3><span class="znak" aria-hidden="true">▶</span> 5. E-mail LeadHub — Mirek obnoví kartu/předplatné, pak ruční aktivace kampaní a automatů <span class="stav-text">(běží)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="K4">
+  <h3><span class="znak" aria-hidden="true">○</span> 6. Vánoční uzávěrka objednávek — řešit až po oznámeních dodavatelů o posledních dodávkách (začátek listopadu); Black Friday škrtnut (Mirek 14. 10.) <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-deleguje" data-krok-id="K5">
+  <h3><span class="znak" aria-hidden="true">□</span> 7. Ceny proti trhu — vyhodnocení zdražení 7 rodin (karta UKOL-169) <span class="stav-text">(deleguje)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-deleguje" data-krok-id="K6">
+  <h3><span class="znak" aria-hidden="true">□</span> 8. Pokladna a chyby webu (karta UKOL-162) <span class="stav-text">(deleguje)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-pozdeji" data-krok-id="K7">
+  <h3><span class="znak" aria-hidden="true">□</span> 9. Až potom: doplatek dopravy, fixní náklady, měření, sklad hvězd, AI asistenti, srovnávače, Facebook, Biano; doplnit vratky/storna, opakované nákupy, ekonomiku objednávky, SK web <span class="stav-text">(pozdeji)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+<article class="krok-detail stav-ceka" data-krok-id="K8">
+  <h3><span class="znak" aria-hidden="true">○</span> 10. Doprava (doplatek 411 626 Kč/rok, UKOL-30) — PŘIPOMENOUT MIRKOVI, až budou K1–K6 hotové; teprve pak rozhodne o zařazení <span class="stav-text">(čeká)</span></h3>
+  
+  <details class="zadani-wrap">
+    <summary>Technické zadání</summary>
+    <div class="zadani">
+      <p>—</p>
+      <p>Oblast: — · Výsledný soubor: —</p>
+      <ul class="meritka"></ul>
+      <ul class="dukaz"></ul>
+    </div>
+  </details>
+</article>
+
+  </section>
+</main>
+<footer class="legenda">
+  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
+  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
+</footer>
+<script>
+function rezim(r){
+  document.body.classList.remove('celek','detail');
+  document.body.classList.add(r);
+  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
+  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+}
+function otevriPanel(id){
+  const panely=[...document.querySelectorAll('[data-panel-krok]')];
+  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
+  if(!panel)return;
+  const otevrene=!panel.hidden;
+  panely.forEach(p=>p.hidden=true);
+  if(!otevrene)panel.hidden=false;
+}
+function pripravProklik(){
+  document.querySelectorAll('[data-stanice]').forEach(st=>{
+    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
+    st.addEventListener('click',akce);
+    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
+  });
+  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
+  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
+}
+document.addEventListener('DOMContentLoaded',pripravProklik);
+</script>
+</body>
+</html>
