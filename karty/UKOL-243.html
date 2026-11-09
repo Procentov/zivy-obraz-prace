@@ -1,402 +1,73 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="34">
-<title>UKOL-243 · Pokyny a verze</title>
-<style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
-header p{margin:.2rem 0;font-size:1.05rem}
-.vedu{font-weight:bold}
-#tri-radky p{margin:.2rem 0;font-size:1rem}
-.plakat{margin:.5rem 0;font-size:1.1rem}
-.plakat-cislo{font-size:2.6rem;font-weight:bold}
-.prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
-.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
-.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
-.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
-body.detail .trat-ram{display:none}
-body.celek .detail-kroky{display:none}
-.detail-kroky{margin:1rem 0}
-.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
-.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
-.krok-detail details{margin-top:.4rem;font-size:.85rem}
-.krok-detail summary{cursor:pointer;min-height:24px}
-.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
-.zadani ul{margin:.2rem 0;padding-left:1.1rem}
-footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
-.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
-.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
-.odbocka-znak{font-size:1rem}
-.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
-</style>
-</head>
-<body class="celek">
-<header>
-  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
-  <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok C1 – Měřidlo záchytu: 10 podstrčených vláken s pravdou předem, postavené na pravdě N1 karty 213 (5 karet, pravda naslepo) a doplněné k…</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Měřidlo záchytu: 10 podstrčených vláken s pravdou předem, postavené na pravdě N1 karty 213 (5 karet, pravda naslepo) a doplně…</p>
-    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
-  </div>
-  <p class="plakat"><span class="plakat-cislo">6</span> z 14 hotovo</p>
-  <div class="prepinac">
-    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
-    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
-  </div>
-</header>
-<main>
-  <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 2090 150" width="2090" height="150" role="img" aria-label="Trať kroků karty">
-<g class="stanice stav-hotovo" data-stanice="A1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Zjištění jen čtením: tři nálezy s doslovným důkazem (týdenní kontrola neporovnává stránku se skriptem; stránka Pravidla placené reklamy po 30. 10.; skript bidování FAVI třídí podle PNO) a hotový text předání majitelům karet 34 a 190"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">A1</text></g>
-<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="A2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Modul, který porovná platnou stránku se skriptem podle registru; ostrý běh ukáže pro FAVI jednu odchylku, dokud skript třídí podle PNO"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">A2</text></g>
-<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="A3" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Modul obsahových kontrol zápisu: záloha existuje, Mirkovo rozhodnutí je doslova na stránce i ve zdroji, řádek kde pravidla leží existuje, hodnota na stránce sedí s kódem"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">A3</text></g>
-<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="B1" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Napojení modulu shoda_243.py na týdenní kontrolu (zásah do inspekce_240.py, záloha vedle, nezávislá přejímka); po napojení inspekce_240.py --zkouska ukáže zápornou nalezenou 1 z 1 a odchylku FAVI 1"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">B1</text></g>
-<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="B2" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Napojení obsahových kontrol (kontrola_obsahu_243.py) na hodnotitele zápisu v zkouska_240.py se zálohou vedle a přejímkou jinou rodinou; celá dnešní sada hodnotitele zůstane prošlá (dnes 34 z 34)"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">B2</text></g>
-<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="B3" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Zkouška v projektu Mozkovna: 1 holá otázka v novém vlákně, odpověď porovnat s vláknem mimo projekt; 6 ručních vláken mimo projekt zůstává v kroku U9 karty 240"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="820" y="134" font-size="13" text-anchor="middle">B3</text></g>
-<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="C1" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Měřidlo záchytu: 10 podstrčených vláken s pravdou předem, postavené na pravdě N1 karty 213 (5 karet, pravda naslepo) a doplněné kontrolorem jiné rodiny o to, který pokyn ruší který dřívější a co přestalo platit" data-tady="1" data-krok="C1"><circle cx="970" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="970" y="134" font-size="13" text-anchor="middle">C1</text><text x="970" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="C2" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Rozšířit vytahovač z kroku N2 karty 213 o pole „ruší dřívější“ a „co přestalo platit“ (registr se jen prodlužuje) a z registru zapsat pokyn na stránku tématu s datem do 24 hodin; vlastní druhý vytahovač se nestaví"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1120" y="134" font-size="13" text-anchor="middle">C2</text></g>
-<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="C3" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Nezávislá přejímka rozšíření vytahovače, nasazení se zálohou a měření na pravdě z C1"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1270" y="134" font-size="13" text-anchor="middle">C3</text></g>
-<line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="C4" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Výběr 3 kreativních vláken bez karty a předem zapsaná pravda: které pokyny z nich mají být na stránce tématu"><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">C4</text></g>
-<line x1="1440" y1="70" x2="1550" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="C5" data-poradi="11" data-x="1570" data-proklik="1" role="button" tabindex="0" aria-label="Zápis těch pokynů na stránky témat podle skillu kniha-znalosti a měření 3 ze 3; K3 karty 213 se jen odkazuje"><text x="1570" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1570" y="134" font-size="13" text-anchor="middle">C5</text></g>
-<line x1="1590" y1="70" x2="1700" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="C6" data-poradi="12" data-x="1720" data-proklik="1" role="button" tabindex="0" aria-label="Nová sada 5 případů pro hodnotitele, které neviděl (3 se starým pravidlem jinými slovy, 2 správné); pravdu předem určí jiná rodina, napsat dřív než se hodnotitel upraví"><text x="1720" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1720" y="134" font-size="13" text-anchor="middle">C6</text></g>
-<line x1="1740" y1="70" x2="1850" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="C7" data-poradi="13" data-x="1870" data-proklik="1" role="button" tabindex="0" aria-label="Rozšíření hodnotitele o případy se starým pravidlem jinými slovy, nasazení se zálohou a přejímkou; 5 z 5 a celá dnešní sada hodnotitele prošlá"><text x="1870" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1870" y="134" font-size="13" text-anchor="middle">C7</text></g>
-<line x1="1890" y1="70" x2="2000" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="D1" data-poradi="14" data-x="2020" data-proklik="1" role="button" tabindex="0" aria-label="Souhrn: nezávislý kontrolor ověří K1 až K6 proti číslům z měřidel, výsledek a poučení do karty 49"><text x="2020" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="2020" y="134" font-size="13" text-anchor="middle">D1</text></g>
-</svg>
-  </div>
-  <section class="panely-kroku">
-<article class="krok-panel" data-panel-krok="A1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Zjištění jen čtením: tři nálezy s doslovným důkazem (týdenní kontrola neporovnává stránku se skriptem; stránka Pravidla placené reklamy po 30. 10.; skript bidování FAVI třídí podle PNO) a hotový text předání majitelům karet 34 a 190 <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 14:33</p>
-  <p>Měřidlo A1 prošlo zkouškami (12 z 12 za celou jízdu, ); opis stránky Pravidla placené reklamy je v</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>POZOR NA CESTU: slozka se jmenuje 00_DATA_MOZEK (pismeno E, ne U). Cestu ke skriptu bidovani zkopiruj z tohoto zadani znak po znaku a pred cetenim si ji over (Test-Path); kdyz soubor nenajdes, hledej ho v C:/Users/Mirek/GDATA/00_DATA_MOZEK/01_PROJEKTY/Procentov_Monthly_Analysis/scripts/ a NEHLAS blokator, dokud nezkusis i tuto cestu. Jen cteni a zapis dvou souboru. Priprav dukazy pro tri zjisteni. Cti: C:/work/ukoly/_u240/inspekce_240.py (tydenni kontrola stranek knihy znalosti), C:/work/ukoly/_u243/vstup/pravidla_reklamy_2026-10-31.md (opis stranky Pravidla placene reklamy), C:/Users/Mirek/GDATA/00_DATA_MOZEK/01_PROJEKTY/Procentov_Monthly_Analysis/scripts/master_bidding.py (skript mesicniho bidovani FAVI) a C:/work/znalosti/procentov/marketing-a-bidding/favi-bidovani.md. Zapis C:/work/ukoly/_u243/zjisteni_z9.json ve tvaru {&quot;nalezy&quot;:[{&quot;id&quot;:&quot;N1&quot;,&quot;tvrzeni&quot;:&quot;...&quot;,&quot;dukaz&quot;:[{&quot;soubor&quot;:&quot;&lt;absolutni cesta s lomitky /&gt;&quot;,&quot;radek&quot;:&lt;cislo radku od 1&gt;,&quot;doslova&quot;:&quot;&lt;text, ktery na tom radku doslova stoji, nejvyse 100 znaku&gt;&quot;}]}, ...]}. N1: tydenni kontrola (inspekce_240.py) neporovnava pravidlo na strance se skriptem, ktery ho provadi; dukaz = radek se seznamem jejich kontrol. N2: stranka Pravidla placene reklamy je po 30. 10. 2026 opravena jen castecne (upozorneni nahore a doplnek z 31. 10. ano, prepis P1-P12 do nove reci ne); dukazy z opisu. N3: skript bidovani FAVI porad tridi vyrobky podle PNO; dukaz = aspon tri radky tabulky skupin (STAR, CASH_COW, QUESTION, LOSING, DEAD) a radek na strance FAVI, ktery to uvadi jako zive riziko. Kazdy citat musi na uvedenem radku stat doslova. Pak napis C:/work/ukoly/_u243/predani_z9.md: hotovy text na nejvyse 15 radku pro majitele karet UKOL-34 a UKOL-190 (co jsme zjistili, kde je dukaz, co s tim musi udelat oni); text se NIKAM neodesila. Nic jineho nedelej: zadny jiny soubor nezakladej ani nemaz, do skriptu bidovani, do stranek knihy znalosti, do karet a do Notionu nesahej, meridla nemen.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="A2" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Modul, který porovná platnou stránku se skriptem podle registru; ostrý běh ukáže pro FAVI jednu odchylku, dokud skript třídí podle PNO <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 14:33</p>
-  <p>A1 hotovo; měřidlo A2 prošlo zkouškami; registr s jedním záznamem (FAVI) leží v _u243.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Napis Python 3 soubor C:/work/ukoly/_u243/shoda_243.py (jen standardni knihovna). Spusteni: python shoda_243.py --registr R.json --out V.json. Registr je JSON seznam objektu s klici id, stranka, stranka_musi_obsahovat (regularni vyraz), skript, skript_nesmi_obsahovat (regularni vyraz); dalsi klice ignoruj. Pro kazdy zaznam: kdyz soubor stranky nebo skriptu neexistuje -&gt; odchylka druh soubor_chybi; jinak kdyz stranka vzorec nema -&gt; odchylka druh stranka_nema_pravidlo; jinak kdyz skript obsahuje zakazany vzorec -&gt; odchylka druh skript_rozporuje. Do V.json zapis (UTF-8) {&quot;kontrol&quot;: &lt;pocet zaznamu&gt;, &quot;odchylek&quot;: &lt;pocet odchylek&gt;, &quot;odchylky&quot;: [{&quot;id&quot;:..,&quot;druh&quot;:..,&quot;co&quot;:&quot;&lt;jedna veta&gt;&quot;}]} a skonci s kodem 0 i pri odchylkach. Soubory cti jen pro cteni (UTF-8, errors=replace), nic jineho nezapisuj nez V.json. Skript bidovani, stranky knihy znalosti, inspekce_240.py, shoda_registr.json, meridlo_a2.py ani slozku ref nemen.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="A3" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Modul obsahových kontrol zápisu: záloha existuje, Mirkovo rozhodnutí je doslova na stránce i ve zdroji, řádek kde pravidla leží existuje, hodnota na stránce sedí s kódem <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 14:33</p>
-  <p>A2 hotovo; měřidlo A3 prošlo zkouškami.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Napis Python 3 soubor C:/work/ukoly/_u243/kontrola_obsahu_243.py (jen standardni knihovna). Spusteni: python kontrola_obsahu_243.py --pripad P.json --out V.json. P.json = {&quot;stranka_po&quot;: cesta, &quot;zaloha&quot;: cesta, &quot;rozhodnuti_doslova&quot;: text, &quot;zdroj_rozhodnuti&quot;: cesta, &quot;kod&quot;: null nebo {&quot;soubor&quot;: cesta, &quot;regex&quot;: vyraz, &quot;stranka_regex&quot;: vyraz}}. Do V.json zapis (UTF-8) {&quot;prosla&quot;: true/false, &quot;duvody&quot;: [kody]}; prosla je true jen kdyz je seznam duvodu prazdny. Kody: zaloha_chybi (soubor zalohy neexistuje), zaloha_prazdna (existuje, ma velikost 0), rozhodnuti_neni_ve_zdroji (rozhodnuti_doslova se po sjednoceni bilych znaku nenachazi doslova v souboru zdroj_rozhodnuti), rozhodnuti_neni_na_strance (na radku stranky zacinajicim &quot;Potvrdil Mirek:&quot; rozhodnuti_doslova neni), radek_pravidel_chybi (na strance neni radek obsahujici &quot;Pravidla leží v:&quot;), radek_pravidel_mrtvy (na tom radku neni zadna cesta tvaru C:/... ani adresa http(s) nebo nektera cesta C:/... na disku neexistuje), kod_nesedi (kdyz je kod zadan: prvni skupina regexu v souboru kodu a prvni skupina stranka_regex na strance chybi nebo se lisi). Skonci s kodem 0 i kdyz duvody jsou. Nic nezapisuj kromE V.json. Zadnou stranku knihy znalosti, zkouska_240.py, meridlo_a3.py ani slozku ref nemen.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="B1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Napojení modulu shoda_243.py na týdenní kontrolu (zásah do inspekce_240.py, záloha vedle, nezávislá přejímka); po napojení inspekce_240.py --zkouska ukáže zápornou nalezenou 1 z 1 a odchylku FAVI 1 <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 15:12</p>
-  <p>A3 hotovo; souhlas majitele karty 240 se zásahem do jejího souboru; skript FAVI se nemění.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="B2" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Napojení obsahových kontrol (kontrola_obsahu_243.py) na hodnotitele zápisu v zkouska_240.py se zálohou vedle a přejímkou jinou rodinou; celá dnešní sada hodnotitele zůstane prošlá (dnes 34 z 34) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 15:12</p>
-  <p>B1 hotovo; souhlas majitele karty 240; přejímku dělá jiná rodina než autor.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="B3" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Zkouška v projektu Mozkovna: 1 holá otázka v novém vlákně, odpověď porovnat s vláknem mimo projekt; 6 ručních vláken mimo projekt zůstává v kroku U9 karty 240 <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 3. 11. 08:44</p>
-  <p>U9 karty 240 dokončen (6 ze 6 mimo projekt) nebo Mirek otevřel vlákna ručně.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="C1" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Měřidlo záchytu: 10 podstrčených vláken s pravdou předem, postavené na pravdě N1 karty 213 (5 karet, pravda naslepo) a doplněné kontrolorem jiné rodiny o to, který pokyn ruší který dřívější a co přestalo platit <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>N1 karty 213 hotovo (pravda naslepo pro 5 karet); archiv čitelný přes Vrátného; Mirek rozhodl o sloučení 3. 11. 2026.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="C2" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Rozšířit vytahovač z kroku N2 karty 213 o pole „ruší dřívější“ a „co přestalo platit“ (registr se jen prodlužuje) a z registru zapsat pokyn na stránku tématu s datem do 24 hodin; vlastní druhý vytahovač se nestaví <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>N2 karty 213 hotovo (vytahovač a registr, 5 z 5); C1 hotovo; měřidlo prošlo zápornou zkouškou (prázdný kandidát = 0 z 10).</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="C3" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Nezávislá přejímka rozšíření vytahovače, nasazení se zálohou a měření na pravdě z C1 <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>C2 hotovo; záloha ostrého souboru vedle; přejímku dělá jiná rodina než autor; souhlas majitele karty 213 se zásahem do jejího souboru.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="C4" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Výběr 3 kreativních vláken bez karty a předem zapsaná pravda: které pokyny z nich mají být na stránce tématu <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Mirek rozhodl o kroku N2 karty 213; skill kniha-znalosti nahraný v chatu.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="C5" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Zápis těch pokynů na stránky témat podle skillu kniha-znalosti a měření 3 ze 3; K3 karty 213 se jen odkazuje <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>C4 hotovo.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="C6" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Nová sada 5 případů pro hodnotitele, které neviděl (3 se starým pravidlem jinými slovy, 2 správné); pravdu předem určí jiná rodina, napsat dřív než se hodnotitel upraví <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>B2 hotovo; souhlas majitele karty 240; pravdu určuje kontrolor jiné rodiny.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="C7" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Rozšíření hodnotitele o případy se starým pravidlem jinými slovy, nasazení se zálohou a přejímkou; 5 z 5 a celá dnešní sada hodnotitele prošlá <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>C6 hotovo; měřidlo z C6 prošlo zápornou zkouškou.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="D1" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Souhrn: nezávislý kontrolor ověří K1 až K6 proti číslům z měřidel, výsledek a poučení do karty 49 <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>B1, B2, B3, C3, C5 a C7 hotové.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-  </section>
-  <section class="detail-kroky">
-<article class="krok-detail stav-hotovo" data-krok-id="A1">
-  <h3><span class="znak" aria-hidden="true">●</span> 1. Zjištění jen čtením: tři nálezy s doslovným důkazem (týdenní kontrola neporovnává stránku se skriptem; stránka Pravidla placené reklamy po 30. 10.; skript bidování FAVI třídí podle PNO) a hotový text předání majitelům karet 34 a 190 <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 14:33</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>POZOR NA CESTU: slozka se jmenuje 00_DATA_MOZEK (pismeno E, ne U). Cestu ke skriptu bidovani zkopiruj z tohoto zadani znak po znaku a pred cetenim si ji over (Test-Path); kdyz soubor nenajdes, hledej ho v C:/Users/Mirek/GDATA/00_DATA_MOZEK/01_PROJEKTY/Procentov_Monthly_Analysis/scripts/ a NEHLAS blokator, dokud nezkusis i tuto cestu. Jen cteni a zapis dvou souboru. Priprav dukazy pro tri zjisteni. Cti: C:/work/ukoly/_u240/inspekce_240.py (tydenni kontrola stranek knihy znalosti), C:/work/ukoly/_u243/vstup/pravidla_reklamy_2026-10-31.md (opis stranky Pravidla placene reklamy), C:/Users/Mirek/GDATA/00_DATA_MOZEK/01_PROJEKTY/Procentov_Monthly_Analysis/scripts/master_bidding.py (skript mesicniho bidovani FAVI) a C:/work/znalosti/procentov/marketing-a-bidding/favi-bidovani.md. Zapis C:/work/ukoly/_u243/zjisteni_z9.json ve tvaru {&quot;nalezy&quot;:[{&quot;id&quot;:&quot;N1&quot;,&quot;tvrzeni&quot;:&quot;...&quot;,&quot;dukaz&quot;:[{&quot;soubor&quot;:&quot;&lt;absolutni cesta s lomitky /&gt;&quot;,&quot;radek&quot;:&lt;cislo radku od 1&gt;,&quot;doslova&quot;:&quot;&lt;text, ktery na tom radku doslova stoji, nejvyse 100 znaku&gt;&quot;}]}, ...]}. N1: tydenni kontrola (inspekce_240.py) neporovnava pravidlo na strance se skriptem, ktery ho provadi; dukaz = radek se seznamem jejich kontrol. N2: stranka Pravidla placene reklamy je po 30. 10. 2026 opravena jen castecne (upozorneni nahore a doplnek z 31. 10. ano, prepis P1-P12 do nove reci ne); dukazy z opisu. N3: skript bidovani FAVI porad tridi vyrobky podle PNO; dukaz = aspon tri radky tabulky skupin (STAR, CASH_COW, QUESTION, LOSING, DEAD) a radek na strance FAVI, ktery to uvadi jako zive riziko. Kazdy citat musi na uvedenem radku stat doslova. Pak napis C:/work/ukoly/_u243/predani_z9.md: hotovy text na nejvyse 15 radku pro majitele karet UKOL-34 a UKOL-190 (co jsme zjistili, kde je dukaz, co s tim musi udelat oni); text se NIKAM neodesila. Nic jineho nedelej: zadny jiny soubor nezakladej ani nemaz, do skriptu bidovani, do stranek knihy znalosti, do karet a do Notionu nesahej, meridla nemen.</p>
-      <p>Oblast: C:/work/ukoly/_u243 · Výsledný soubor: C:/work/ukoly/_u243/zjisteni_z9.json</p>
-      <ul class="meritka"><li>A1-M1: python C:/work/ukoly/_u243/meridlo_a1.py</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="A2">
-  <h3><span class="znak" aria-hidden="true">●</span> 2. Modul, který porovná platnou stránku se skriptem podle registru; ostrý běh ukáže pro FAVI jednu odchylku, dokud skript třídí podle PNO <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 14:33</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Napis Python 3 soubor C:/work/ukoly/_u243/shoda_243.py (jen standardni knihovna). Spusteni: python shoda_243.py --registr R.json --out V.json. Registr je JSON seznam objektu s klici id, stranka, stranka_musi_obsahovat (regularni vyraz), skript, skript_nesmi_obsahovat (regularni vyraz); dalsi klice ignoruj. Pro kazdy zaznam: kdyz soubor stranky nebo skriptu neexistuje -&gt; odchylka druh soubor_chybi; jinak kdyz stranka vzorec nema -&gt; odchylka druh stranka_nema_pravidlo; jinak kdyz skript obsahuje zakazany vzorec -&gt; odchylka druh skript_rozporuje. Do V.json zapis (UTF-8) {&quot;kontrol&quot;: &lt;pocet zaznamu&gt;, &quot;odchylek&quot;: &lt;pocet odchylek&gt;, &quot;odchylky&quot;: [{&quot;id&quot;:..,&quot;druh&quot;:..,&quot;co&quot;:&quot;&lt;jedna veta&gt;&quot;}]} a skonci s kodem 0 i pri odchylkach. Soubory cti jen pro cteni (UTF-8, errors=replace), nic jineho nezapisuj nez V.json. Skript bidovani, stranky knihy znalosti, inspekce_240.py, shoda_registr.json, meridlo_a2.py ani slozku ref nemen.</p>
-      <p>Oblast: C:/work/ukoly/_u243 · Výsledný soubor: C:/work/ukoly/_u243/shoda_243.py</p>
-      <ul class="meritka"><li>A2-M1: python C:/work/ukoly/_u243/meridlo_a2.py</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="A3">
-  <h3><span class="znak" aria-hidden="true">●</span> 3. Modul obsahových kontrol zápisu: záloha existuje, Mirkovo rozhodnutí je doslova na stránce i ve zdroji, řádek kde pravidla leží existuje, hodnota na stránce sedí s kódem <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 14:33</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Napis Python 3 soubor C:/work/ukoly/_u243/kontrola_obsahu_243.py (jen standardni knihovna). Spusteni: python kontrola_obsahu_243.py --pripad P.json --out V.json. P.json = {&quot;stranka_po&quot;: cesta, &quot;zaloha&quot;: cesta, &quot;rozhodnuti_doslova&quot;: text, &quot;zdroj_rozhodnuti&quot;: cesta, &quot;kod&quot;: null nebo {&quot;soubor&quot;: cesta, &quot;regex&quot;: vyraz, &quot;stranka_regex&quot;: vyraz}}. Do V.json zapis (UTF-8) {&quot;prosla&quot;: true/false, &quot;duvody&quot;: [kody]}; prosla je true jen kdyz je seznam duvodu prazdny. Kody: zaloha_chybi (soubor zalohy neexistuje), zaloha_prazdna (existuje, ma velikost 0), rozhodnuti_neni_ve_zdroji (rozhodnuti_doslova se po sjednoceni bilych znaku nenachazi doslova v souboru zdroj_rozhodnuti), rozhodnuti_neni_na_strance (na radku stranky zacinajicim &quot;Potvrdil Mirek:&quot; rozhodnuti_doslova neni), radek_pravidel_chybi (na strance neni radek obsahujici &quot;Pravidla leží v:&quot;), radek_pravidel_mrtvy (na tom radku neni zadna cesta tvaru C:/... ani adresa http(s) nebo nektera cesta C:/... na disku neexistuje), kod_nesedi (kdyz je kod zadan: prvni skupina regexu v souboru kodu a prvni skupina stranka_regex na strance chybi nebo se lisi). Skonci s kodem 0 i kdyz duvody jsou. Nic nezapisuj kromE V.json. Zadnou stranku knihy znalosti, zkouska_240.py, meridlo_a3.py ani slozku ref nemen.</p>
-      <p>Oblast: C:/work/ukoly/_u243 · Výsledný soubor: C:/work/ukoly/_u243/kontrola_obsahu_243.py</p>
-      <ul class="meritka"><li>A3-M1: python C:/work/ukoly/_u243/meridlo_a3.py</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="B1">
-  <h3><span class="znak" aria-hidden="true">●</span> 4. Napojení modulu shoda_243.py na týdenní kontrolu (zásah do inspekce_240.py, záloha vedle, nezávislá přejímka); po napojení inspekce_240.py --zkouska ukáže zápornou nalezenou 1 z 1 a odchylku FAVI 1 <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 15:12</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="B2">
-  <h3><span class="znak" aria-hidden="true">●</span> 5. Napojení obsahových kontrol (kontrola_obsahu_243.py) na hodnotitele zápisu v zkouska_240.py se zálohou vedle a přejímkou jinou rodinou; celá dnešní sada hodnotitele zůstane prošlá (dnes 34 z 34) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 15:12</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="B3">
-  <h3><span class="znak" aria-hidden="true">●</span> 6. Zkouška v projektu Mozkovna: 1 holá otázka v novém vlákně, odpověď porovnat s vláknem mimo projekt; 6 ručních vláken mimo projekt zůstává v kroku U9 karty 240 <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 3. 11. 08:44</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="C1">
-  <h3><span class="znak" aria-hidden="true">○</span> 7. Měřidlo záchytu: 10 podstrčených vláken s pravdou předem, postavené na pravdě N1 karty 213 (5 karet, pravda naslepo) a doplněné kontrolorem jiné rodiny o to, který pokyn ruší který dřívější a co přestalo platit <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="C2">
-  <h3><span class="znak" aria-hidden="true">○</span> 8. Rozšířit vytahovač z kroku N2 karty 213 o pole „ruší dřívější“ a „co přestalo platit“ (registr se jen prodlužuje) a z registru zapsat pokyn na stránku tématu s datem do 24 hodin; vlastní druhý vytahovač se nestaví <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="C3">
-  <h3><span class="znak" aria-hidden="true">○</span> 9. Nezávislá přejímka rozšíření vytahovače, nasazení se zálohou a měření na pravdě z C1 <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="C4">
-  <h3><span class="znak" aria-hidden="true">○</span> 10. Výběr 3 kreativních vláken bez karty a předem zapsaná pravda: které pokyny z nich mají být na stránce tématu <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="C5">
-  <h3><span class="znak" aria-hidden="true">○</span> 11. Zápis těch pokynů na stránky témat podle skillu kniha-znalosti a měření 3 ze 3; K3 karty 213 se jen odkazuje <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="C6">
-  <h3><span class="znak" aria-hidden="true">○</span> 12. Nová sada 5 případů pro hodnotitele, které neviděl (3 se starým pravidlem jinými slovy, 2 správné); pravdu předem určí jiná rodina, napsat dřív než se hodnotitel upraví <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="C7">
-  <h3><span class="znak" aria-hidden="true">○</span> 13. Rozšíření hodnotitele o případy se starým pravidlem jinými slovy, nasazení se zálohou a přejímkou; 5 z 5 a celá dnešní sada hodnotitele prošlá <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="D1">
-  <h3><span class="znak" aria-hidden="true">○</span> 14. Souhrn: nezávislý kontrolor ověří K1 až K6 proti číslům z měřidel, výsledek a poučení do karty 49 <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-
-  </section>
-</main>
-<footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
-  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
-</footer>
-<script>
-function rezim(r){
-  document.body.classList.remove('celek','detail');
-  document.body.classList.add(r);
-  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
-  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="karta-verze" content="34"><title>UKOL-243 · Pokyny a verze</title><style>:root{
+  --papir:#ffffff; --inkoust:#1a1a1a; --sede:#5c5c5c; --linka:#1a1a1a; --jemna:#c4c4c4; --plocha:#f1f1f1;
+  --tady:#0072B2; --tady-svetla:#e6f1f8; --na-tebe:#E69F00; --na-tebe-text:#1a1a1a;
+  --rozdelane:#56B4E9; --rozdelane-svetla:#eef7fd; --stoji:#D55E00; --odbocka:#CC79A7; --hotovo:#7a7a7a;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-function otevriPanel(id){
-  const panely=[...document.querySelectorAll('[data-panel-krok]')];
-  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
-  if(!panel)return;
-  const otevrene=!panel.hidden;
-  panely.forEach(p=>p.hidden=true);
-  if(!otevrene)panel.hidden=false;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+    --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
 }
-function pripravProklik(){
-  document.querySelectorAll('[data-stanice]').forEach(st=>{
-    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
-    st.addEventListener('click',akce);
-    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
-  });
-  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
-  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
-}
-document.addEventListener('DOMContentLoaded',pripravProklik);
-</script>
-</body>
-</html>
+:root[data-theme="dark"]{ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+  --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0; background:var(--papir); color:var(--inkoust);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:18px; line-height:1.45;}
+main{max-width:620px; margin:0 auto; padding:16px 14px 48px;}
+.mapa-stitek{font-size:.8rem; font-weight:800; letter-spacing:.12em; margin:0;}
+h1{font-size:1.4rem; line-height:1.2; margin:2px 0 2px; font-weight:800;}
+.ukol-pod{font-size:.85rem; color:var(--sede); margin:0 0 12px;}
+.tady{border:4px solid var(--tady); background:var(--tady-svetla); margin:0 0 16px; border-radius:6px; overflow:hidden;}
+.tady .spendlik{background:var(--tady); color:#ffffff; font-size:.95rem; font-weight:800; letter-spacing:.1em; margin:0; padding:7px 14px;}
+.tady .vnitrek{padding:10px 14px 14px;}
+.tady .krok-ted{font-size:1.35rem; font-weight:800; margin:0 0 2px; line-height:1.25;}
+.tady .krok-cislo{font-size:.85rem; color:var(--sede); margin:0 0 8px;}
+.tady .natahu{display:inline-block; margin:10px 0 0; font-size:1rem; font-weight:800; padding:8px 12px; border-radius:6px;
+  background:var(--na-tebe); color:var(--na-tebe-text);}
+.tady .natahu.jiny{background:var(--plocha); color:var(--inkoust); font-weight:600; border:1px solid var(--jemna);}
+.pasek{display:flex; gap:4px; margin:6px 0 2px; flex-wrap:wrap; align-items:center;}
+.pasek span{width:16px; height:16px; border:2px solid var(--hotovo); background:var(--hotovo); border-radius:2px;}
+.pasek span.z{border-color:var(--rozdelane); background:linear-gradient(90deg,var(--rozdelane) 50%,transparent 50%);}
+.pasek span.c{border:2px dashed var(--jemna); background:transparent;}
+.pasek span.t{width:26px; height:26px; border:4px solid var(--tady); background:var(--papir); position:relative;}
+.pasek span.t::after{content:"▶"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:var(--tady);}
+.popisek{font-size:.8rem; color:var(--sede); margin:2px 0 0;}
+.detail-ted{margin-top:12px; padding-top:8px; border-top:1px solid var(--jemna); font-size:.88rem; color:var(--sede);}
+.detail-ted p{margin:0 0 6px;}
+section.zona{margin:0 0 10px;}
+button.zona-hlava{display:flex; align-items:center; gap:10px; width:100%; min-height:48px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); border-left:6px solid var(--hotovo); padding:8px 12px; cursor:pointer; border-radius:4px;}
+section.hotovo button.zona-hlava{color:var(--sede);}
+section.zcasti button.zona-hlava{border-left-color:var(--rozdelane); background:var(--rozdelane-svetla); font-weight:600;}
+section.zcasti.stoji button.zona-hlava{border-left-color:var(--stoji);}
+section.odbocky button.zona-hlava{border-left-color:var(--odbocka); color:var(--sede);}
+button.zona-hlava:focus-visible, button.bod:focus-visible{outline:3px solid var(--linka); outline-offset:2px;}
+.zona-hlava .zn{font-size:1.15rem; width:26px; text-align:center;}
+.zona-hlava .nazev{flex:1; font-weight:600;}
+.zona-hlava .pocet{font-weight:800; font-size:.9rem;}
+.zona-hlava .sipka{color:var(--sede); font-size:.85rem;}
+section.pred button.zona-hlava{border-style:dashed; border-left:6px dashed var(--jemna);}
+ol.body{list-style:none; margin:6px 0 0; padding:0 0 0 14px; border-left:2px solid var(--jemna);}
+ol.body li{margin:0 0 6px;}
+button.bod{display:flex; gap:10px; align-items:flex-start; width:100%; min-height:44px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); padding:8px 10px; cursor:pointer; border-radius:3px;}
+section.pred button.bod{border-style:dashed;}
+button.bod .zn{width:22px; text-align:center; flex:0 0 22px;}
+section.hotovo button.bod{color:var(--sede);}
+button.bod .t{flex:1;}
+.bod-detail{margin:4px 0 8px 32px; font-size:.88rem; padding:8px 10px; border-left:3px solid var(--jemna); background:var(--plocha);}
+.bod-detail p{margin:0 0 4px;}
+.legenda{margin-top:18px; font-size:.82rem; color:var(--sede); border-top:2px dashed var(--jemna); padding-top:10px;}</style></head><body><main>
+<p class="mapa-stitek" data-mapa-ukolu="1">🗺 MAPA ÚKOLU</p><h1>Pokyny a verze</h1><p class="ukol-pod">Úkol 243 · Mozkovna · cíl: získat jasný přehled o práci a dalším kroku.</p>
+<div class="tady" id="tady" data-jsi-tady="1" data-krok="C1"><p class="spendlik">▶ JSI TADY</p><div class="vnitrek"><p class="krok-ted">Měřidlo záchytu podstrčených vláken</p><p class="krok-cislo">krok 7 z 14</p><div class="pasek" role="img" aria-label="6 hotovo, jsi u kroku 7 z 14"><span></span><span></span><span></span><span></span><span></span><span></span><span class="t"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span></div><p class="popisek">6 hotovo · 7 před námi</p><p class="natahu jiny" data-na-tahu="stroj">Na tahu: stroj pracuje dál.</p><div class="detail-ted"><p>karty 213 hotovo ; archiv čitelný přes Vrátného; Mirek rozhodl o sloučení 3. 11. 2026</p><button class="bod" type="button" data-bod="C1" data-titulek="Měřidlo záchytu podstrčených vláken" aria-expanded="false" aria-controls="detail-C1"><span class="zn">☐</span><span class="t">Měřidlo záchytu podstrčených vláken</span></button><div class="bod-detail" id="detail-C1" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>karty 213 hotovo ; archiv čitelný přes Vrátného; Mirek rozhodl o sloučení 3. 11. 2026</p><details><summary>Technika</summary><p>—</p></details></div></div></div></div>
+<section class="zona zcasti" data-zona="rozdelane"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-rozdelane"><span class="zn">⏳</span><span class="nazev">Rozdělané</span><span class="pocet">0</span><span class="sipka">▴</span></button><ol class="body" id="zona-rozdelane" data-seznam="0"></ol></section><section class="zona pred pred" data-zona="pred"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-pred"><span class="zn">☐</span><span class="nazev">Před námi</span><span class="pocet">7</span><span class="sipka">▴</span></button><ol class="body" id="zona-pred" data-seznam="0"><li><button class="bod" type="button" data-bod="C2" data-titulek="Rozšíření vytahovače o rušení pokynů" aria-expanded="false" aria-controls="detail-C2"><span class="zn">☐</span><span class="t">Rozšíření vytahovače o rušení pokynů</span></button><div class="bod-detail" id="detail-C2" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>karty 213 hotovo ; hotovo; měřidlo prošlo zápornou zkouškou</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="C3" data-titulek="Přejímka rozšíření vytahovače" aria-expanded="false" aria-controls="detail-C3"><span class="zn">☐</span><span class="t">Přejímka rozšíření vytahovače</span></button><div class="bod-detail" id="detail-C3" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo; záloha ostrého souboru vedle; přejímku dělá jiná rodina než autor; souhlas majitele karty 213 se zásahem do jejího souboru</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="C4" data-titulek="Výběr tří kreativních vláken" aria-expanded="false" aria-controls="detail-C4"><span class="zn">☐</span><span class="t">Výběr tří kreativních vláken</span></button><div class="bod-detail" id="detail-C4" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>Mirek rozhodl o kroku karty 213; skill kniha-znalosti nahraný v chatu</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="C5" data-titulek="Zápis pokynů na stránky témat" aria-expanded="false" aria-controls="detail-C5"><span class="zn">☐</span><span class="t">Zápis pokynů na stránky témat</span></button><div class="bod-detail" id="detail-C5" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="C6" data-titulek="Nová sada případů pro hodnotitele" aria-expanded="false" aria-controls="detail-C6"><span class="zn">☐</span><span class="t">Nová sada případů pro hodnotitele</span></button><div class="bod-detail" id="detail-C6" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo; souhlas majitele karty 240; pravdu určuje kontrolor jiné rodiny</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="C7" data-titulek="Rozšíření hodnotitele o staré případy" aria-expanded="false" aria-controls="detail-C7"><span class="zn">☐</span><span class="t">Rozšíření hodnotitele o staré případy</span></button><div class="bod-detail" id="detail-C7" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo; měřidlo z prošlo zápornou zkouškou</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="D1" data-titulek="Souhrnné ověření nezávislým kontrolorem" aria-expanded="false" aria-controls="detail-D1"><span class="zn">☐</span><span class="t">Souhrnné ověření nezávislým kontrolorem</span></button><div class="bod-detail" id="detail-D1" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>a hotové</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona hotovo" data-zona="hotovo"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-hotovo"><span class="zn">✓</span><span class="nazev">Za námi, hotovo</span><span class="pocet">6</span><span class="sipka">▾</span></button><ol class="body" id="zona-hotovo" data-seznam="1" hidden><li><button class="bod" type="button" data-bod="A1" data-titulek="Zjištění jen čtením: tři nálezy s" aria-expanded="false" aria-controls="detail-A1"><span class="zn">✓</span><span class="t">Zjištění jen čtením: tři nálezy s</span></button><div class="bod-detail" id="detail-A1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>Měřidlo prošlo zkouškami ; opis stránky Pravidla placené reklamy je v</p><details><summary>Technika</summary><p>POZOR NA CESTU: slozka se jmenuje 00_DATA_MOZEK (pismeno E, ne U). Cestu ke skriptu bidovani zkopiruj z tohoto zadani znak po znaku a pred cetenim si ji over (Test-Path); kdyz soubor nenajdes, hledej ho v C:/Users/Mirek/GDATA/00_DATA_MOZEK/01_PROJEKTY/Procentov_Monthly_Analysis/scripts/ a NEHLAS blokator, dokud nezkusis i tuto cestu. Jen cteni a zapis dvou souboru. Priprav dukazy pro tri zjisteni. Cti: C:/work/ukoly/_u240/inspekce_240.py (tydenni kontrola stranek knihy znalosti), C:/work/ukoly/_u243/vstup/pravidla_reklamy_2026-10-31.md (opis stranky Pravidla placene reklamy), C:/Users/Mirek/GDATA/00_DATA_MOZEK/01_PROJEKTY/Procentov_Monthly_Analysis/scripts/master_bidding.py (skript mesicniho bidovani FAVI) a C:/work/znalosti/procentov/marketing-a-bidding/favi-bidovani.md. Zapis C:/work/ukoly/_u243/zjisteni_z9.json ve tvaru {&quot;nalezy&quot;:[{&quot;id&quot;:&quot;N1&quot;,&quot;tvrzeni&quot;:&quot;...&quot;,&quot;dukaz&quot;:[{&quot;soubor&quot;:&quot;&lt;absolutni cesta s lomitky /&gt;&quot;,&quot;radek&quot;:&lt;cislo radku od 1&gt;,&quot;doslova&quot;:&quot;&lt;text, ktery na tom radku doslova stoji, nejvyse 100 znaku&gt;&quot;}]}, ...]}. N1: tydenni kontrola (inspekce_240.py) neporovnava pravidlo na strance se skriptem, ktery ho provadi; dukaz = radek se seznamem jejich kontrol. N2: stranka Pravidla placene reklamy je po 30. 10. 2026 opravena jen castecne (upozorneni nahore a doplnek z 31. 10. ano, prepis P1-P12 do nove reci ne); dukazy z opisu. N3: skript bidovani FAVI porad tridi vyrobky podle PNO; dukaz = aspon tri radky tabulky skupin (STAR, CASH_COW, QUESTION, LOSING, DEAD) a radek na strance FAVI, ktery to uvadi jako zive riziko. Kazdy citat musi na uvedenem radku stat doslova. Pak napis C:/work/ukoly/_u243/predani_z9.md: hotovy text na nejvyse 15 radku pro majitele karet UKOL-34 a UKOL-190 (co jsme zjistili, kde je dukaz, co s tim musi udelat oni); text se NIKAM neodesila. Nic jineho nedelej: zadny jiny soubor nezakladej ani nemaz, do skriptu bidovani, do stranek knihy znalosti, do karet a do Notionu nesahej, meridla nemen.</p></details></div></li><li><button class="bod" type="button" data-bod="A2" data-titulek="Modul, který porovná platnou stránku se" aria-expanded="false" aria-controls="detail-A2"><span class="zn">✓</span><span class="t">Modul, který porovná platnou stránku se</span></button><div class="bod-detail" id="detail-A2" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>hotovo; měřidlo prošlo zkouškami; registr s jedním záznamem leží v _u243</p><details><summary>Technika</summary><p>Napis Python 3 soubor C:/work/ukoly/_u243/shoda_243.py (jen standardni knihovna). Spusteni: python shoda_243.py --registr R.json --out V.json. Registr je JSON seznam objektu s klici id, stranka, stranka_musi_obsahovat (regularni vyraz), skript, skript_nesmi_obsahovat (regularni vyraz); dalsi klice ignoruj. Pro kazdy zaznam: kdyz soubor stranky nebo skriptu neexistuje -&gt; odchylka druh soubor_chybi; jinak kdyz stranka vzorec nema -&gt; odchylka druh stranka_nema_pravidlo; jinak kdyz skript obsahuje zakazany vzorec -&gt; odchylka druh skript_rozporuje. Do V.json zapis (UTF-8) {&quot;kontrol&quot;: &lt;pocet zaznamu&gt;, &quot;odchylek&quot;: &lt;pocet odchylek&gt;, &quot;odchylky&quot;: [{&quot;id&quot;:..,&quot;druh&quot;:..,&quot;co&quot;:&quot;&lt;jedna veta&gt;&quot;}]} a skonci s kodem 0 i pri odchylkach. Soubory cti jen pro cteni (UTF-8, errors=replace), nic jineho nezapisuj nez V.json. Skript bidovani, stranky knihy znalosti, inspekce_240.py, shoda_registr.json, meridlo_a2.py ani slozku ref nemen.</p></details></div></li><li><button class="bod" type="button" data-bod="A3" data-titulek="Modul obsahových kontrol zápisu: záloha existuje" aria-expanded="false" aria-controls="detail-A3"><span class="zn">✓</span><span class="t">Modul obsahových kontrol zápisu: záloha existuje</span></button><div class="bod-detail" id="detail-A3" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>hotovo; měřidlo prošlo zkouškami</p><details><summary>Technika</summary><p>Napis Python 3 soubor C:/work/ukoly/_u243/kontrola_obsahu_243.py (jen standardni knihovna). Spusteni: python kontrola_obsahu_243.py --pripad P.json --out V.json. P.json = {&quot;stranka_po&quot;: cesta, &quot;zaloha&quot;: cesta, &quot;rozhodnuti_doslova&quot;: text, &quot;zdroj_rozhodnuti&quot;: cesta, &quot;kod&quot;: null nebo {&quot;soubor&quot;: cesta, &quot;regex&quot;: vyraz, &quot;stranka_regex&quot;: vyraz}}. Do V.json zapis (UTF-8) {&quot;prosla&quot;: true/false, &quot;duvody&quot;: [kody]}; prosla je true jen kdyz je seznam duvodu prazdny. Kody: zaloha_chybi (soubor zalohy neexistuje), zaloha_prazdna (existuje, ma velikost 0), rozhodnuti_neni_ve_zdroji (rozhodnuti_doslova se po sjednoceni bilych znaku nenachazi doslova v souboru zdroj_rozhodnuti), rozhodnuti_neni_na_strance (na radku stranky zacinajicim &quot;Potvrdil Mirek:&quot; rozhodnuti_doslova neni), radek_pravidel_chybi (na strance neni radek obsahujici &quot;Pravidla leží v:&quot;), radek_pravidel_mrtvy (na tom radku neni zadna cesta tvaru C:/... ani adresa http(s) nebo nektera cesta C:/... na disku neexistuje), kod_nesedi (kdyz je kod zadan: prvni skupina regexu v souboru kodu a prvni skupina stranka_regex na strance chybi nebo se lisi). Skonci s kodem 0 i kdyz duvody jsou. Nic nezapisuj kromE V.json. Zadnou stranku knihy znalosti, zkouska_240.py, meridlo_a3.py ani slozku ref nemen.</p></details></div></li><li><button class="bod" type="button" data-bod="B1" data-titulek="Napojení modulu na týdenní kontrolu" aria-expanded="false" aria-controls="detail-B1"><span class="zn">✓</span><span class="t">Napojení modulu na týdenní kontrolu</span></button><div class="bod-detail" id="detail-B1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>hotovo; souhlas majitele karty 240 se zásahem do jejího souboru; skript FAVI se nemění</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="B2" data-titulek="Napojení obsahových kontrol ) na hodnotitele" aria-expanded="false" aria-controls="detail-B2"><span class="zn">✓</span><span class="t">Napojení obsahových kontrol ) na hodnotitele</span></button><div class="bod-detail" id="detail-B2" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>hotovo; souhlas majitele karty 240; přejímku dělá jiná rodina než autor</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="B3" data-titulek="Zkouška v projektu Mozkovna: 1 holá" aria-expanded="false" aria-controls="detail-B3"><span class="zn">✓</span><span class="t">Zkouška v projektu Mozkovna: 1 holá</span></button><div class="bod-detail" id="detail-B3" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 3. 11. 2026</p><p>karty 240 dokončen nebo Mirek otevřel vlákna ručně</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona odbocky" data-zona="odbocky"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-odbocky"><span class="zn">→</span><span class="nazev">Odbočky jinam</span><span class="pocet">0</span><span class="sipka">▾</span></button><ol class="body" id="zona-odbocky" data-seznam="0" hidden></ol></section>
+<p class="legenda">Modrý rámeček ▶ = jsi tady · oranžové 👉 = na tahu jsi ty (jediná oranžová na stránce) · šedé ✔ = hotovo, ztlumené · světle modrý pruh ⏳ = rozdělané · cihlový pruh ⚠ = stojí · čárkované ☐ = před námi · fialový pruh → = odbočka · barva vždy jen zopakuje značku a slovo · ťukni na řádek = rozbalí se, znovu = sbalí se</p></main><script>document.addEventListener("click", e=>{
+  const b = e.target.closest("button.zona-hlava, button.bod");
+  if (!b) return;
+  const t = document.getElementById(b.getAttribute("aria-controls"));
+  const otevrit = t.hidden; t.hidden = !otevrit; b.setAttribute("aria-expanded", String(otevrit));
+  const s2 = b.querySelector(".sipka"); if (s2) s2.textContent = otevrit ? "▴" : "▾";
+});</script></body></html>
