@@ -1,338 +1,74 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="42">
-<title>UKOL-197 · Art Decoration ceník</title>
-<style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
-header p{margin:.2rem 0;font-size:1.05rem}
-.vedu{font-weight:bold}
-#tri-radky p{margin:.2rem 0;font-size:1rem}
-.plakat{margin:.5rem 0;font-size:1.1rem}
-.plakat-cislo{font-size:2.6rem;font-weight:bold}
-.prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
-.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
-.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
-.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
-body.detail .trat-ram{display:none}
-body.celek .detail-kroky{display:none}
-.detail-kroky{margin:1rem 0}
-.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
-.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
-.krok-detail details{margin-top:.4rem;font-size:.85rem}
-.krok-detail summary{cursor:pointer;min-height:24px}
-.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
-.zadani ul{margin:.2rem 0;padding-left:1.1rem}
-footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
-.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
-.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
-.odbocka-znak{font-size:1rem}
-.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
-</style>
-</head>
-<body class="celek">
-<header>
-  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
-  <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok J8 – Vyhodnocení 20. 11.: stroj z čerstvých dat spočítá zkoušku ceny skupiny C a prodeje věšáků Ibar a Hiren</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: Vyhodnocení 20. 11.: stroj z čerstvých dat spočítá zkoušku ceny skupiny C a prodeje věšáků Ibar a Hiren.</p>
-    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
-  </div>
-  <p class="plakat"><span class="plakat-cislo">9</span> z 11 hotovo</p>
-  <div class="prepinac">
-    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
-    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
-  </div>
-</header>
-<main>
-  <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 1640 150" width="1640" height="150" role="img" aria-label="Trať kroků karty">
-<g class="stanice stav-hotovo" data-stanice="M1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Ceník z e-mailu na disk a spočítat řádky"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">M1</text></g>
-<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="M2" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Spárovat ceník s našimi produkty Art Decoration (co máme a nemáme)"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">M2</text></g>
-<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="M3" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Porovnat prodejní ceny s nejnižší povolenou cenou"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">M3</text></g>
-<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="M4" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Návrh přecenění — schvaluje Mirek"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">M4</text></g>
-<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="J1" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Ověřit odpověď Art Decoration na dotaz z 15. 10."><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">J1</text></g>
-<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="J2" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Návrh cen pro 28 variant pod hranicí (m5_28)"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="820" y="134" font-size="13" text-anchor="middle">J2</text></g>
-<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="J3" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Stolek Garg 3212 — verdikt s podkladem (mezera 55,5 %)"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="970" y="134" font-size="13" text-anchor="middle">J3</text></g>
-<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="J7" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Přehled 30 nerozhodnutých a 15 kódů mimo vzor (rozbor 311)"><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">J7</text></g>
-<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="M5" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Zápis přehledu (M5) do Notionu — schvaluje Mirek jednou"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1270" y="134" font-size="13" text-anchor="middle">M5</text></g>
-<line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="J8" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Vyhodnocení 20. 11.: stroj z čerstvých dat spočítá zkoušku ceny skupiny C a prodeje věšáků Ibar a Hiren" data-tady="1" data-krok="J8"><circle cx="1420" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1420" y="134" font-size="13" text-anchor="middle">J8</text><text x="1420" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="1440" y1="70" x2="1550" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="J9" data-poradi="11" data-x="1570" data-proklik="1" role="button" tabindex="0" aria-label="Mirek rozhodne podle čísel: nechat nižší ceny skupiny C? vrátit Ibar a Hiren na 1 801 Kč?"><text x="1570" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1570" y="134" font-size="13" text-anchor="middle">J9</text></g>
-</svg>
-  </div>
-  <section class="panely-kroku">
-<article class="krok-panel" data-panel-krok="M1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Ceník z e-mailu na disk a spočítat řádky <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>e-mail 1a1145fbab105e00 dostupný přes místní Gmail napojení</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="M2" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Spárovat ceník s našimi produkty Art Decoration (co máme a nemáme) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>M1 hotový; zjištěno, kde v našich datech poznáme dodavatele Art Decoration</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="M3" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Porovnat prodejní ceny s nejnižší povolenou cenou <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>M2 hotový; pravidlo z (přečteno 7. 10. 2026); měna ceníku ověřena</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="M4" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Návrh přecenění — schvaluje Mirek <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>M3 hotový</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="J1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Ověřit odpověď Art Decoration na dotaz z 15. 10. <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 30. 10. 06:41</p>
-  <p>M4 hotový; dotaz odeslán 15. 10. ve vlánu Nowe Wyroby</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Pouzij skill gmail-hledani. Ve sloucene schrance procentov.cz@gmail.com over vlakno k e-mailu &#x27;Nowe Wyroby&#x27; / internet@art-decoration.pl: je odpoved na nas dotaz z 15. 10. 2026? Zapis vysledek do souboru (JSON): thread_dotaz_id, hledano_od, odpoved_nalezena (bool), zprava_id (nebo null), zpusob_cteni=gmail-mcp, souhrn. Cestu cti pres C:/work/gmail-mcp. Nic neodesilej a nic neměň v obchodě.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="J2" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Návrh cen pro 28 variant pod hranicí (m5_28) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 30. 10. 06:42</p>
-  <p>J1 hotový</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Ze souboru C:/work/art_decoration/m5_28_neresene.csv (28 radku) spocitej navrh prodejni ceny podle C:/work/parametry/cenova_pravidla.md (nejnižší povolená cena). Zapis JSON C:/work/art_decoration/j2_navrh_28.json: pole varianty (28 polozek id_var, navrh_cena, hranice, kod), zapsano_do_obchodu=false. Do Shopionu nic neimportuj.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="J3" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Stolek Garg 3212 — verdikt s podkladem (mezera 55,5 %) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 30. 10. 06:43</p>
-  <p>J2 hotový</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Pro produkt 3212 (3 varianty, kod AD-07-90766) over parovani ceníku vuci C:/work/art_decoration/m7_1_parovani_311.csv a m8_web_katalog.csv. Zapis C:/work/art_decoration/j3_garg_verdikt.json: id_prod 3212, pocet_variant 3, mezera_pct, verdikt z mnoziny precenit_na_hranici|nechat|ceka_na_ad|jinak_mirkovo_slovo, podklad_soubor. Ceny v obchodě neměň.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="J7" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Přehled 30 nerozhodnutých a 15 kódů mimo vzor (rozbor 311) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 30. 10. 06:44</p>
-  <p>J3 hotový</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Z C:/work/art_decoration/m7_3_verdikt_311.json a m7_1_parovani_311.csv priprav prehled pro Mirka: pocet_nerozhodnuto=30, pocet_mimo_vzor=15 (souhlas s m7_3), soubor_radku s radky ke kontrole. Uloz C:/work/art_decoration/j7_nerozhodnuto_prehled.json. Bez zmeny cen.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="M5" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Zápis přehledu (M5) do Notionu — schvaluje Mirek jednou <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 4. 11. 15:04</p>
-  <p>J5 hotový nebo preskoceno</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Priprav navrh zapisu prehledu Art Decoration (kritérium A5) podle m5_prehled.json a stavu karty. Stroj se zastavi — Notion zapisuje az po Mirkove jednorazovem schvaleni (skill notion-zapis).</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="J8" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Vyhodnocení 20. 11.: stroj z čerstvých dat spočítá zkoušku ceny skupiny C a prodeje věšáků Ibar a Hiren <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>20. 11. 2026 spouštěč stáhl čerstvá data (razítko s datem 20. 11., FAVI do 19. 11.); plán podepsán Mirkem; měřidlo J8 prošlo zkouškami 15 z…</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Spust prikaz: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/vyhodnot_197.py --out C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/vyhodnoceni_197.json
-Jeho vystup se ulozi sam do toho souboru, nic dalsiho nepis. Nic jineho nedelej: nemen a nemaz zadne soubory ve slozkach plan_stroj/data_20_11 a plan_stroj/meridla, nic neodesilej a nic nemen v obchode ani v Notionu. Sit nepotrebujes, data uz jsou stazena.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="J9" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Mirek rozhodne podle čísel: nechat nižší ceny skupiny C? vrátit Ibar a Hiren na 1 801 Kč? <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>J8 hotovo</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Stroj se zastavi a posle Mirkovi zpravu. Podklad pro vlakno, ktere Mirek otevre: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/vyhodnoceni_197.json (verdikty C a IH, cisla pred a po, priznak dost_dat). Mirkovi dat predavku s grafy (skill kde-jsme a ukaz-mi-to), ne tabulku cisel. Odpoved stroji: python C:/work/stroj/start_jizdy.py UKOL-197 --pokracuj --odpoved &quot;&lt;slovo Mirka doslova&gt;&quot;. Zmena cen v obchode jde MIMO stroj, az po jeho ANO, v novem vlakne pres skill shopion-ceny-import.</p></div></details>
-</article>
-  </section>
-  <section class="detail-kroky">
-<article class="krok-detail stav-hotovo" data-krok-id="M1">
-  <h3><span class="znak" aria-hidden="true">●</span> 1. Ceník z e-mailu na disk a spočítat řádky <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="M2">
-  <h3><span class="znak" aria-hidden="true">●</span> 2. Spárovat ceník s našimi produkty Art Decoration (co máme a nemáme) <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="M3">
-  <h3><span class="znak" aria-hidden="true">●</span> 3. Porovnat prodejní ceny s nejnižší povolenou cenou <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="M4">
-  <h3><span class="znak" aria-hidden="true">●</span> 4. Návrh přecenění — schvaluje Mirek <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="J1">
-  <h3><span class="znak" aria-hidden="true">●</span> 5. Ověřit odpověď Art Decoration na dotaz z 15. 10. <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 30. 10. 06:41</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Pouzij skill gmail-hledani. Ve sloucene schrance procentov.cz@gmail.com over vlakno k e-mailu &#x27;Nowe Wyroby&#x27; / internet@art-decoration.pl: je odpoved na nas dotaz z 15. 10. 2026? Zapis vysledek do souboru (JSON): thread_dotaz_id, hledano_od, odpoved_nalezena (bool), zprava_id (nebo null), zpusob_cteni=gmail-mcp, souhrn. Cestu cti pres C:/work/gmail-mcp. Nic neodesilej a nic neměň v obchodě.</p>
-      <p>Oblast: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast · Výsledný soubor: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/j1_odpoved_ad.json</p>
-      <ul class="meritka"><li>J1-M1: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j1.py</li></ul>
-      <ul class="dukaz"><li>30. 10. 06:41: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j1.py → vad 0</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="J2">
-  <h3><span class="znak" aria-hidden="true">●</span> 6. Návrh cen pro 28 variant pod hranicí (m5_28) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 30. 10. 06:42</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Ze souboru C:/work/art_decoration/m5_28_neresene.csv (28 radku) spocitej navrh prodejni ceny podle C:/work/parametry/cenova_pravidla.md (nejnižší povolená cena). Zapis JSON C:/work/art_decoration/j2_navrh_28.json: pole varianty (28 polozek id_var, navrh_cena, hranice, kod), zapsano_do_obchodu=false. Do Shopionu nic neimportuj.</p>
-      <p>Oblast: C:/work/art_decoration · Výsledný soubor: C:/work/art_decoration/j2_navrh_28.json</p>
-      <ul class="meritka"><li>J2-M1: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j2.py</li></ul>
-      <ul class="dukaz"><li>30. 10. 06:42: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j2.py → vad 0</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="J3">
-  <h3><span class="znak" aria-hidden="true">●</span> 7. Stolek Garg 3212 — verdikt s podkladem (mezera 55,5 %) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 30. 10. 06:43</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Pro produkt 3212 (3 varianty, kod AD-07-90766) over parovani ceníku vuci C:/work/art_decoration/m7_1_parovani_311.csv a m8_web_katalog.csv. Zapis C:/work/art_decoration/j3_garg_verdikt.json: id_prod 3212, pocet_variant 3, mezera_pct, verdikt z mnoziny precenit_na_hranici|nechat|ceka_na_ad|jinak_mirkovo_slovo, podklad_soubor. Ceny v obchodě neměň.</p>
-      <p>Oblast: C:/work/art_decoration · Výsledný soubor: C:/work/art_decoration/j3_garg_verdikt.json</p>
-      <ul class="meritka"><li>J3-M1: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j3.py</li></ul>
-      <ul class="dukaz"><li>30. 10. 06:43: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j3.py → vad 0</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="J7">
-  <h3><span class="znak" aria-hidden="true">●</span> 8. Přehled 30 nerozhodnutých a 15 kódů mimo vzor (rozbor 311) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 30. 10. 06:44</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Z C:/work/art_decoration/m7_3_verdikt_311.json a m7_1_parovani_311.csv priprav prehled pro Mirka: pocet_nerozhodnuto=30, pocet_mimo_vzor=15 (souhlas s m7_3), soubor_radku s radky ke kontrole. Uloz C:/work/art_decoration/j7_nerozhodnuto_prehled.json. Bez zmeny cen.</p>
-      <p>Oblast: C:/work/art_decoration · Výsledný soubor: C:/work/art_decoration/j7_nerozhodnuto_prehled.json</p>
-      <ul class="meritka"><li>J7-M1: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j7.py</li></ul>
-      <ul class="dukaz"><li>30. 10. 06:44: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j7.py → vad 0</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="M5">
-  <h3><span class="znak" aria-hidden="true">●</span> 9. Zápis přehledu (M5) do Notionu — schvaluje Mirek jednou <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 4. 11. 15:04</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Priprav navrh zapisu prehledu Art Decoration (kritérium A5) podle m5_prehled.json a stavu karty. Stroj se zastavi — Notion zapisuje az po Mirkove jednorazovem schvaleni (skill notion-zapis).</p>
-      <p>Oblast: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast · Výsledný soubor: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/m5_notion_vysledek.json</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="J8">
-  <h3><span class="znak" aria-hidden="true">○</span> 10. Vyhodnocení 20. 11.: stroj z čerstvých dat spočítá zkoušku ceny skupiny C a prodeje věšáků Ibar a Hiren <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Spust prikaz: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/vyhodnot_197.py --out C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/vyhodnoceni_197.json
-Jeho vystup se ulozi sam do toho souboru, nic dalsiho nepis. Nic jineho nedelej: nemen a nemaz zadne soubory ve slozkach plan_stroj/data_20_11 a plan_stroj/meridla, nic neodesilej a nic nemen v obchode ani v Notionu. Sit nepotrebujes, data uz jsou stazena.</p>
-      <p>Oblast: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast · Výsledný soubor: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/vyhodnoceni_197.json</p>
-      <ul class="meritka"><li>J8-M1: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/meridlo_j8.py</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="J9">
-  <h3><span class="znak" aria-hidden="true">○</span> 11. Mirek rozhodne podle čísel: nechat nižší ceny skupiny C? vrátit Ibar a Hiren na 1 801 Kč? <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Stroj se zastavi a posle Mirkovi zpravu. Podklad pro vlakno, ktere Mirek otevre: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/vyhodnoceni_197.json (verdikty C a IH, cisla pred a po, priznak dost_dat). Mirkovi dat predavku s grafy (skill kde-jsme a ukaz-mi-to), ne tabulku cisel. Odpoved stroji: python C:/work/stroj/start_jizdy.py UKOL-197 --pokracuj --odpoved &quot;&lt;slovo Mirka doslova&gt;&quot;. Zmena cen v obchode jde MIMO stroj, az po jeho ANO, v novem vlakne pres skill shopion-ceny-import.</p>
-      <p>Oblast: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast · Výsledný soubor: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/j9_rozhodnuti_mirka.json</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-
-  </section>
-</main>
-<footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
-  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
-</footer>
-<script>
-function rezim(r){
-  document.body.classList.remove('celek','detail');
-  document.body.classList.add(r);
-  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
-  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="karta-verze" content="42"><title>UKOL-197 · Art Decoration ceník</title><style>:root{
+  --papir:#ffffff; --inkoust:#1a1a1a; --sede:#5c5c5c; --linka:#1a1a1a; --jemna:#c4c4c4; --plocha:#f1f1f1;
+  --tady:#0072B2; --tady-svetla:#e6f1f8; --na-tebe:#E69F00; --na-tebe-text:#1a1a1a;
+  --rozdelane:#56B4E9; --rozdelane-svetla:#eef7fd; --stoji:#D55E00; --odbocka:#CC79A7; --hotovo:#7a7a7a;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-function otevriPanel(id){
-  const panely=[...document.querySelectorAll('[data-panel-krok]')];
-  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
-  if(!panel)return;
-  const otevrene=!panel.hidden;
-  panely.forEach(p=>p.hidden=true);
-  if(!otevrene)panel.hidden=false;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+    --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
 }
-function pripravProklik(){
-  document.querySelectorAll('[data-stanice]').forEach(st=>{
-    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
-    st.addEventListener('click',akce);
-    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
-  });
-  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
-  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
-}
-document.addEventListener('DOMContentLoaded',pripravProklik);
-</script>
-</body>
-</html>
+:root[data-theme="dark"]{ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+  --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0; background:var(--papir); color:var(--inkoust);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:18px; line-height:1.45;}
+main{max-width:620px; margin:0 auto; padding:16px 14px 48px;}
+.mapa-stitek{font-size:.8rem; font-weight:800; letter-spacing:.12em; margin:0;}
+h1{font-size:1.4rem; line-height:1.2; margin:2px 0 2px; font-weight:800;}
+.ukol-pod{font-size:.85rem; color:var(--sede); margin:0 0 12px;}
+.tady{border:4px solid var(--tady); background:var(--tady-svetla); margin:0 0 16px; border-radius:6px; overflow:hidden;}
+.tady .spendlik{background:var(--tady); color:#ffffff; font-size:.95rem; font-weight:800; letter-spacing:.1em; margin:0; padding:7px 14px;}
+.tady .vnitrek{padding:10px 14px 14px;}
+.tady .krok-ted{font-size:1.35rem; font-weight:800; margin:0 0 2px; line-height:1.25;}
+.tady .krok-cislo{font-size:.85rem; color:var(--sede); margin:0 0 8px;}
+.tady .natahu{display:inline-block; margin:10px 0 0; font-size:1rem; font-weight:800; padding:8px 12px; border-radius:6px;
+  background:var(--na-tebe); color:var(--na-tebe-text);}
+.tady .natahu.jiny{background:var(--plocha); color:var(--inkoust); font-weight:600; border:1px solid var(--jemna);}
+.pasek{display:flex; gap:4px; margin:6px 0 2px; flex-wrap:wrap; align-items:center;}
+.pasek span{width:16px; height:16px; border:2px solid var(--hotovo); background:var(--hotovo); border-radius:2px;}
+.pasek span.z{border-color:var(--rozdelane); background:linear-gradient(90deg,var(--rozdelane) 50%,transparent 50%);}
+.pasek span.c{border:2px dashed var(--jemna); background:transparent;}
+.pasek span.t{width:26px; height:26px; border:4px solid var(--tady); background:var(--papir); position:relative;}
+.pasek span.t::after{content:"▶"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:var(--tady);}
+.popisek{font-size:.8rem; color:var(--sede); margin:2px 0 0;}
+.detail-ted{margin-top:12px; padding-top:8px; border-top:1px solid var(--jemna); font-size:.88rem; color:var(--sede);}
+.detail-ted p{margin:0 0 6px;}
+section.zona{margin:0 0 10px;}
+button.zona-hlava{display:flex; align-items:center; gap:10px; width:100%; min-height:48px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); border-left:6px solid var(--hotovo); padding:8px 12px; cursor:pointer; border-radius:4px;}
+section.hotovo button.zona-hlava{color:var(--sede);}
+section.zcasti button.zona-hlava{border-left-color:var(--rozdelane); background:var(--rozdelane-svetla); font-weight:600;}
+section.zcasti.stoji button.zona-hlava{border-left-color:var(--stoji);}
+section.odbocky button.zona-hlava{border-left-color:var(--odbocka); color:var(--sede);}
+button.zona-hlava:focus-visible, button.bod:focus-visible{outline:3px solid var(--linka); outline-offset:2px;}
+.zona-hlava .zn{font-size:1.15rem; width:26px; text-align:center;}
+.zona-hlava .nazev{flex:1; font-weight:600;}
+.zona-hlava .pocet{font-weight:800; font-size:.9rem;}
+.zona-hlava .sipka{color:var(--sede); font-size:.85rem;}
+section.pred button.zona-hlava{border-style:dashed; border-left:6px dashed var(--jemna);}
+ol.body{list-style:none; margin:6px 0 0; padding:0 0 0 14px; border-left:2px solid var(--jemna);}
+ol.body li{margin:0 0 6px;}
+button.bod{display:flex; gap:10px; align-items:flex-start; width:100%; min-height:44px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); padding:8px 10px; cursor:pointer; border-radius:3px;}
+section.pred button.bod{border-style:dashed;}
+button.bod .zn{width:22px; text-align:center; flex:0 0 22px;}
+section.hotovo button.bod{color:var(--sede);}
+button.bod .t{flex:1;}
+.bod-detail{margin:4px 0 8px 32px; font-size:.88rem; padding:8px 10px; border-left:3px solid var(--jemna); background:var(--plocha);}
+.bod-detail p{margin:0 0 4px;}
+.legenda{margin-top:18px; font-size:.82rem; color:var(--sede); border-top:2px dashed var(--jemna); padding-top:10px;}</style></head><body><main>
+<p class="mapa-stitek" data-mapa-ukolu="1">🗺 MAPA ÚKOLU</p><h1>Art Decoration ceník</h1><p class="ukol-pod">Úkol 197 · Procentov — prodej a zisk · cíl: získat jasný přehled o práci a dalším kroku.</p>
+<div class="tady" id="tady" data-jsi-tady="1" data-krok="J8"><p class="spendlik">▶ JSI TADY</p><div class="vnitrek"><p class="krok-ted">Vyhodnocení ceny skupiny C a věšáků</p><p class="krok-cislo">krok 10 z 11</p><div class="pasek" role="img" aria-label="9 hotovo, jsi u kroku 10 z 11"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="t"></span><span class="c"></span></div><p class="popisek">9 hotovo · 1 před námi</p><p class="natahu jiny" data-na-tahu="stroj">Na tahu: stroj pracuje dál.</p><div class="detail-ted"><p>20. 11. 2026 spouštěč stáhl čerstvá data ; plán podepsán Mirkem; měřidlo prošlo zkouškami 15 z 15</p><button class="bod" type="button" data-bod="J8" data-titulek="Vyhodnocení ceny skupiny C a věšáků" aria-expanded="false" aria-controls="detail-J8"><span class="zn">☐</span><span class="t">Vyhodnocení ceny skupiny C a věšáků</span></button><div class="bod-detail" id="detail-J8" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>20. 11. 2026 spouštěč stáhl čerstvá data ; plán podepsán Mirkem; měřidlo prošlo zkouškami 15 z 15</p><details><summary>Technika</summary><p>Spust prikaz: python C:/work/PRO_CODEXE/UKOL-197/plan_stroj/meridla/vyhodnot_197.py --out C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/vyhodnoceni_197.json
+Jeho vystup se ulozi sam do toho souboru, nic dalsiho nepis. Nic jineho nedelej: nemen a nemaz zadne soubory ve slozkach plan_stroj/data_20_11 a plan_stroj/meridla, nic neodesilej a nic nemen v obchode ani v Notionu. Sit nepotrebujes, data uz jsou stazena.</p></details></div></div></div></div>
+<section class="zona zcasti" data-zona="rozdelane"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-rozdelane"><span class="zn">⏳</span><span class="nazev">Rozdělané</span><span class="pocet">0</span><span class="sipka">▴</span></button><ol class="body" id="zona-rozdelane" data-seznam="0"></ol></section><section class="zona pred pred" data-zona="pred"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-pred"><span class="zn">☐</span><span class="nazev">Před námi</span><span class="pocet">1</span><span class="sipka">▴</span></button><ol class="body" id="zona-pred" data-seznam="0"><li><button class="bod" type="button" data-bod="J9" data-titulek="Mirkovo rozhodnutí o cenách" aria-expanded="false" aria-controls="detail-J9"><span class="zn">☐</span><span class="t">Mirkovo rozhodnutí o cenách</span></button><div class="bod-detail" id="detail-J9" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>Stroj se zastavi a posle Mirkovi zpravu. Podklad pro vlakno, ktere Mirek otevre: C:/work/PRO_CODEXE/UKOL-197/plan_stroj/oblast/vyhodnoceni_197.json (verdikty C a IH, cisla pred a po, priznak dost_dat). Mirkovi dat predavku s grafy (skill kde-jsme a ukaz-mi-to), ne tabulku cisel. Odpoved stroji: python C:/work/stroj/start_jizdy.py UKOL-197 --pokracuj --odpoved &quot;&lt;slovo Mirka doslova&gt;&quot;. Zmena cen v obchode jde MIMO stroj, az po jeho ANO, v novem vlakne pres skill shopion-ceny-import.</p></details></div></li></ol></section><section class="zona hotovo" data-zona="hotovo"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-hotovo"><span class="zn">✓</span><span class="nazev">Za námi, hotovo</span><span class="pocet">9</span><span class="sipka">▾</span></button><ol class="body" id="zona-hotovo" data-seznam="1" hidden><li><button class="bod" type="button" data-bod="M1" data-titulek="Ceník z e-mailu na disk a" aria-expanded="false" aria-controls="detail-M1"><span class="zn">✓</span><span class="t">Ceník z e-mailu na disk a</span></button><div class="bod-detail" id="detail-M1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>e-mail 1a1145fbab105e00 dostupný přes místní Gmail napojení</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="M2" data-titulek="Spárovat ceník s našimi produkty Art" aria-expanded="false" aria-controls="detail-M2"><span class="zn">✓</span><span class="t">Spárovat ceník s našimi produkty Art</span></button><div class="bod-detail" id="detail-M2" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>hotový; zjištěno, kde v našich datech poznáme dodavatele Art Decoration</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="M3" data-titulek="Porovnat prodejní ceny s nejnižší povolenou" aria-expanded="false" aria-controls="detail-M3"><span class="zn">✓</span><span class="t">Porovnat prodejní ceny s nejnižší povolenou</span></button><div class="bod-detail" id="detail-M3" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>hotový; pravidlo z ; měna ceníku ověřena</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="M4" data-titulek="Návrh přecenění — schvaluje Mirek" aria-expanded="false" aria-controls="detail-M4"><span class="zn">✓</span><span class="t">Návrh přecenění — schvaluje Mirek</span></button><div class="bod-detail" id="detail-M4" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>hotový</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="J1" data-titulek="Ověřit odpověď Art Decoration na dotaz" aria-expanded="false" aria-controls="detail-J1"><span class="zn">✓</span><span class="t">Ověřit odpověď Art Decoration na dotaz</span></button><div class="bod-detail" id="detail-J1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 30. 10. 2026</p><p>hotový; dotaz odeslán 15. 10. ve vlánu Nowe Wyroby</p><details><summary>Technika</summary><p>Pouzij skill gmail-hledani. Ve sloucene schrance procentov.cz@gmail.com over vlakno k e-mailu &#x27;Nowe Wyroby&#x27; / internet@art-decoration.pl: je odpoved na nas dotaz z 15. 10. 2026? Zapis vysledek do souboru (JSON): thread_dotaz_id, hledano_od, odpoved_nalezena (bool), zprava_id (nebo null), zpusob_cteni=gmail-mcp, souhrn. Cestu cti pres C:/work/gmail-mcp. Nic neodesilej a nic neměň v obchodě.</p></details></div></li><li><button class="bod" type="button" data-bod="J2" data-titulek="Návrh cen pro 28 variant pod" aria-expanded="false" aria-controls="detail-J2"><span class="zn">✓</span><span class="t">Návrh cen pro 28 variant pod</span></button><div class="bod-detail" id="detail-J2" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 30. 10. 2026</p><p>hotový</p><details><summary>Technika</summary><p>Ze souboru C:/work/art_decoration/m5_28_neresene.csv (28 radku) spocitej navrh prodejni ceny podle C:/work/parametry/cenova_pravidla.md (nejnižší povolená cena). Zapis JSON C:/work/art_decoration/j2_navrh_28.json: pole varianty (28 polozek id_var, navrh_cena, hranice, kod), zapsano_do_obchodu=false. Do Shopionu nic neimportuj.</p></details></div></li><li><button class="bod" type="button" data-bod="J3" data-titulek="Stolek Garg 3212 — verdikt s" aria-expanded="false" aria-controls="detail-J3"><span class="zn">✓</span><span class="t">Stolek Garg 3212 — verdikt s</span></button><div class="bod-detail" id="detail-J3" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 30. 10. 2026</p><p>hotový</p><details><summary>Technika</summary><p>Pro produkt 3212 (3 varianty, kod AD-07-90766) over parovani ceníku vuci C:/work/art_decoration/m7_1_parovani_311.csv a m8_web_katalog.csv. Zapis C:/work/art_decoration/j3_garg_verdikt.json: id_prod 3212, pocet_variant 3, mezera_pct, verdikt z mnoziny precenit_na_hranici|nechat|ceka_na_ad|jinak_mirkovo_slovo, podklad_soubor. Ceny v obchodě neměň.</p></details></div></li><li><button class="bod" type="button" data-bod="J7" data-titulek="Přehled 30 nerozhodnutých a 15 kódů" aria-expanded="false" aria-controls="detail-J7"><span class="zn">✓</span><span class="t">Přehled 30 nerozhodnutých a 15 kódů</span></button><div class="bod-detail" id="detail-J7" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 30. 10. 2026</p><p>hotový</p><details><summary>Technika</summary><p>Z C:/work/art_decoration/m7_3_verdikt_311.json a m7_1_parovani_311.csv priprav prehled pro Mirka: pocet_nerozhodnuto=30, pocet_mimo_vzor=15 (souhlas s m7_3), soubor_radku s radky ke kontrole. Uloz C:/work/art_decoration/j7_nerozhodnuto_prehled.json. Bez zmeny cen.</p></details></div></li><li><button class="bod" type="button" data-bod="M5" data-titulek="Zápis přehledu do Notionu — schvaluje" aria-expanded="false" aria-controls="detail-M5"><span class="zn">✓</span><span class="t">Zápis přehledu do Notionu — schvaluje</span></button><div class="bod-detail" id="detail-M5" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 4. 11. 2026</p><p>hotový nebo preskoceno</p><details><summary>Technika</summary><p>Priprav navrh zapisu prehledu Art Decoration (kritérium A5) podle m5_prehled.json a stavu karty. Stroj se zastavi — Notion zapisuje az po Mirkove jednorazovem schvaleni (skill notion-zapis).</p></details></div></li></ol></section><section class="zona odbocky" data-zona="odbocky"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-odbocky"><span class="zn">→</span><span class="nazev">Odbočky jinam</span><span class="pocet">0</span><span class="sipka">▾</span></button><ol class="body" id="zona-odbocky" data-seznam="0" hidden></ol></section>
+<p class="legenda">Modrý rámeček ▶ = jsi tady · oranžové 👉 = na tahu jsi ty (jediná oranžová na stránce) · šedé ✔ = hotovo, ztlumené · světle modrý pruh ⏳ = rozdělané · cihlový pruh ⚠ = stojí · čárkované ☐ = před námi · fialový pruh → = odbočka · barva vždy jen zopakuje značku a slovo · ťukni na řádek = rozbalí se, znovu = sbalí se</p></main><script>document.addEventListener("click", e=>{
+  const b = e.target.closest("button.zona-hlava, button.bod");
+  if (!b) return;
+  const t = document.getElementById(b.getAttribute("aria-controls"));
+  const otevrit = t.hidden; t.hidden = !otevrit; b.setAttribute("aria-expanded", String(otevrit));
+  const s2 = b.querySelector(".sipka"); if (s2) s2.textContent = otevrit ? "▴" : "▾";
+});</script></body></html>
