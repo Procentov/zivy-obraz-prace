@@ -1,512 +1,73 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="230">
-<title>UKOL-228 · Řízení prodeje podle toho, co zákazníci chtějí</title>
-<style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
-header p{margin:.2rem 0;font-size:1.05rem}
-.vedu{font-weight:bold}
-#tri-radky p{margin:.2rem 0;font-size:1rem}
-.plakat{margin:.5rem 0;font-size:1.1rem}
-.plakat-cislo{font-size:2.6rem;font-weight:bold}
-.prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
-.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
-.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
-.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
-body.detail .trat-ram{display:none}
-body.celek .detail-kroky{display:none}
-.detail-kroky{margin:1rem 0}
-.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
-.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
-.krok-detail details{margin-top:.4rem;font-size:.85rem}
-.krok-detail summary{cursor:pointer;min-height:24px}
-.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
-.zadani ul{margin:.2rem 0;padding-left:1.1rem}
-footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
-.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
-.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
-.odbocka-znak{font-size:1rem}
-.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
-</style>
-</head>
-<body class="celek">
-<header>
-  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
-  <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok U5 – Zasah k potvrzene pricine a zmereni, jestli zabral (krok 8)</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Faze 2 je hotova. Ctyri diry ve skladu cisel jsou podepsane. Plan skladu se nemeni, diry se vrati na stul po dokonceni jeho bezici prace, p…</p>
-    <p data-radek="ceka" data-ceka-na="nikdo"><strong>Čeká na tebe:</strong> Nic — stroj pracuje dál.</p>
-  </div>
-  <p class="plakat"><span class="plakat-cislo">13</span> z 19 hotovo</p>
-  <div class="prepinac">
-    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
-    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
-  </div>
-</header>
-<main>
-  <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 2840 150" width="2840" height="150" role="img" aria-label="Trať kroků karty">
-<g class="stanice stav-hotovo" data-stanice="U1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="Doplnit podezrele mimo portfolio do seznamu"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">U1</text></g>
-<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U2a" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="Dokoncit kroky 0 az 3 listu Postup cisly ze skriptu"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">U2a</text></g>
-<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U2b" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="Dokoncit kroky 4 az 6 listu Postup cisly ze skriptu"><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="370" y="134" font-size="13" text-anchor="middle">U2b</text></g>
-<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U3" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="Overit 5 podezrelych s daty (1, 7, 9, 17, 18), ostatni zaparkovat"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="520" y="134" font-size="13" text-anchor="middle">U3</text></g>
-<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U4" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="Krizova kontrola cisel v sesitu"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="670" y="134" font-size="13" text-anchor="middle">U4</text></g>
-<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-zruseno" data-stanice="U5" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="Zasah k potvrzene pricine a zmereni, jestli zabral (krok 8)" data-tady="1" data-krok="U5"><circle cx="820" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">✕</text><text x="820" y="134" font-size="13" text-anchor="middle">U5</text><text x="820" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,4,2,4"/>
-<g class="stanice stav-hotovo" data-stanice="U6" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="Postavit listy rodin v sesitu (tydny po-ne, okna 12-3-1, grafy 20+20)"><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="970" y="134" font-size="13" text-anchor="middle">U6</text></g>
-<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U7" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="Overit podezreni 4, 5, 7, 8, 10 po prvnim celem tydnu 26. 10.-1. 11."><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1120" y="134" font-size="13" text-anchor="middle">U7</text></g>
-<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U8" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="Zaparkovana podezreni 13, 14, 15, 16 (sklad, ceny konkurence, Merchant Center, dodaci lhuty)"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1270" y="134" font-size="13" text-anchor="middle">U8</text></g>
-<line x1="1290" y1="70" x2="1400" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U9" data-poradi="10" data-x="1420" data-proklik="1" role="button" tabindex="0" aria-label="Podezreni 1 Chrome 155: zkouska nakupu na Samsungu a vyhodnoceni"><text x="1420" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1420" y="134" font-size="13" text-anchor="middle">U9</text></g>
-<line x1="1440" y1="70" x2="1550" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="F1" data-poradi="11" data-x="1570" data-proklik="1" role="button" tabindex="0" aria-label="Jidelni listek: jeden seznam toho, co Mirek chce videt, a kdo ktery radek dodava"><text x="1570" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1570" y="134" font-size="13" text-anchor="middle">F1</text></g>
-<line x1="1590" y1="70" x2="1700" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="F2" data-poradi="12" data-x="1720" data-proklik="1" role="button" tabindex="0" aria-label="Kontrola dvojcat: 8 rodin, sesit diagnozy proti skladu cisel"><text x="1720" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1720" y="134" font-size="13" text-anchor="middle">F2</text></g>
-<line x1="1740" y1="70" x2="1850" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="F3" data-poradi="13" data-x="1870" data-proklik="1" role="button" tabindex="0" aria-label="Diry predat skladu cisel jako navrh kroku k podpisu (naklad Google po produktu, navstevy, cesta k nakupu)"><text x="1870" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="1870" y="134" font-size="13" text-anchor="middle">F3</text></g>
-<line x1="1890" y1="70" x2="2000" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="F4" data-poradi="14" data-x="2020" data-proklik="1" role="button" tabindex="0" aria-label="Jestli to zabralo: postup pred a po a nulte mereni pokusu FAVI z 5. 11."><text x="2020" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="2020" y="134" font-size="13" text-anchor="middle">F4</text></g>
-<line x1="2040" y1="70" x2="2150" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-bezi" data-stanice="G1" data-poradi="15" data-x="2170" data-proklik="1" role="button" tabindex="0" aria-label="Oblasti: sepsat 4 az 6 oblasti z Mirkovych slov a z noveho metru a ke kazde pravidlo zarazeni rodiny; Mirek odklepne"><text x="2170" y="78" font-size="26" text-anchor="middle" aria-hidden="true">▶</text><text x="2170" y="134" font-size="13" text-anchor="middle">G1</text></g>
-<line x1="2190" y1="70" x2="2300" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="9,6"/>
-<g class="stanice stav-ceka" data-stanice="G2" data-poradi="16" data-x="2320" data-proklik="1" role="button" tabindex="0" aria-label="Sloupec oblasti a filtr v okne, spocitane skriptem ze skladu cisel; zkouska na 10 nejvetsich rodinach"><text x="2320" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="2320" y="134" font-size="13" text-anchor="middle">G2</text></g>
-<line x1="2340" y1="70" x2="2450" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="G3" data-poradi="17" data-x="2470" data-proklik="1" role="button" tabindex="0" aria-label="Pruh peti klicovych cisel z zivého prehledu 225 nahoru a radek &#x27;jestli to zabralo&#x27; (skript zabralo_228.py) do okna"><text x="2470" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="2470" y="134" font-size="13" text-anchor="middle">G3</text></g>
-<line x1="2490" y1="70" x2="2600" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="G4" data-poradi="18" data-x="2620" data-proklik="1" role="button" tabindex="0" aria-label="Jedna adresa: vsech sest radku listku L1-L6 na jedne strance, u kazdeho zdroj a cas nacteni, kde sklad data nema stoji &#x27;nezjisteno&#x27;; vznikne okno_228.json"><text x="2620" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="2620" y="134" font-size="13" text-anchor="middle">G4</text></g>
-<line x1="2640" y1="70" x2="2750" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="G5" data-poradi="19" data-x="2770" data-proklik="1" role="button" tabindex="0" aria-label="Zkouska: Mirek projde okno na mobilu proti listku, meridlo cil_228f3.py ukaze 4 ze 4"><text x="2770" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="2770" y="134" font-size="13" text-anchor="middle">G5</text></g>
-</svg>
-  </div>
-  <section class="panely-kroku">
-<article class="krok-panel" data-panel-krok="U1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Doplnit podezrele mimo portfolio do seznamu <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Seznam ma 12 radku; sesit diagnozy je pristupny.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Do listu Hlavni podezreli pridej podezrele mimo portfolio: dostupnost a sklad, cena proti konkurenci, chyby feedu (Google feed 1 047 polozek proti Heurece 8 782), dodaci lhuty. Ke kazdemu vypln vsech 10 sloupcu a v sloupci Potvrdi/vyvrati napis, co ho potvrdi a co vyvrati. Pridej i dalsi podezrele, kdyz je najdes u produktu, na ktere bezi reklama. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U2a" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Dokoncit kroky 0 az 3 listu Postup cisly ze skriptu <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U1 hotovo.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>V listu Postup (plan) dokonc kroky 0, 1, 2 a 3: kazdy spocitej skriptem nad listem Zdroj_dny, zapis cislo a zdroj do sloupce &#x27;co mame&#x27; a stav zmen na HOTOVO jen kdyz mas cislo. Krok 3 (mix kanalu a zarizeni) je dnes NEZACATO. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U2b" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Dokoncit kroky 4 az 6 listu Postup cisly ze skriptu <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U2a hotovo.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>V listu Postup (plan) dokonc kroky 4, 5 a 6 (trychtyr, prumerna objednavka, osa zmen): spocitej skriptem, zapis cislo a zdroj, stav HOTOVO jen s cislem. Mobilni kroky kosiku po 16. 10. jsou nedoveryhodne (robot kosiku, UKOL-216): napis to jako omezeni, nevymyslej cisla. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U3" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Overit 5 podezrelych s daty (1, 7, 9, 17, 18), ostatni zaparkovat <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U1 a U2b hotovo.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Zuzeno rozhodnutim Mirka 28. 10. 2026. Over pet podezrelych v listu Hlavni podezreli, na ktere mame data: poradi 1 (Chrome 155, Igor odpovedel 27. 10.), 7 (FAVI drazsi nez loni), 9 (penize jdou na spatne produkty, jde overit z novych listu rodin), 17 (jednotlivy produkt bere nejvic penez), 18 (zdrazeni 15. 10.). Poradi: nejdriv 9 a 1 (nejvic Kc), pak 7, 17, 18. Do Stavu napis POTVRZENO nebo VYVRACENO a do sloupce Co ho podporuje cislo a zdroj. Zbylych osm (4, 5, 8, 10 cekaji na cas, 13, 14, 15, 16 na cizi udaje nebo samostatnou praci) ma Stav CEKA, datum a duvod a resi je kroky U7 a U8. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U4" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Krizova kontrola cisel v sesitu <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U3 hotovo.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Spust krok5_kontrola_228.py (list Kontrola_shody) a uloz vysledek. Cisla zmenena v U1-U3 musi sedet na list Zdroj_dny. Neshodu nezakryvej, napis ji. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U5" hidden>
-  <h3><span class="znak" aria-hidden="true">✕</span> Zasah k potvrzene pricine a zmereni, jestli zabral (krok 8) <span class="stav-text">(zrušeno)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U4 hotovo; Mirek souhlasi s konkretnim zasahem.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U6" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Postavit listy rodin v sesitu (tydny po-ne, okna 12-3-1, grafy 20+20) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Google Ads po produktech v databazi a export objednavek z 28. 10. 2026.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U7" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Overit podezreni 4, 5, 7, 8, 10 po prvnim celem tydnu 26. 10.-1. 11. <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Data za tyden 26. 10.-1. 11. 2026 jsou k dispozici od 2. 11. 2026; podezreni 7 se opira o opravu prirazeni kanalu z podezreni 8 (do kdy v l…</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U8" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Zaparkovana podezreni 13, 14, 15, 16 (sklad, ceny konkurence, Merchant Center, dodaci lhuty) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Udaje o sklade a dodaci lhute od dodavatele, diagnostika Merchant Center, stazeni cen konkurence z Heureky a Zbozi; Mirek rozhodne, kdy se …</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U9" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Podezreni 1 Chrome 155: zkouska nakupu na Samsungu a vyhodnoceni <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>Zkouska nakupu na Samsungu s Chrome 155 od Mirka (navrzeno do 2. 11., nepotvrzeno); GA4 rez z 28. 10. verdikt nerozhodl.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="F1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Jidelni listek: jeden seznam toho, co Mirek chce videt, a kdo ktery radek dodava <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 14:21</p>
-  <p>nic se nevyzaduje (karty 225, 227, 190, 34, 170 jsou na disku)</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="F2" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Kontrola dvojcat: 8 rodin, sesit diagnozy proti skladu cisel <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 17:38</p>
-  <p>pristup ke cteni sesitu diagnozy a ke skladu cisel (procentov.duckdb); F1 hotovo</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="F3" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Diry predat skladu cisel jako navrh kroku k podpisu (naklad Google po produktu, navstevy, cesta k nakupu) <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 17:38</p>
-  <p>F1 a F2 hotovo; zapis do deniku karty 190 jen branou zapisu</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="F4" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> Jestli to zabralo: postup pred a po a nulte mereni pokusu FAVI z 5. 11. <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 2. 11. 20:46</p>
-  <p>sklad cisel ma trzby a naklad FAVI po rodinach za poslednich 30 dni; seznam rodin pokusu z karty UKOL-170</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="G1" hidden>
-  <h3><span class="znak" aria-hidden="true">▶</span> Oblasti: sepsat 4 az 6 oblasti z Mirkovych slov a z noveho metru a ke kazde pravidlo zarazeni rodiny; Mirek odklepne <span class="stav-text">(běží)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>slovnik noveho metru z Pateře firmy (od 30. 10. 2026) a Mirkova slova v karte (filtr po oblastech: paky, marketing podle pravidel, zapomenu…</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="G2" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Sloupec oblasti a filtr v okne, spocitane skriptem ze skladu cisel; zkouska na 10 nejvetsich rodinach <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>G1 hotovo a oblasti odklepnute Mirkem; tabulka rodin 227 nebo jeji zdrojova data ve skladu cisel ke cteni</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="G3" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Pruh peti klicovych cisel z zivého prehledu 225 nahoru a radek &#x27;jestli to zabralo&#x27; (skript zabralo_228.py) do okna <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>G2 hotovo; zivy prehled 225 ctitelny (stranka a tabulka); data skladu po zasahu 8. 10. dostupna alespon do 4. 11., jinak radek L4 ukaze &#x27;ne…</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="G4" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Jedna adresa: vsech sest radku listku L1-L6 na jedne strance, u kazdeho zdroj a cas nacteni, kde sklad data nema stoji &#x27;nezjisteno&#x27;; vznikne okno_228.json <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>G2 a G3 hotovo</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="G5" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> Zkouska: Mirek projde okno na mobilu proti listku, meridlo cil_228f3.py ukaze 4 ze 4 <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>G4 hotovo; existuje</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-  </section>
-  <section class="detail-kroky">
-<article class="krok-detail stav-hotovo" data-krok-id="U1">
-  <h3><span class="znak" aria-hidden="true">●</span> 1. Doplnit podezrele mimo portfolio do seznamu <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Do listu Hlavni podezreli pridej podezrele mimo portfolio: dostupnost a sklad, cena proti konkurenci, chyby feedu (Google feed 1 047 polozek proti Heurece 8 782), dodaci lhuty. Ke kazdemu vypln vsech 10 sloupcu a v sloupci Potvrdi/vyvrati napis, co ho potvrdi a co vyvrati. Pridej i dalsi podezrele, kdyz je najdes u produktu, na ktere bezi reklama. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p>
-      <p>Oblast: C:/work/ukol228_sheet · Výsledný soubor: C:/work/ukol228_sheet/_stroj/u1_vysledek.json</p>
-      <ul class="meritka"><li>U1-M1: python C:/work/ukol228_sheet/m_228.py u1</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U2a">
-  <h3><span class="znak" aria-hidden="true">●</span> 2. Dokoncit kroky 0 az 3 listu Postup cisly ze skriptu <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>V listu Postup (plan) dokonc kroky 0, 1, 2 a 3: kazdy spocitej skriptem nad listem Zdroj_dny, zapis cislo a zdroj do sloupce &#x27;co mame&#x27; a stav zmen na HOTOVO jen kdyz mas cislo. Krok 3 (mix kanalu a zarizeni) je dnes NEZACATO. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p>
-      <p>Oblast: C:/work/ukol228_sheet · Výsledný soubor: C:/work/ukol228_sheet/_stroj/u2a_vysledek.json</p>
-      <ul class="meritka"><li>U2a-M1: python C:/work/ukol228_sheet/m_228.py u3a</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U2b">
-  <h3><span class="znak" aria-hidden="true">●</span> 3. Dokoncit kroky 4 az 6 listu Postup cisly ze skriptu <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>V listu Postup (plan) dokonc kroky 4, 5 a 6 (trychtyr, prumerna objednavka, osa zmen): spocitej skriptem, zapis cislo a zdroj, stav HOTOVO jen s cislem. Mobilni kroky kosiku po 16. 10. jsou nedoveryhodne (robot kosiku, UKOL-216): napis to jako omezeni, nevymyslej cisla. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p>
-      <p>Oblast: C:/work/ukol228_sheet · Výsledný soubor: C:/work/ukol228_sheet/_stroj/u2b_vysledek.json</p>
-      <ul class="meritka"><li>U2b-M1: python C:/work/ukol228_sheet/m_228.py u3b</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U3">
-  <h3><span class="znak" aria-hidden="true">●</span> 4. Overit 5 podezrelych s daty (1, 7, 9, 17, 18), ostatni zaparkovat <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Zuzeno rozhodnutim Mirka 28. 10. 2026. Over pet podezrelych v listu Hlavni podezreli, na ktere mame data: poradi 1 (Chrome 155, Igor odpovedel 27. 10.), 7 (FAVI drazsi nez loni), 9 (penize jdou na spatne produkty, jde overit z novych listu rodin), 17 (jednotlivy produkt bere nejvic penez), 18 (zdrazeni 15. 10.). Poradi: nejdriv 9 a 1 (nejvic Kc), pak 7, 17, 18. Do Stavu napis POTVRZENO nebo VYVRACENO a do sloupce Co ho podporuje cislo a zdroj. Zbylych osm (4, 5, 8, 10 cekaji na cas, 13, 14, 15, 16 na cizi udaje nebo samostatnou praci) ma Stav CEKA, datum a duvod a resi je kroky U7 a U8. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen.</p>
-      <p>Oblast: C:/work/ukol228_sheet · Výsledný soubor: C:/work/ukol228_sheet/_stroj/u3_vysledek.json</p>
-      <ul class="meritka"><li>U3-M1: python C:/work/ukol228_sheet/m_228.py u2z</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U4">
-  <h3><span class="znak" aria-hidden="true">●</span> 5. Krizova kontrola cisel v sesitu <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Spust krok5_kontrola_228.py (list Kontrola_shody) a uloz vysledek. Cisla zmenena v U1-U3 musi sedet na list Zdroj_dny. Neshodu nezakryvej, napis ji. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p>
-      <p>Oblast: C:/work/ukol228_sheet · Výsledný soubor: C:/work/ukol228_sheet/_stroj/u4_vysledek.json</p>
-      <ul class="meritka"><li>U4-M1: python C:/work/ukol228_sheet/m_228.py u4</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-zruseno" data-krok-id="U5">
-  <h3><span class="znak" aria-hidden="true">✕</span> 6. Zasah k potvrzene pricine a zmereni, jestli zabral (krok 8) <span class="stav-text">(zrušeno)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U6">
-  <h3><span class="znak" aria-hidden="true">●</span> 7. Postavit listy rodin v sesitu (tydny po-ne, okna 12-3-1, grafy 20+20) <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U7">
-  <h3><span class="znak" aria-hidden="true">●</span> 8. Overit podezreni 4, 5, 7, 8, 10 po prvnim celem tydnu 26. 10.-1. 11. <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U8">
-  <h3><span class="znak" aria-hidden="true">●</span> 9. Zaparkovana podezreni 13, 14, 15, 16 (sklad, ceny konkurence, Merchant Center, dodaci lhuty) <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U9">
-  <h3><span class="znak" aria-hidden="true">●</span> 10. Podezreni 1 Chrome 155: zkouska nakupu na Samsungu a vyhodnoceni <span class="stav-text">(hotovo)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="F1">
-  <h3><span class="znak" aria-hidden="true">●</span> 11. Jidelni listek: jeden seznam toho, co Mirek chce videt, a kdo ktery radek dodava <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 14:21</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="F2">
-  <h3><span class="znak" aria-hidden="true">●</span> 12. Kontrola dvojcat: 8 rodin, sesit diagnozy proti skladu cisel <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 17:38</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="F3">
-  <h3><span class="znak" aria-hidden="true">●</span> 13. Diry predat skladu cisel jako navrh kroku k podpisu (naklad Google po produktu, navstevy, cesta k nakupu) <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 17:38</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="F4">
-  <h3><span class="znak" aria-hidden="true">●</span> 14. Jestli to zabralo: postup pred a po a nulte mereni pokusu FAVI z 5. 11. <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 2. 11. 20:46</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-bezi" data-krok-id="G1">
-  <h3><span class="znak" aria-hidden="true">▶</span> 15. Oblasti: sepsat 4 az 6 oblasti z Mirkovych slov a z noveho metru a ke kazde pravidlo zarazeni rodiny; Mirek odklepne <span class="stav-text">(běží)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="G2">
-  <h3><span class="znak" aria-hidden="true">○</span> 16. Sloupec oblasti a filtr v okne, spocitane skriptem ze skladu cisel; zkouska na 10 nejvetsich rodinach <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="G3">
-  <h3><span class="znak" aria-hidden="true">○</span> 17. Pruh peti klicovych cisel z zivého prehledu 225 nahoru a radek &#x27;jestli to zabralo&#x27; (skript zabralo_228.py) do okna <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="G4">
-  <h3><span class="znak" aria-hidden="true">○</span> 18. Jedna adresa: vsech sest radku listku L1-L6 na jedne strance, u kazdeho zdroj a cas nacteni, kde sklad data nema stoji &#x27;nezjisteno&#x27;; vznikne okno_228.json <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="G5">
-  <h3><span class="znak" aria-hidden="true">○</span> 19. Zkouska: Mirek projde okno na mobilu proti listku, meridlo cil_228f3.py ukaze 4 ze 4 <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-
-  </section>
-</main>
-<footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
-  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
-</footer>
-<script>
-function rezim(r){
-  document.body.classList.remove('celek','detail');
-  document.body.classList.add(r);
-  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
-  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="karta-verze" content="230"><title>UKOL-228 · Řízení prodeje podle toho, co zákazníci chtějí</title><style>:root{
+  --papir:#ffffff; --inkoust:#1a1a1a; --sede:#5c5c5c; --linka:#1a1a1a; --jemna:#c4c4c4; --plocha:#f1f1f1;
+  --tady:#0072B2; --tady-svetla:#e6f1f8; --na-tebe:#E69F00; --na-tebe-text:#1a1a1a;
+  --rozdelane:#56B4E9; --rozdelane-svetla:#eef7fd; --stoji:#D55E00; --odbocka:#CC79A7; --hotovo:#7a7a7a;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-function otevriPanel(id){
-  const panely=[...document.querySelectorAll('[data-panel-krok]')];
-  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
-  if(!panel)return;
-  const otevrene=!panel.hidden;
-  panely.forEach(p=>p.hidden=true);
-  if(!otevrene)panel.hidden=false;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+    --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
 }
-function pripravProklik(){
-  document.querySelectorAll('[data-stanice]').forEach(st=>{
-    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
-    st.addEventListener('click',akce);
-    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
-  });
-  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
-  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
-}
-document.addEventListener('DOMContentLoaded',pripravProklik);
-</script>
-</body>
-</html>
+:root[data-theme="dark"]{ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+  --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0; background:var(--papir); color:var(--inkoust);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:18px; line-height:1.45;}
+main{max-width:620px; margin:0 auto; padding:16px 14px 48px;}
+.mapa-stitek{font-size:.8rem; font-weight:800; letter-spacing:.12em; margin:0;}
+h1{font-size:1.4rem; line-height:1.2; margin:2px 0 2px; font-weight:800;}
+.ukol-pod{font-size:.85rem; color:var(--sede); margin:0 0 12px;}
+.tady{border:4px solid var(--tady); background:var(--tady-svetla); margin:0 0 16px; border-radius:6px; overflow:hidden;}
+.tady .spendlik{background:var(--tady); color:#ffffff; font-size:.95rem; font-weight:800; letter-spacing:.1em; margin:0; padding:7px 14px;}
+.tady .vnitrek{padding:10px 14px 14px;}
+.tady .krok-ted{font-size:1.35rem; font-weight:800; margin:0 0 2px; line-height:1.25;}
+.tady .krok-cislo{font-size:.85rem; color:var(--sede); margin:0 0 8px;}
+.tady .natahu{display:inline-block; margin:10px 0 0; font-size:1rem; font-weight:800; padding:8px 12px; border-radius:6px;
+  background:var(--na-tebe); color:var(--na-tebe-text);}
+.tady .natahu.jiny{background:var(--plocha); color:var(--inkoust); font-weight:600; border:1px solid var(--jemna);}
+.pasek{display:flex; gap:4px; margin:6px 0 2px; flex-wrap:wrap; align-items:center;}
+.pasek span{width:16px; height:16px; border:2px solid var(--hotovo); background:var(--hotovo); border-radius:2px;}
+.pasek span.z{border-color:var(--rozdelane); background:linear-gradient(90deg,var(--rozdelane) 50%,transparent 50%);}
+.pasek span.c{border:2px dashed var(--jemna); background:transparent;}
+.pasek span.t{width:26px; height:26px; border:4px solid var(--tady); background:var(--papir); position:relative;}
+.pasek span.t::after{content:"▶"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:var(--tady);}
+.popisek{font-size:.8rem; color:var(--sede); margin:2px 0 0;}
+.detail-ted{margin-top:12px; padding-top:8px; border-top:1px solid var(--jemna); font-size:.88rem; color:var(--sede);}
+.detail-ted p{margin:0 0 6px;}
+section.zona{margin:0 0 10px;}
+button.zona-hlava{display:flex; align-items:center; gap:10px; width:100%; min-height:48px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); border-left:6px solid var(--hotovo); padding:8px 12px; cursor:pointer; border-radius:4px;}
+section.hotovo button.zona-hlava{color:var(--sede);}
+section.zcasti button.zona-hlava{border-left-color:var(--rozdelane); background:var(--rozdelane-svetla); font-weight:600;}
+section.zcasti.stoji button.zona-hlava{border-left-color:var(--stoji);}
+section.odbocky button.zona-hlava{border-left-color:var(--odbocka); color:var(--sede);}
+button.zona-hlava:focus-visible, button.bod:focus-visible{outline:3px solid var(--linka); outline-offset:2px;}
+.zona-hlava .zn{font-size:1.15rem; width:26px; text-align:center;}
+.zona-hlava .nazev{flex:1; font-weight:600;}
+.zona-hlava .pocet{font-weight:800; font-size:.9rem;}
+.zona-hlava .sipka{color:var(--sede); font-size:.85rem;}
+section.pred button.zona-hlava{border-style:dashed; border-left:6px dashed var(--jemna);}
+ol.body{list-style:none; margin:6px 0 0; padding:0 0 0 14px; border-left:2px solid var(--jemna);}
+ol.body li{margin:0 0 6px;}
+button.bod{display:flex; gap:10px; align-items:flex-start; width:100%; min-height:44px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); padding:8px 10px; cursor:pointer; border-radius:3px;}
+section.pred button.bod{border-style:dashed;}
+button.bod .zn{width:22px; text-align:center; flex:0 0 22px;}
+section.hotovo button.bod{color:var(--sede);}
+button.bod .t{flex:1;}
+.bod-detail{margin:4px 0 8px 32px; font-size:.88rem; padding:8px 10px; border-left:3px solid var(--jemna); background:var(--plocha);}
+.bod-detail p{margin:0 0 4px;}
+.legenda{margin-top:18px; font-size:.82rem; color:var(--sede); border-top:2px dashed var(--jemna); padding-top:10px;}</style></head><body><main>
+<p class="mapa-stitek" data-mapa-ukolu="1">🗺 MAPA ÚKOLU</p><h1>Řízení prodeje podle toho, co zákazníci chtějí</h1><p class="ukol-pod">Úkol 228 · Procentov · cíl: získat jasný přehled o práci a dalším kroku.</p>
+<div class="tady" id="tady" data-jsi-tady="1" data-krok="U5"><p class="spendlik">▶ JSI TADY</p><div class="vnitrek"><p class="krok-ted">Zasah k potvrzene pricine a zmereni</p><p class="krok-cislo">krok 14 z 19</p><div class="pasek" role="img" aria-label="13 hotovo, jsi u kroku 14 z 19"><span></span><span></span><span></span><span></span><span></span><span class="t"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span></div><p class="popisek">13 hotovo · 4 před námi</p><p class="natahu jiny" data-na-tahu="stroj">Na tahu: stroj pracuje dál.</p><div class="detail-ted"><p>hotovo; Mirek souhlasi s konkretnim zasahem</p><button class="bod" type="button" data-bod="U5" data-titulek="Zasah k potvrzene pricine a zmereni" aria-expanded="false" aria-controls="detail-U5"><span class="zn">✕</span><span class="t">Zasah k potvrzene pricine a zmereni</span></button><div class="bod-detail" id="detail-U5" hidden><p><strong>Stav:</strong> zrušeno · <strong>Datum:</strong> —</p><p>hotovo; Mirek souhlasi s konkretnim zasahem</p><details><summary>Technika</summary><p>—</p></details></div></div></div></div>
+<section class="zona zcasti" data-zona="rozdelane"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-rozdelane"><span class="zn">⏳</span><span class="nazev">Rozdělané</span><span class="pocet">1</span><span class="sipka">▴</span></button><ol class="body" id="zona-rozdelane" data-seznam="0"><li><button class="bod" type="button" data-bod="G1" data-titulek="Sepsání oblastí a pravidel zařazení" aria-expanded="false" aria-controls="detail-G1"><span class="zn">⏳</span><span class="t">Sepsání oblastí a pravidel zařazení</span></button><div class="bod-detail" id="detail-G1" hidden><p><strong>Stav:</strong> běží · <strong>Datum:</strong> —</p><p>slovnik noveho metru z Pateře firmy a Mirkova slova v karte</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona pred pred" data-zona="pred"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-pred"><span class="zn">☐</span><span class="nazev">Před námi</span><span class="pocet">4</span><span class="sipka">▴</span></button><ol class="body" id="zona-pred" data-seznam="0"><li><button class="bod" type="button" data-bod="G2" data-titulek="Sloupec oblasti a filtr v okně" aria-expanded="false" aria-controls="detail-G2"><span class="zn">☐</span><span class="t">Sloupec oblasti a filtr v okně</span></button><div class="bod-detail" id="detail-G2" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo a oblasti odklepnute Mirkem; tabulka rodin 227 nebo jeji zdrojova data ve skladu cisel ke cteni</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="G3" data-titulek="Pruh klíčových čísel a hodnocení" aria-expanded="false" aria-controls="detail-G3"><span class="zn">☐</span><span class="t">Pruh klíčových čísel a hodnocení</span></button><div class="bod-detail" id="detail-G3" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo; zivy prehled 225 ctitelny ; data skladu po zasahu 8. 10. dostupna alespon do 4. 11., jinak radek ukaze &#x27;nezjisteno&#x27;</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="G4" data-titulek="Jedna stránka se všemi lístky" aria-expanded="false" aria-controls="detail-G4"><span class="zn">☐</span><span class="t">Jedna stránka se všemi lístky</span></button><div class="bod-detail" id="detail-G4" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>a hotovo</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="G5" data-titulek="Zkouška okna na mobilu proti lístku" aria-expanded="false" aria-controls="detail-G5"><span class="zn">☐</span><span class="t">Zkouška okna na mobilu proti lístku</span></button><div class="bod-detail" id="detail-G5" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo; existuje</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona hotovo" data-zona="hotovo"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-hotovo"><span class="zn">✓</span><span class="nazev">Za námi, hotovo</span><span class="pocet">13</span><span class="sipka">▾</span></button><ol class="body" id="zona-hotovo" data-seznam="1" hidden><li><button class="bod" type="button" data-bod="U1" data-titulek="Doplnit podezrele mimo portfolio do seznamu" aria-expanded="false" aria-controls="detail-U1"><span class="zn">✓</span><span class="t">Doplnit podezrele mimo portfolio do seznamu</span></button><div class="bod-detail" id="detail-U1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>Seznam ma 12 radku; sesit diagnozy je pristupny</p><details><summary>Technika</summary><p>Do listu Hlavni podezreli pridej podezrele mimo portfolio: dostupnost a sklad, cena proti konkurenci, chyby feedu (Google feed 1 047 polozek proti Heurece 8 782), dodaci lhuty. Ke kazdemu vypln vsech 10 sloupcu a v sloupci Potvrdi/vyvrati napis, co ho potvrdi a co vyvrati. Pridej i dalsi podezrele, kdyz je najdes u produktu, na ktere bezi reklama. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></details></div></li><li><button class="bod" type="button" data-bod="U2a" data-titulek="Dokoncit kroky 0 az 3 listu" aria-expanded="false" aria-controls="detail-U2a"><span class="zn">✓</span><span class="t">Dokoncit kroky 0 az 3 listu</span></button><div class="bod-detail" id="detail-U2a" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>V listu Postup (plan) dokonc kroky 0, 1, 2 a 3: kazdy spocitej skriptem nad listem Zdroj_dny, zapis cislo a zdroj do sloupce &#x27;co mame&#x27; a stav zmen na HOTOVO jen kdyz mas cislo. Krok 3 (mix kanalu a zarizeni) je dnes NEZACATO. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></details></div></li><li><button class="bod" type="button" data-bod="U2b" data-titulek="Dokoncit kroky 4 az 6 listu" aria-expanded="false" aria-controls="detail-U2b"><span class="zn">✓</span><span class="t">Dokoncit kroky 4 az 6 listu</span></button><div class="bod-detail" id="detail-U2b" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>V listu Postup (plan) dokonc kroky 4, 5 a 6 (trychtyr, prumerna objednavka, osa zmen): spocitej skriptem, zapis cislo a zdroj, stav HOTOVO jen s cislem. Mobilni kroky kosiku po 16. 10. jsou nedoveryhodne (robot kosiku, UKOL-216): napis to jako omezeni, nevymyslej cisla. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></details></div></li><li><button class="bod" type="button" data-bod="U3" data-titulek="Overit 5 podezrelych s daty" aria-expanded="false" aria-controls="detail-U3"><span class="zn">✓</span><span class="t">Overit 5 podezrelych s daty</span></button><div class="bod-detail" id="detail-U3" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>a hotovo</p><details><summary>Technika</summary><p>Zuzeno rozhodnutim Mirka 28. 10. 2026. Over pet podezrelych v listu Hlavni podezreli, na ktere mame data: poradi 1 (Chrome 155, Igor odpovedel 27. 10.), 7 (FAVI drazsi nez loni), 9 (penize jdou na spatne produkty, jde overit z novych listu rodin), 17 (jednotlivy produkt bere nejvic penez), 18 (zdrazeni 15. 10.). Poradi: nejdriv 9 a 1 (nejvic Kc), pak 7, 17, 18. Do Stavu napis POTVRZENO nebo VYVRACENO a do sloupce Co ho podporuje cislo a zdroj. Zbylych osm (4, 5, 8, 10 cekaji na cas, 13, 14, 15, 16 na cizi udaje nebo samostatnou praci) ma Stav CEKA, datum a duvod a resi je kroky U7 a U8. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen.</p></details></div></li><li><button class="bod" type="button" data-bod="U4" data-titulek="Krizova kontrola cisel v sesitu" aria-expanded="false" aria-controls="detail-U4"><span class="zn">✓</span><span class="t">Krizova kontrola cisel v sesitu</span></button><div class="bod-detail" id="detail-U4" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>Spust krok5_kontrola_228.py (list Kontrola_shody) a uloz vysledek. Cisla zmenena v U1-U3 musi sedet na list Zdroj_dny. Neshodu nezakryvej, napis ji. Nic nemen mimo sesit diagnozy a slozku C:/work/ukol228_sheet: zadny zasah do e-shopu, reklamy, cen ani feedu, nic nemaz, nic neplat, nic nerozesilej. Meridla m_228.py, cil_228.py a zk_m_228.py nemen. Verdikt POTVRZENO nebo VYVRACENO piseš jen s cislem a zdrojem. Na konci uloz presny vystup prikazu meridla do vysledneho souboru.</p></details></div></li><li><button class="bod" type="button" data-bod="U6" data-titulek="Postavit listy rodin v sesitu" aria-expanded="false" aria-controls="detail-U6"><span class="zn">✓</span><span class="t">Postavit listy rodin v sesitu</span></button><div class="bod-detail" id="detail-U6" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> —</p><p>Google Ads po produktech v databazi a export objednavek z 28. 10. 2026</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="U7" data-titulek="Overit podezreni 4, 5, 7, 8" aria-expanded="false" aria-controls="detail-U7"><span class="zn">✓</span><span class="t">Overit podezreni 4, 5, 7, 8</span></button><div class="bod-detail" id="detail-U7" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>Data za tyden 26. 10.-1. 11. 2026 jsou k dispozici od 2. 11. 2026; podezreni 7 se opira o opravu prirazeni kanalu z podezreni 8</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="U8" data-titulek="Zaparkovana podezreni 13, 14, 15, 16" aria-expanded="false" aria-controls="detail-U8"><span class="zn">✓</span><span class="t">Zaparkovana podezreni 13, 14, 15, 16</span></button><div class="bod-detail" id="detail-U8" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>Udaje o sklade a dodaci lhute od dodavatele, diagnostika Merchant Center, stazeni cen konkurence z Heureky a Zbozi; Mirek rozhodne, kdy se do toho jde</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="U9" data-titulek="Podezreni 1 Chrome 155: zkouska nakupu" aria-expanded="false" aria-controls="detail-U9"><span class="zn">✓</span><span class="t">Podezreni 1 Chrome 155: zkouska nakupu</span></button><div class="bod-detail" id="detail-U9" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>Zkouska nakupu na Samsungu s Chrome 155 od Mirka ; rez z 28. 10. verdikt nerozhodl</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="F1" data-titulek="Jidelni listek: jeden seznam toho, co" aria-expanded="false" aria-controls="detail-F1"><span class="zn">✓</span><span class="t">Jidelni listek: jeden seznam toho, co</span></button><div class="bod-detail" id="detail-F1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>nic se nevyzaduje</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="F2" data-titulek="Kontrola dvojcat: 8 rodin, sesit diagnozy" aria-expanded="false" aria-controls="detail-F2"><span class="zn">✓</span><span class="t">Kontrola dvojcat: 8 rodin, sesit diagnozy</span></button><div class="bod-detail" id="detail-F2" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>pristup ke cteni sesitu diagnozy a ke skladu cisel ; hotovo</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="F3" data-titulek="Diry predat skladu cisel jako navrh" aria-expanded="false" aria-controls="detail-F3"><span class="zn">✓</span><span class="t">Diry predat skladu cisel jako navrh</span></button><div class="bod-detail" id="detail-F3" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>a hotovo; zapis do deniku karty 190 jen branou zapisu</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="F4" data-titulek="Jestli to zabralo: postup pred a" aria-expanded="false" aria-controls="detail-F4"><span class="zn">✓</span><span class="t">Jestli to zabralo: postup pred a</span></button><div class="bod-detail" id="detail-F4" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 2. 11. 2026</p><p>sklad cisel ma trzby a naklad FAVI po rodinach za poslednich 30 dni; seznam rodin pokusu z karty UKOL-170</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona odbocky" data-zona="odbocky"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-odbocky"><span class="zn">→</span><span class="nazev">Odbočky jinam</span><span class="pocet">0</span><span class="sipka">▾</span></button><ol class="body" id="zona-odbocky" data-seznam="0" hidden></ol></section>
+<p class="legenda">Modrý rámeček ▶ = jsi tady · oranžové 👉 = na tahu jsi ty (jediná oranžová na stránce) · šedé ✔ = hotovo, ztlumené · světle modrý pruh ⏳ = rozdělané · cihlový pruh ⚠ = stojí · čárkované ☐ = před námi · fialový pruh → = odbočka · barva vždy jen zopakuje značku a slovo · ťukni na řádek = rozbalí se, znovu = sbalí se</p></main><script>document.addEventListener("click", e=>{
+  const b = e.target.closest("button.zona-hlava, button.bod");
+  if (!b) return;
+  const t = document.getElementById(b.getAttribute("aria-controls"));
+  const otevrit = t.hidden; t.hidden = !otevrit; b.setAttribute("aria-expanded", String(otevrit));
+  const s2 = b.querySelector(".sipka"); if (s2) s2.textContent = otevrit ? "▴" : "▾";
+});</script></body></html>
