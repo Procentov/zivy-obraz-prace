@@ -1,292 +1,73 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="karta-verze" content="40">
-<title>UKOL-198 · Spuštění UTULI</title>
-<style>
-body{font-family:system-ui,Arial,sans-serif;margin:0;padding:1rem;max-width:960px;color:#111;background:#fff;overflow-x:hidden}
-header p{margin:.2rem 0;font-size:1.05rem}
-.vedu{font-weight:bold}
-#tri-radky p{margin:.2rem 0;font-size:1rem}
-.plakat{margin:.5rem 0;font-size:1.1rem}
-.plakat-cislo{font-size:2.6rem;font-weight:bold}
-.prepinac{margin:.6rem 0}
-.prepinac button{font-size:1rem;padding:.4rem .9rem;margin-right:.4rem;border:2px solid #111;background:#fff;cursor:pointer;min-height:24px;min-width:24px}
-.prepinac button[aria-pressed="true"]{background:#111;color:#fff}
-.trat-ram{overflow-x:auto;border:1px solid #ccc;margin:1rem 0;-webkit-overflow-scrolling:touch}
-.stanice{cursor:pointer;outline:none}.stanice:focus{stroke:#111;stroke-width:3px}
-.krok-panel{border:2px solid #111;border-radius:6px;padding:.6rem;margin:.6rem 0}.krok-panel h3{margin:.1rem 0;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.krok-panel p{margin:.35rem 0}
-body.detail .trat-ram{display:none}
-body.celek .detail-kroky{display:none}
-.detail-kroky{margin:1rem 0}
-.krok-detail{border:2px solid #111;border-radius:6px;padding:.4rem .6rem;margin:.6rem 0}
-.krok-detail h3{margin:.2rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.stav-text,.krok-datum{font-size:.85rem;font-weight:normal}
-.krok-detail details{margin-top:.4rem;font-size:.85rem}
-.krok-detail summary{cursor:pointer;min-height:24px}
-.zadani{border-top:1px solid #999;padding-top:.3rem;margin-top:.3rem}
-.zadani ul{margin:.2rem 0;padding-left:1.1rem}
-footer.legenda{margin-top:1.2rem;font-size:.85rem;color:#333;border-top:1px solid #ccc;padding-top:.5rem}
-.odbocka-fork{font-size:1.1rem;line-height:1;margin-left:.2rem}
-.odbocky-kroku{margin-top:.3rem;border-top:1px dashed #999;padding-top:.3rem}
-.odbocka{display:flex;align-items:baseline;gap:.3rem;margin:.15rem 0;font-size:.82rem}
-.odbocka-znak{font-size:1rem}
-.odbocka-ukol{font-weight:bold;border:1px solid #111;border-radius:4px;padding:0 .3rem}
-</style>
-</head>
-<body class="celek">
-<header>
-  <p class="vedu">Kam tě vedu: ukázat, kde je práce na kartě, co nového vzniklo a co čeká na tebe.</p>
-  <div id="tri-radky">
-    <p data-radek="kde"><strong>Kde jsme:</strong> krok U2 – ODSTRANIT VADY NA ZKUSEBNI ADRESE: zbozi (karta 122, prvni ostra davka), vzhled (karta 99, 17 bodu pred otevrenim vc. Orena), tec…</p>
-    <p data-radek="vzniklo"><strong>Co vzniklo:</strong> Probíhá krok: ODSTRANIT VADY NA ZKUSEBNI ADRESE: zbozi (karta 122, prvni ostra davka), vzhled (karta 99, 17 bodu pred otevrenim vc. Orena),…</p>
-    <p data-radek="ceka" data-ceka-na="mirek"><strong>Čeká na tebe:</strong> krok U2: tvoje rozhodnutí · krok U3: tvoje rozhodnutí · krok U4, krok U5, krok U6, krok U7, krok U8: čekají na předchozí</p>
-  </div>
-  <p class="plakat"><span class="plakat-cislo">2</span> z 9 hotovo</p>
-  <div class="prepinac">
-    <button id="btn-celek" onclick="rezim('celek')" aria-pressed="true">Celek</button>
-    <button id="btn-detail" onclick="rezim('detail')" aria-pressed="false">Detail</button>
-  </div>
-</header>
-<main>
-  <div class="trat-ram">
-<svg data-trat="1" viewBox="0 0 1340 150" width="1340" height="150" role="img" aria-label="Trať kroků karty">
-<g class="stanice stav-hotovo" data-stanice="M1" data-poradi="1" data-x="70" data-proklik="1" role="button" tabindex="0" aria-label="AUDIT A PLAN: inventura ctyr casti (audit 20. 10.), z ni plan pro stroj s kriterii a useky k podpisu"><text x="70" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="70" y="134" font-size="13" text-anchor="middle">M1</text></g>
-<line x1="90" y1="70" x2="200" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-hotovo" data-stanice="U1" data-poradi="2" data-x="220" data-proklik="1" role="button" tabindex="0" aria-label="SPOLECNA KONTROLA POSUZOVATELU: jeden seznam bodu podle pozadavku platebni brany, Google a FAVI, meritelny na zivem webu; prvni mereni na zkusebni adrese a vady rozdelene na karty 122, 99 a 96"><text x="220" y="78" font-size="26" text-anchor="middle" aria-hidden="true">●</text><text x="220" y="134" font-size="13" text-anchor="middle">U1</text></g>
-<line x1="240" y1="70" x2="350" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-<g class="stanice stav-ceka" data-stanice="U2" data-poradi="3" data-x="370" data-proklik="1" role="button" tabindex="0" aria-label="ODSTRANIT VADY NA ZKUSEBNI ADRESE: zbozi (karta 122, prvni ostra davka), vzhled (karta 99, 17 bodu pred otevrenim vc. Orena), technika a provoz (karta 96, nove vlakno 96-03); prekryvy 96 x 99 (cookies, recenze, Inspirace, vyber variant) dostanou jednoho majitele. Karta 198 jen rozdeluje a meri." data-tady="1" data-krok="U2"><circle cx="370" cy="70" r="28" fill="none" stroke="#111" stroke-width="5"/><text x="370" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="370" y="134" font-size="13" text-anchor="middle">U2</text><text x="370" y="116" font-size="12" font-weight="bold" text-anchor="middle">TADY</text></g>
-<line x1="390" y1="70" x2="500" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="U3" data-poradi="4" data-x="520" data-proklik="1" role="button" tabindex="0" aria-label="MIREK SE JEDNOU PRIHLASI v automatizacnim Chromu na Seznamu (Email Profi) a na Forpsi - odemkne postu na domene a prepnuti na utuli.cz (drzi od 29. 9.)"><text x="520" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="520" y="134" font-size="13" text-anchor="middle">U3</text></g>
-<line x1="540" y1="70" x2="650" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="U4" data-poradi="5" data-x="670" data-proklik="1" role="button" tabindex="0" aria-label="MERENI NAKUPU: nakup se zapisuje do Google Analytics UTULI s cislem objednavky a zdrojem navstevy; overeno zkusebni objednavkou pres odkaz oznaceny favi"><text x="670" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="670" y="134" font-size="13" text-anchor="middle">U4</text></g>
-<line x1="690" y1="70" x2="800" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="U5" data-poradi="6" data-x="820" data-proklik="1" role="button" tabindex="0" aria-label="ZKUSEBNI OBJEDNAVKY: dobirka a prevod, doprava na adresu a na vydejni misto PPL; kazda s poznamkou ZKUSEBNI; overit potvrzovaci e-mail a fakturu"><text x="820" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="820" y="134" font-size="13" text-anchor="middle">U5</text></g>
-<line x1="840" y1="70" x2="950" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="U6" data-poradi="7" data-x="970" data-proklik="1" role="button" tabindex="0" aria-label="PREPNUTI NA UTULI.CZ: domena a https, pustit vyhledavace, vytvorit soubory zbozi pro Google a FAVI s oznacenim zdroje v odkazech. Stroj pripravi postup, Mirek schvali jednim slovem."><text x="970" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="970" y="134" font-size="13" text-anchor="middle">U6</text></g>
-<line x1="990" y1="70" x2="1100" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="U7" data-poradi="8" data-x="1120" data-proklik="1" role="button" tabindex="0" aria-label="ZADOSTI VENKU jednou, na hotovy web: platebni brana (volba Upgates Pay nebo Comgate s doporucenim), Google Merchant Center a Ads, FAVI. Stroj pripravi podklady a vyplni, Mirek poda a podepise."><text x="1120" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1120" y="134" font-size="13" text-anchor="middle">U7</text></g>
-<line x1="1140" y1="70" x2="1250" y2="70" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-dasharray="1,6"/>
-<g class="stanice stav-ceka" data-stanice="U8" data-poradi="9" data-x="1270" data-proklik="1" role="button" tabindex="0" aria-label="ZAPNOUT A PRODAVAT: platba kartou + treti zkusebni objednavka kartou, zbozi ke srovnavacum, reklama s rozpoctem, ktery schvali Mirek; pak stroj denne meri cil"><text x="1270" y="78" font-size="26" text-anchor="middle" aria-hidden="true">○</text><text x="1270" y="134" font-size="13" text-anchor="middle">U8</text></g>
-</svg>
-  </div>
-  <section class="panely-kroku">
-<article class="krok-panel" data-panel-krok="M1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> AUDIT A PLAN: inventura ctyr casti (audit 20. 10.), z ni plan pro stroj s kriterii a useky k podpisu <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 20. 10. 18:30</p>
-  <p>hotovo v chatu (vlakna 198-01 az 198-03): audit 20. 10. a navrh planu</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U1" hidden>
-  <h3><span class="znak" aria-hidden="true">●</span> SPOLECNA KONTROLA POSUZOVATELU: jeden seznam bodu podle pozadavku platebni brany, Google a FAVI, meritelny na zivem webu; prvni mereni na zkusebni adrese a vady rozdelene na karty 122, 99 a 96 <span class="stav-text">(hotovo)</span></h3>
-  <p><strong>Hotovo:</strong> 20. 10. 20:59</p>
-  <p>plan podepsany; zkusebni adresa utuli.t2.upgates.shop dostupna</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Napis C:/work/ukoly/_198_stroj/kontrola_posuzovatelu.py s argumentem --adresa. Skript projde web a vyhodnoti kazdy bod seznamu: (a) platebni brana - u kazdeho produktu popis a cena, obchodni podminky, reklamacni podminky, podminky dopravy a platby, kontakty, nazev firmy, vse na https; (b) Google - https vsude, zadny rozbity odkaz ve vzorku 30 stranek, funkcni kontakt, podminky vraceni, zbozi jde vlozit do kosiku; (c) FAVI - kazdy produkt ma kategorii, hlavni fotka existuje; (d) nase - na strance neni noindex, robots.txt nezakazuje web. U kazde vady urci majitele: zbozi = UKOL-122, vzhled a texty = UKOL-99, technika, platby, doprava a povinne stranky = UKOL-96. Posledni radek vystupu = JSON {adresa, bodu, vad, noindex, vady:[{bod, kde, majitel}]}; tentyz JSON uloz do C:/work/ukoly/_198_stroj/U1_vysledek.json. Spust na https://utuli.t2.upgates.shop. Nic na webu nemen, jen cti.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U2" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> ODSTRANIT VADY NA ZKUSEBNI ADRESE: zbozi (karta 122, prvni ostra davka), vzhled (karta 99, 17 bodu pred otevrenim vc. Orena), technika a provoz (karta 96, nove vlakno 96-03); prekryvy 96 x 99 (cookies, recenze, Inspirace, vyber variant) dostanou jednoho majitele. Karta 198 jen rozdeluje a meri. <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U1 hotovo (seznam vad s majiteli)</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U3" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> MIREK SE JEDNOU PRIHLASI v automatizacnim Chromu na Seznamu (Email Profi) a na Forpsi - odemkne postu na domene a prepnuti na utuli.cz (drzi od 29. 9.) <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>nic se nevyzaduje; Mirek u notebooku</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U4" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> MERENI NAKUPU: nakup se zapisuje do Google Analytics UTULI s cislem objednavky a zdrojem navstevy; overeno zkusebni objednavkou pres odkaz oznaceny favi <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U2 hotovo v casti nakup; pristup do Google Analytics UTULI (vlastnost 545472371) cte - overeno 20. 10.</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Over v Upgates a ve spravci znacek, ze se pri dokonceni objednavky odesila do Google Analytics UTULI (vlastnost 545472371) udalost nakupu s cislem objednavky jako transactionId; kdyz ne, zapni ji nativni cestou Upgates. Na zkusebni adrese udelej objednavku pres odkaz s ?utm_source=favi&amp;utm_medium=cpc, souhlas s cookies prijmi, do interni poznamky objednavky napis ZKUSEBNI. Druhy den spust python C:/work/ukoly/_198_stroj/meridlo_zdroj.py a jeho posledni radek uloz do C:/work/ukoly/_198_stroj/U4_vysledek.json. Nemen ceny, zbozi, platby ani dopravu.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U5" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> ZKUSEBNI OBJEDNAVKY: dobirka a prevod, doprava na adresu a na vydejni misto PPL; kazda s poznamkou ZKUSEBNI; overit potvrzovaci e-mail a fakturu <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U2 hotovo v casti nakup a doprava (klic PPL doplnen na karte 96); U4 hotovo</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>Na zkusebni adrese udelej 2 objednavky jako zakaznik: (1) dobirka + doprava na adresu, (2) prevod + vydejni misto PPL. Do interni poznamky kazde napis ZKUSEBNI. Pak spust python C:/work/ukoly/_198_stroj/meridlo_nakup.py a posledni radek uloz do C:/work/ukoly/_198_stroj/U5_vysledek.json. Objednavky nestornuj a nemaz, nic neodesilej zakaznikum.</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U6" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> PREPNUTI NA UTULI.CZ: domena a https, pustit vyhledavace, vytvorit soubory zbozi pro Google a FAVI s oznacenim zdroje v odkazech. Stroj pripravi postup, Mirek schvali jednim slovem. <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U2, U3 a U5 hotovo (rozhodnuti Mirka 27. 9.: domena az po zkusebnich objednavkach)</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U7" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> ZADOSTI VENKU jednou, na hotovy web: platebni brana (volba Upgates Pay nebo Comgate s doporucenim), Google Merchant Center a Ads, FAVI. Stroj pripravi podklady a vyplni, Mirek poda a podepise. <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U6 hotovo; K1 splneno na utuli.cz</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-<article class="krok-panel" data-panel-krok="U8" hidden>
-  <h3><span class="znak" aria-hidden="true">○</span> ZAPNOUT A PRODAVAT: platba kartou + treti zkusebni objednavka kartou, zbozi ke srovnavacum, reklama s rozpoctem, ktery schvali Mirek; pak stroj denne meri cil <span class="stav-text">(čeká)</span></h3>
-  <p><strong>Hotovo:</strong> —</p>
-  <p>U7: brana, Google i FAVI prijali</p>
-  
-  <details class="zadani-wrap"><summary>Technické zadání</summary><div class="zadani"><p>—</p></div></details>
-</article>
-  </section>
-  <section class="detail-kroky">
-<article class="krok-detail stav-hotovo" data-krok-id="M1">
-  <h3><span class="znak" aria-hidden="true">●</span> 1. AUDIT A PLAN: inventura ctyr casti (audit 20. 10.), z ni plan pro stroj s kriterii a useky k podpisu <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 20. 10. 18:30</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"><li>20. 10. 18:30: python C:/work/ukoly/brana_uplnosti.py C:/work/ukoly\UKOL-198_spusteni_e_shopu_utuli_prvni_objednavka_.json --podpis → vad None</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-hotovo" data-krok-id="U1">
-  <h3><span class="znak" aria-hidden="true">●</span> 2. SPOLECNA KONTROLA POSUZOVATELU: jeden seznam bodu podle pozadavku platebni brany, Google a FAVI, meritelny na zivem webu; prvni mereni na zkusebni adrese a vady rozdelene na karty 122, 99 a 96 <span class="stav-text">(hotovo)</span> <span class="krok-datum">· hotovo 20. 10. 20:59</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Napis C:/work/ukoly/_198_stroj/kontrola_posuzovatelu.py s argumentem --adresa. Skript projde web a vyhodnoti kazdy bod seznamu: (a) platebni brana - u kazdeho produktu popis a cena, obchodni podminky, reklamacni podminky, podminky dopravy a platby, kontakty, nazev firmy, vse na https; (b) Google - https vsude, zadny rozbity odkaz ve vzorku 30 stranek, funkcni kontakt, podminky vraceni, zbozi jde vlozit do kosiku; (c) FAVI - kazdy produkt ma kategorii, hlavni fotka existuje; (d) nase - na strance neni noindex, robots.txt nezakazuje web. U kazde vady urci majitele: zbozi = UKOL-122, vzhled a texty = UKOL-99, technika, platby, doprava a povinne stranky = UKOL-96. Posledni radek vystupu = JSON {adresa, bodu, vad, noindex, vady:[{bod, kde, majitel}]}; tentyz JSON uloz do C:/work/ukoly/_198_stroj/U1_vysledek.json. Spust na https://utuli.t2.upgates.shop. Nic na webu nemen, jen cti.</p>
-      <p>Oblast: C:/work/ukoly/_198_stroj · Výsledný soubor: C:/work/ukoly/_198_stroj/U1_vysledek.json</p>
-      <ul class="meritka"><li>U1-M1: python C:/work/ukoly/_198_stroj/meridlo_U1.py</li></ul>
-      <ul class="dukaz"><li>20. 10. 20:59: python C:/work/ukoly/_198_stroj/meridlo_U1.py → vad 0</li></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="U2">
-  <h3><span class="znak" aria-hidden="true">○</span> 3. ODSTRANIT VADY NA ZKUSEBNI ADRESE: zbozi (karta 122, prvni ostra davka), vzhled (karta 99, 17 bodu pred otevrenim vc. Orena), technika a provoz (karta 96, nove vlakno 96-03); prekryvy 96 x 99 (cookies, recenze, Inspirace, vyber variant) dostanou jednoho majitele. Karta 198 jen rozdeluje a meri. <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="U3">
-  <h3><span class="znak" aria-hidden="true">○</span> 4. MIREK SE JEDNOU PRIHLASI v automatizacnim Chromu na Seznamu (Email Profi) a na Forpsi - odemkne postu na domene a prepnuti na utuli.cz (drzi od 29. 9.) <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="U4">
-  <h3><span class="znak" aria-hidden="true">○</span> 5. MERENI NAKUPU: nakup se zapisuje do Google Analytics UTULI s cislem objednavky a zdrojem navstevy; overeno zkusebni objednavkou pres odkaz oznaceny favi <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Over v Upgates a ve spravci znacek, ze se pri dokonceni objednavky odesila do Google Analytics UTULI (vlastnost 545472371) udalost nakupu s cislem objednavky jako transactionId; kdyz ne, zapni ji nativni cestou Upgates. Na zkusebni adrese udelej objednavku pres odkaz s ?utm_source=favi&amp;utm_medium=cpc, souhlas s cookies prijmi, do interni poznamky objednavky napis ZKUSEBNI. Druhy den spust python C:/work/ukoly/_198_stroj/meridlo_zdroj.py a jeho posledni radek uloz do C:/work/ukoly/_198_stroj/U4_vysledek.json. Nemen ceny, zbozi, platby ani dopravu.</p>
-      <p>Oblast: C:/work/ukoly/_198_stroj · Výsledný soubor: C:/work/ukoly/_198_stroj/U4_vysledek.json</p>
-      <ul class="meritka"><li>U4-M1: python C:/work/ukoly/_198_stroj/meridlo_zdroj.py</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="U5">
-  <h3><span class="znak" aria-hidden="true">○</span> 6. ZKUSEBNI OBJEDNAVKY: dobirka a prevod, doprava na adresu a na vydejni misto PPL; kazda s poznamkou ZKUSEBNI; overit potvrzovaci e-mail a fakturu <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>Na zkusebni adrese udelej 2 objednavky jako zakaznik: (1) dobirka + doprava na adresu, (2) prevod + vydejni misto PPL. Do interni poznamky kazde napis ZKUSEBNI. Pak spust python C:/work/ukoly/_198_stroj/meridlo_nakup.py a posledni radek uloz do C:/work/ukoly/_198_stroj/U5_vysledek.json. Objednavky nestornuj a nemaz, nic neodesilej zakaznikum.</p>
-      <p>Oblast: C:/work/ukoly/_198_stroj · Výsledný soubor: C:/work/ukoly/_198_stroj/U5_vysledek.json</p>
-      <ul class="meritka"><li>U5-M1: python C:/work/ukoly/_198_stroj/meridlo_nakup.py --pocet 2</li></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="U6">
-  <h3><span class="znak" aria-hidden="true">○</span> 7. PREPNUTI NA UTULI.CZ: domena a https, pustit vyhledavace, vytvorit soubory zbozi pro Google a FAVI s oznacenim zdroje v odkazech. Stroj pripravi postup, Mirek schvali jednim slovem. <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="U7">
-  <h3><span class="znak" aria-hidden="true">○</span> 8. ZADOSTI VENKU jednou, na hotovy web: platebni brana (volba Upgates Pay nebo Comgate s doporucenim), Google Merchant Center a Ads, FAVI. Stroj pripravi podklady a vyplni, Mirek poda a podepise. <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-<article class="krok-detail stav-ceka" data-krok-id="U8">
-  <h3><span class="znak" aria-hidden="true">○</span> 9. ZAPNOUT A PRODAVAT: platba kartou + treti zkusebni objednavka kartou, zbozi ke srovnavacum, reklama s rozpoctem, ktery schvali Mirek; pak stroj denne meri cil <span class="stav-text">(čeká)</span></h3>
-  
-  <details class="zadani-wrap">
-    <summary>Technické zadání</summary>
-    <div class="zadani">
-      <p>—</p>
-      <p>Oblast: — · Výsledný soubor: —</p>
-      <ul class="meritka"></ul>
-      <ul class="dukaz"></ul>
-    </div>
-  </details>
-</article>
-
-  </section>
-</main>
-<footer class="legenda">
-  <p>Značky (tvar, ne barva): ● hotovo · ▶ běží · ○ čeká · □ odloženo · ◆ blokátor</p>
-  <p>Odbočky: ⑂ u uzlu · ↩ vrácena · ✗ slepá · → nová</p>
-</footer>
-<script>
-function rezim(r){
-  document.body.classList.remove('celek','detail');
-  document.body.classList.add(r);
-  document.getElementById('btn-celek').setAttribute('aria-pressed', r==='celek');
-  document.getElementById('btn-detail').setAttribute('aria-pressed', r==='detail');
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="karta-verze" content="40"><title>UKOL-198 · Spuštění UTULI</title><style>:root{
+  --papir:#ffffff; --inkoust:#1a1a1a; --sede:#5c5c5c; --linka:#1a1a1a; --jemna:#c4c4c4; --plocha:#f1f1f1;
+  --tady:#0072B2; --tady-svetla:#e6f1f8; --na-tebe:#E69F00; --na-tebe-text:#1a1a1a;
+  --rozdelane:#56B4E9; --rozdelane-svetla:#eef7fd; --stoji:#D55E00; --odbocka:#CC79A7; --hotovo:#7a7a7a;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-function otevriPanel(id){
-  const panely=[...document.querySelectorAll('[data-panel-krok]')];
-  const panel=panely.find(p=>p.getAttribute('data-panel-krok')===id);
-  if(!panel)return;
-  const otevrene=!panel.hidden;
-  panely.forEach(p=>p.hidden=true);
-  if(!otevrene)panel.hidden=false;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+    --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
 }
-function pripravProklik(){
-  document.querySelectorAll('[data-stanice]').forEach(st=>{
-    const akce=()=>otevriPanel(st.getAttribute('data-stanice'));
-    st.addEventListener('click',akce);
-    st.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();akce();}});
-  });
-  const ramec=document.querySelector('.trat-ram'), tady=document.querySelector('[data-tady="1"]');
-  if(ramec&&tady){const x=Number(tady.getAttribute('data-x'));if(Number.isFinite(x))ramec.scrollLeft=Math.max(0,x-ramec.clientWidth/2);}
-}
-document.addEventListener('DOMContentLoaded',pripravProklik);
-</script>
-</body>
-</html>
+:root[data-theme="dark"]{ --papir:#1c1c1c; --inkoust:#ececec; --sede:#a8a8a8; --linka:#ececec; --jemna:#555; --plocha:#272727;
+  --tady:#3d9be0; --tady-svetla:#16283a; --rozdelane-svetla:#1b2a35; --hotovo:#9a9a9a; color-scheme:dark; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0; background:var(--papir); color:var(--inkoust);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:18px; line-height:1.45;}
+main{max-width:620px; margin:0 auto; padding:16px 14px 48px;}
+.mapa-stitek{font-size:.8rem; font-weight:800; letter-spacing:.12em; margin:0;}
+h1{font-size:1.4rem; line-height:1.2; margin:2px 0 2px; font-weight:800;}
+.ukol-pod{font-size:.85rem; color:var(--sede); margin:0 0 12px;}
+.tady{border:4px solid var(--tady); background:var(--tady-svetla); margin:0 0 16px; border-radius:6px; overflow:hidden;}
+.tady .spendlik{background:var(--tady); color:#ffffff; font-size:.95rem; font-weight:800; letter-spacing:.1em; margin:0; padding:7px 14px;}
+.tady .vnitrek{padding:10px 14px 14px;}
+.tady .krok-ted{font-size:1.35rem; font-weight:800; margin:0 0 2px; line-height:1.25;}
+.tady .krok-cislo{font-size:.85rem; color:var(--sede); margin:0 0 8px;}
+.tady .natahu{display:inline-block; margin:10px 0 0; font-size:1rem; font-weight:800; padding:8px 12px; border-radius:6px;
+  background:var(--na-tebe); color:var(--na-tebe-text);}
+.tady .natahu.jiny{background:var(--plocha); color:var(--inkoust); font-weight:600; border:1px solid var(--jemna);}
+.pasek{display:flex; gap:4px; margin:6px 0 2px; flex-wrap:wrap; align-items:center;}
+.pasek span{width:16px; height:16px; border:2px solid var(--hotovo); background:var(--hotovo); border-radius:2px;}
+.pasek span.z{border-color:var(--rozdelane); background:linear-gradient(90deg,var(--rozdelane) 50%,transparent 50%);}
+.pasek span.c{border:2px dashed var(--jemna); background:transparent;}
+.pasek span.t{width:26px; height:26px; border:4px solid var(--tady); background:var(--papir); position:relative;}
+.pasek span.t::after{content:"▶"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:var(--tady);}
+.popisek{font-size:.8rem; color:var(--sede); margin:2px 0 0;}
+.detail-ted{margin-top:12px; padding-top:8px; border-top:1px solid var(--jemna); font-size:.88rem; color:var(--sede);}
+.detail-ted p{margin:0 0 6px;}
+section.zona{margin:0 0 10px;}
+button.zona-hlava{display:flex; align-items:center; gap:10px; width:100%; min-height:48px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); border-left:6px solid var(--hotovo); padding:8px 12px; cursor:pointer; border-radius:4px;}
+section.hotovo button.zona-hlava{color:var(--sede);}
+section.zcasti button.zona-hlava{border-left-color:var(--rozdelane); background:var(--rozdelane-svetla); font-weight:600;}
+section.zcasti.stoji button.zona-hlava{border-left-color:var(--stoji);}
+section.odbocky button.zona-hlava{border-left-color:var(--odbocka); color:var(--sede);}
+button.zona-hlava:focus-visible, button.bod:focus-visible{outline:3px solid var(--linka); outline-offset:2px;}
+.zona-hlava .zn{font-size:1.15rem; width:26px; text-align:center;}
+.zona-hlava .nazev{flex:1; font-weight:600;}
+.zona-hlava .pocet{font-weight:800; font-size:.9rem;}
+.zona-hlava .sipka{color:var(--sede); font-size:.85rem;}
+section.pred button.zona-hlava{border-style:dashed; border-left:6px dashed var(--jemna);}
+ol.body{list-style:none; margin:6px 0 0; padding:0 0 0 14px; border-left:2px solid var(--jemna);}
+ol.body li{margin:0 0 6px;}
+button.bod{display:flex; gap:10px; align-items:flex-start; width:100%; min-height:44px; font:inherit; font-size:.95rem; text-align:left;
+  background:var(--papir); color:var(--inkoust); border:1px solid var(--jemna); padding:8px 10px; cursor:pointer; border-radius:3px;}
+section.pred button.bod{border-style:dashed;}
+button.bod .zn{width:22px; text-align:center; flex:0 0 22px;}
+section.hotovo button.bod{color:var(--sede);}
+button.bod .t{flex:1;}
+.bod-detail{margin:4px 0 8px 32px; font-size:.88rem; padding:8px 10px; border-left:3px solid var(--jemna); background:var(--plocha);}
+.bod-detail p{margin:0 0 4px;}
+.legenda{margin-top:18px; font-size:.82rem; color:var(--sede); border-top:2px dashed var(--jemna); padding-top:10px;}</style></head><body><main>
+<p class="mapa-stitek" data-mapa-ukolu="1">🗺 MAPA ÚKOLU</p><h1>Spuštění UTULI</h1><p class="ukol-pod">Úkol 198 · UTULI_Eshop · cíl: získat jasný přehled o práci a dalším kroku.</p>
+<div class="tady" id="tady" data-jsi-tady="1" data-krok="U2"><p class="spendlik">▶ JSI TADY</p><div class="vnitrek"><p class="krok-ted">Odstranění vad na zkušební adrese</p><p class="krok-cislo">krok 3 z 9</p><div class="pasek" role="img" aria-label="2 hotovo, jsi u kroku 3 z 9"><span></span><span></span><span class="t"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span></div><p class="popisek">2 hotovo · 6 před námi</p><p class="natahu" data-na-tahu="mirek" data-akcent="oranzova">👉 Na tahu jsi TY: vyřeš čekající zastavení.</p><div class="detail-ted"><p>hotovo</p><button class="bod" type="button" data-bod="U2" data-titulek="Odstranění vad na zkušební adrese" aria-expanded="false" aria-controls="detail-U2"><span class="zn">☐</span><span class="t">Odstranění vad na zkušební adrese</span></button><div class="bod-detail" id="detail-U2" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo</p><details><summary>Technika</summary><p>—</p></details></div></div></div></div>
+<section class="zona zcasti" data-zona="rozdelane"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-rozdelane"><span class="zn">⏳</span><span class="nazev">Rozdělané</span><span class="pocet">0</span><span class="sipka">▴</span></button><ol class="body" id="zona-rozdelane" data-seznam="0"></ol></section><section class="zona pred pred" data-zona="pred"><button class="zona-hlava" type="button" aria-expanded="true" aria-controls="zona-pred"><span class="zn">☐</span><span class="nazev">Před námi</span><span class="pocet">6</span><span class="sipka">▴</span></button><ol class="body" id="zona-pred" data-seznam="0"><li><button class="bod" type="button" data-bod="U3" data-titulek="Mirkovo přihlášení u Seznamu a Forpsi" aria-expanded="false" aria-controls="detail-U3"><span class="zn">☐</span><span class="t">Mirkovo přihlášení u Seznamu a Forpsi</span></button><div class="bod-detail" id="detail-U3" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>nic se nevyzaduje; Mirek u notebooku</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="U4" data-titulek="Měření nákupu v Google Analytics" aria-expanded="false" aria-controls="detail-U4"><span class="zn">☐</span><span class="t">Měření nákupu v Google Analytics</span></button><div class="bod-detail" id="detail-U4" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo v casti nakup; pristup do Google Analytics UTULI cte - overeno 20. 10</p><details><summary>Technika</summary><p>Over v Upgates a ve spravci znacek, ze se pri dokonceni objednavky odesila do Google Analytics UTULI (vlastnost 545472371) udalost nakupu s cislem objednavky jako transactionId; kdyz ne, zapni ji nativni cestou Upgates. Na zkusebni adrese udelej objednavku pres odkaz s ?utm_source=favi&amp;utm_medium=cpc, souhlas s cookies prijmi, do interni poznamky objednavky napis ZKUSEBNI. Druhy den spust python C:/work/ukoly/_198_stroj/meridlo_zdroj.py a jeho posledni radek uloz do C:/work/ukoly/_198_stroj/U4_vysledek.json. Nemen ceny, zbozi, platby ani dopravu.</p></details></div></li><li><button class="bod" type="button" data-bod="U5" data-titulek="Zkušební objednávky různými způsoby" aria-expanded="false" aria-controls="detail-U5"><span class="zn">☐</span><span class="t">Zkušební objednávky různými způsoby</span></button><div class="bod-detail" id="detail-U5" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo v casti nakup a doprava ; hotovo</p><details><summary>Technika</summary><p>Na zkusebni adrese udelej 2 objednavky jako zakaznik: (1) dobirka + doprava na adresu, (2) prevod + vydejni misto PPL. Do interni poznamky kazde napis ZKUSEBNI. Pak spust python C:/work/ukoly/_198_stroj/meridlo_nakup.py a posledni radek uloz do C:/work/ukoly/_198_stroj/U5_vysledek.json. Objednavky nestornuj a nemaz, nic neodesilej zakaznikum.</p></details></div></li><li><button class="bod" type="button" data-bod="U6" data-titulek="Přepnutí na doménu utuli.cz" aria-expanded="false" aria-controls="detail-U6"><span class="zn">☐</span><span class="t">Přepnutí na doménu utuli.cz</span></button><div class="bod-detail" id="detail-U6" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>a hotovo</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="U7" data-titulek="Žádosti ven na hotový web" aria-expanded="false" aria-controls="detail-U7"><span class="zn">☐</span><span class="t">Žádosti ven na hotový web</span></button><div class="bod-detail" id="detail-U7" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>hotovo; splneno na utuli.cz</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="U8" data-titulek="Zapnutí platby a prodeje" aria-expanded="false" aria-controls="detail-U8"><span class="zn">☐</span><span class="t">Zapnutí platby a prodeje</span></button><div class="bod-detail" id="detail-U8" hidden><p><strong>Stav:</strong> čeká · <strong>Datum:</strong> —</p><p>brana, Google i FAVI prijali</p><details><summary>Technika</summary><p>—</p></details></div></li></ol></section><section class="zona hotovo" data-zona="hotovo"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-hotovo"><span class="zn">✓</span><span class="nazev">Za námi, hotovo</span><span class="pocet">2</span><span class="sipka">▾</span></button><ol class="body" id="zona-hotovo" data-seznam="1" hidden><li><button class="bod" type="button" data-bod="M1" data-titulek="AUDIT A PLAN: inventura ctyr casti" aria-expanded="false" aria-controls="detail-M1"><span class="zn">✓</span><span class="t">AUDIT A PLAN: inventura ctyr casti</span></button><div class="bod-detail" id="detail-M1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 20. 10. 2026</p><p>hotovo v chatu : audit 20. 10. a navrh planu</p><details><summary>Technika</summary><p>—</p></details></div></li><li><button class="bod" type="button" data-bod="U1" data-titulek="SPOLECNA KONTROLA POSUZOVATELU: jeden seznam bodu" aria-expanded="false" aria-controls="detail-U1"><span class="zn">✓</span><span class="t">SPOLECNA KONTROLA POSUZOVATELU: jeden seznam bodu</span></button><div class="bod-detail" id="detail-U1" hidden><p><strong>Stav:</strong> hotovo · <strong>Datum:</strong> 20. 10. 2026</p><p>plan podepsany; zkusebni adresa utuli.t2.upgates.shop dostupna</p><details><summary>Technika</summary><p>Napis C:/work/ukoly/_198_stroj/kontrola_posuzovatelu.py s argumentem --adresa. Skript projde web a vyhodnoti kazdy bod seznamu: (a) platebni brana - u kazdeho produktu popis a cena, obchodni podminky, reklamacni podminky, podminky dopravy a platby, kontakty, nazev firmy, vse na https; (b) Google - https vsude, zadny rozbity odkaz ve vzorku 30 stranek, funkcni kontakt, podminky vraceni, zbozi jde vlozit do kosiku; (c) FAVI - kazdy produkt ma kategorii, hlavni fotka existuje; (d) nase - na strance neni noindex, robots.txt nezakazuje web. U kazde vady urci majitele: zbozi = UKOL-122, vzhled a texty = UKOL-99, technika, platby, doprava a povinne stranky = UKOL-96. Posledni radek vystupu = JSON {adresa, bodu, vad, noindex, vady:[{bod, kde, majitel}]}; tentyz JSON uloz do C:/work/ukoly/_198_stroj/U1_vysledek.json. Spust na https://utuli.t2.upgates.shop. Nic na webu nemen, jen cti.</p></details></div></li></ol></section><section class="zona odbocky" data-zona="odbocky"><button class="zona-hlava" type="button" aria-expanded="false" aria-controls="zona-odbocky"><span class="zn">→</span><span class="nazev">Odbočky jinam</span><span class="pocet">0</span><span class="sipka">▾</span></button><ol class="body" id="zona-odbocky" data-seznam="0" hidden></ol></section>
+<p class="legenda">Modrý rámeček ▶ = jsi tady · oranžové 👉 = na tahu jsi ty (jediná oranžová na stránce) · šedé ✔ = hotovo, ztlumené · světle modrý pruh ⏳ = rozdělané · cihlový pruh ⚠ = stojí · čárkované ☐ = před námi · fialový pruh → = odbočka · barva vždy jen zopakuje značku a slovo · ťukni na řádek = rozbalí se, znovu = sbalí se</p></main><script>document.addEventListener("click", e=>{
+  const b = e.target.closest("button.zona-hlava, button.bod");
+  if (!b) return;
+  const t = document.getElementById(b.getAttribute("aria-controls"));
+  const otevrit = t.hidden; t.hidden = !otevrit; b.setAttribute("aria-expanded", String(otevrit));
+  const s2 = b.querySelector(".sipka"); if (s2) s2.textContent = otevrit ? "▴" : "▾";
+});</script></body></html>
