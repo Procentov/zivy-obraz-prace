@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATOS na UTULI novým postupem</title>
+<style>:root{--paper:#FBFAF7;--ink:#1B1B1A;--soft:#55544F;--faint:#76756F;--rule:#D8D6CE;--card:#FFFFFF;
+ --done:#00694D;--done-w:#E1F1EA;--now:#B34700;--now-w:#FBE8DA;--wait:#8A8983;--mirek:#6B6A66;--mirek-w:#EEEDE9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--paper:#16171A;--ink:#EDECE7;--soft:#B6B5AE;--faint:#9A9992;--rule:#3A3C41;--card:#1D1F23;
+ --done:#4FC3A1;--done-w:#123227;--now:#F29A5E;--now-w:#3A2416;--wait:#8A8983;--mirek:#B6B5AE;--mirek-w:#2A2C31}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.4}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:26px;line-height:1.2;margin:0 0 4px;font-weight:600}
+.meta{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--faint);margin:0 0 12px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14px;color:var(--soft);margin:0 0 16px;padding:10px 12px;background:var(--card);border:1px solid var(--rule)}
+.legend .it{display:inline-flex;align-items:center;gap:7px}
+.pic{width:20px;height:20px;color:var(--mirek);flex:none}
+.st{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:4px;font-size:14px;font-weight:700;line-height:1;flex:none}
+.st.done{background:var(--done-w);border:1.6px solid var(--done);color:var(--done)}
+.st.wait{background:var(--card);border:1.6px dashed var(--wait)}
+.st.now{background:var(--now-w);border:3.5px solid var(--now);color:var(--now);font-size:12px}
+.big{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin:0 0 8px}
+.big .num{font-size:42px;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
+.big .of{font-size:19px;color:var(--soft)}
+.strip{display:flex;flex-wrap:wrap;gap:8px 12px;margin:0 0 16px}
+.cl{display:flex;flex-direction:column;gap:3px}
+.cln{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--faint)}
+.sqs{display:inline-flex;flex-wrap:wrap;gap:3px}
+.sq{display:inline-block;width:13px;height:13px;border-radius:2px}
+.sq.done{background:var(--done)}
+.sq.wait{border:1.5px dashed var(--wait)}
+.sq.now{background:var(--now-w);border:3.5px solid var(--now)}
+.box{padding:12px 14px;margin:0 0 12px;border-radius:3px;background:var(--card)}
+.box .lab{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin:0 0 4px}
+.box.now{background:var(--now-w);border:4px solid var(--now)}
+.box.now .lab{color:var(--now)}
+.box.now .what{font-size:20px;line-height:1.3;font-weight:600;margin:0}
+.box.now .where{font-style:italic;color:var(--soft);margin:3px 0 0;font-size:15px}
+.box.mirek{background:var(--mirek-w);border:1.6px dashed var(--mirek)}
+.head2{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+.head2 b{font-size:17px}
+.box ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.box li{display:grid;grid-template-columns:2.6em 1fr;gap:8px;align-items:baseline}
+.id{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;color:var(--soft);font-variant-numeric:tabular-nums}
+.s2{display:block;font-style:italic;font-size:14px;color:var(--soft);font-weight:400;margin-top:1px}
+.gh2{font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--soft);margin:22px 0 8px}
+.gn{width:40px;height:40px;display:grid;place-items:center;border:1.6px solid var(--ink);border-radius:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:600;font-size:18px;flex:none}
+.bd{font-size:13px;font-style:italic;color:var(--soft);display:inline-flex;align-items:center;gap:4px}
+.bd .pic{width:16px;height:16px}
+.bd.now{color:var(--now);font-weight:600;font-style:normal}
+.gbd{display:flex;flex-wrap:wrap;gap:2px 10px}
+.hub{scroll-margin-top:8px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{display:flex;flex-direction:column;gap:6px;padding:12px;min-height:168px;background:var(--card);border:1.6px solid var(--ink);border-radius:6px;color:inherit;text-decoration:none}
+.tile.now{border:4px solid var(--now);padding:10px}
+.tn{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:26px;font-weight:600;line-height:1}
+.tname{font-size:17px;font-weight:600;line-height:1.25}
+.tc{font-size:14px;color:var(--soft)}
+.tc b{color:var(--ink)}
+.tgo{margin-top:auto;font-weight:600;font-size:15px;padding-top:4px}
+.panel{display:none;scroll-margin-top:0}
+.panel:target{display:block}
+.wrap:has(.panel:target) .head,.wrap:has(.panel:target) .hub,.wrap:has(.panel:target) .tail{display:none}
+.wrap:has(.panel:target){padding-top:0}
+.ph{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:40px 1fr 48px;gap:10px;align-items:center;background:var(--paper);border-bottom:3px solid var(--ink);padding:10px 0 8px;margin:0 0 4px}
+.pt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pname{font-size:19px;font-weight:600;line-height:1.2}
+.pc{display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px;font-size:14px;color:var(--soft)}
+.pc b{color:var(--ink)}
+.x{display:grid;place-items:center;width:48px;height:48px;border:2px solid var(--ink);border-radius:6px;color:var(--ink);text-decoration:none;font-size:22px;font-weight:600;line-height:1;background:var(--card)}
+.x:focus-visible{outline:3px solid var(--now);outline-offset:2px}
+.ds{list-style:none;margin:0;padding:0}
+.d{display:grid;grid-template-columns:24px 2.2em 1fr 24px;gap:8px;align-items:start;padding:8px 2px;min-height:44px;border-bottom:1px solid var(--rule)}
+.d .tx{font-size:16px;line-height:1.3}
+.d.done .tx b{font-weight:400;color:var(--soft)}
+.d.wait .tx b{font-weight:600}
+.d.now{background:var(--now-w);border:4px solid var(--now);padding:5px 1px;margin:3px 0}
+.d.now .tx b{font-weight:600}
+.when{font-size:12px;font-style:italic;color:var(--soft);display:inline-flex;justify-content:flex-end;align-items:center;white-space:nowrap}
+.when .pic{width:20px;height:20px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 0}
+.pager a,.pager .off{display:flex;flex-direction:column;justify-content:center;gap:1px;min-height:56px;padding:6px 10px;border:2px solid var(--ink);border-radius:6px;color:inherit;text-decoration:none;background:var(--card)}
+.pager .off{border-style:dashed;border-color:var(--faint);color:var(--faint)}
+.pager b{font-size:16px}
+.pager small{font-size:12px;color:var(--soft)}
+.pager a:last-child,.pager .off:last-child{text-align:right}
+.foot{margin-top:20px;font-size:14px;color:var(--soft);font-style:italic}
+@media (max-width:400px){body{font-size:16px}.big .num{font-size:38px}}</style>
+</head>
+<body>
+<div class="wrap" id="top">
+<div class="head">
+<h1>ATOS na UTULI novým postupem</h1>
+<p class="meta">Karta UKOL-295 · stav z 21. 11.</p>
+<div class="legend" aria-label="Legenda"><span class="it"><span class="st done" aria-hidden="true">✔</span>hotovo</span><span class="it"><span class="st wait" aria-hidden="true"></span>čeká</span><span class="it"><span class="st now" aria-hidden="true">▶</span>na řadě</span></div>
+<div class="big"><span class="num">3</span><span class="of">z 9 bodů hotovo</span></div>
+<div class="strip" role="img" aria-label="3 z 9 bodů hotovo, 5 čeká, 1 na řadě"><div class="cl"><span class="cln">F</span><span class="sqs" aria-hidden="true"><span class="sq done"></span><span class="sq done"></span><span class="sq done"></span><span class="sq now"></span><span class="sq wait"></span><span class="sq wait"></span><span class="sq wait"></span><span class="sq wait"></span></span></div><div class="cl"><span class="cln">P</span><span class="sqs" aria-hidden="true"><span class="sq wait"></span></span></div></div>
+<div class="box now"><p class="lab">▶ Na řadě</p><p class="what">F3 Rozvody: tabulka B -&gt; C pro Upgates (cestina, ceny z Pateri, kategorie UTULI) + meridlo a podstrcena chyba ke kazdemu pravidlu</p><p class="where">skupina F Skupina F</p></div>
+<h2 class="gh2">Skupiny</h2>
+</div>
+<div id="hub" class="hub"><div class="tiles">
+<a class="tile now" href="#gF"><span class="tn">F</span><span class="tname">Skupina F</span><span class="tc"><b>3 z 8</b> hotovo</span><span class="sqs" aria-hidden="true"><span class="sq done"></span><span class="sq done"></span><span class="sq done"></span><span class="sq now"></span><span class="sq wait"></span><span class="sq wait"></span><span class="sq wait"></span><span class="sq wait"></span></span><span class="gbd"><span class="bd now">▶ na řadě</span></span><span class="tgo">Otevřít ›</span></a><a class="tile" href="#gP"><span class="tn">P</span><span class="tname">Skupina P</span><span class="tc"><b>0 z 1</b> hotovo</span><span class="sqs" aria-hidden="true"><span class="sq wait"></span></span><span class="tgo">Otevřít ›</span></a>
+</div></div>
+<section class="panel" id="gF"><header class="ph"><span class="gn">F</span><span class="pt"><span class="pname">Skupina F</span><span class="pc"><b>3 z 8</b> hotovo <span class="sqs" aria-hidden="true"><span class="sq done"></span><span class="sq done"></span><span class="sq done"></span><span class="sq now"></span><span class="sq wait"></span><span class="sq wait"></span><span class="sq wait"></span><span class="sq wait"></span></span></span></span><a class="x" href="#hub" aria-label="Zavřít skupinu, zpět na všechny skupiny"><span aria-hidden="true">✕</span></a></header><ul class="ds"><li class="d done"><span class="st done" aria-hidden="true">✔</span><span class="id">F0</span><span class="tx"><span class="vh">hotovo: </span><b>Vykop: zdroje ATOS = tabulka A (feed ATOS, web vyrobce, cenik, 147 produktu v administraci UTULI a Club / Milo jako tahak, kriteria PATER_kriteria_produktu.json jako podklad)</b></span><span class="when">18. 11.</span></li><li class="d done"><span class="st done" aria-hidden="true">✔</span><span class="id">F1</span><span class="tx"><span class="vh">hotovo: </span><b>Zakladova deska: vybrat prvni kategorii, predpis kategorie (chlivecky B a C pro Upgates, co je vyrobek a co varianta, osy variant a limit variant v Upgates), rozsah = seznam vsech vyrobku ATOS kategorie</b></span><span class="when">19. 11.</span></li><li class="d done"><span class="st done" aria-hidden="true">✔</span><span class="id">F2</span><span class="tx"><span class="vh">hotovo: </span><b>Hruba stavba: tabulka A -&gt; B na vzoru (logika vyrobce ATOS, poradi zdroju, rozlepeni nazvu; skripty ze spolecneho zakladu UKOL-294)</b></span><span class="when">20. 11.</span></li><li class="d now"><span class="st now" aria-hidden="true">▶</span><span class="id">F3</span><span class="tx"><span class="vh">na řadě: </span><b>Rozvody: tabulka B -&gt; C pro Upgates (cestina, ceny z Pateri, kategorie UTULI) + meridlo a podstrcena chyba ke kazdemu pravidlu</b></span><span class="when"></span></li><li class="d wait"><span class="st wait" aria-hidden="true"></span><span class="id">F4</span><span class="tx"><span class="vh">čeká: </span><b>Kolaudace vzoru: skryty import do Upgates, zpetne cteni, porovnani s tahakem, nezavisly kontrolor; chyba = oprava pravidla v zakladu a znovu od F2</b></span><span class="when"></span></li><li class="d wait"><span class="st wait" aria-hidden="true"></span><span class="id">F5</span><span class="tx"><span class="vh">čeká: </span><b>Radove domy: 5 dalsich vyrobku kategorie, opravy jen v pravidlech, prepocet vsech dosud proslych (i na UKOL-290)</b></span><span class="when"></span></li><li class="d wait"><span class="st wait" aria-hidden="true"></span><span class="id">F6</span><span class="tx"><span class="vh">čeká: </span><b>Cela ulice: zbytek kategorie a dalsi kategorie ATOS; na web jen skript z tabulky C; denni hlidac web proti C</b></span><span class="when"></span></li><li class="d wait"><span class="st wait" aria-hidden="true"></span><span class="id">F7</span><span class="tx"><span class="vh">čeká: </span><b>Nastehovani: zverejneni jen na Mirkovo slovo (hranice zivy e-shop)</b></span><span class="when"></span></li></ul><nav class="pager" aria-label="Sousední skupiny"><span class="off"><b>‹</b><small>první skupina</small></span><a href="#gP"><b>P ›</b><small>Skupina P</small></a></nav></section><section class="panel" id="gP"><header class="ph"><span class="gn">P</span><span class="pt"><span class="pname">Skupina P</span><span class="pc"><b>0 z 1</b> hotovo <span class="sqs" aria-hidden="true"><span class="sq wait"></span></span></span></span><a class="x" href="#hub" aria-label="Zavřít skupinu, zpět na všechny skupiny"><span aria-hidden="true">✕</span></a></header><ul class="ds"><li class="d wait"><span class="st wait" aria-hidden="true"></span><span class="id">P0</span><span class="tx"><span class="vh">čeká: </span><b>Dluh zakladu UKOL-294 (PRED F1 krеsel): 1 prazdne sablony tabulek A, B, C na disku podle C:/work/znalosti/utuli/spolecny-zaklad-pim.md (tvar, slozky, popis sloupcu); 2 tvrda brzda v knihovne - zapis do B/C mimo skript nebo na karte ZASTAVENO odmitnut (zaporna zkouska); 3 zkouska podstrcenou nezapsanou odbockou, ktera se musi objevit v zivem obraze</b></span><span class="when"></span></li></ul><nav class="pager" aria-label="Sousední skupiny"><a href="#gF"><b>‹ F</b><small>Skupina F</small></a><span class="off"><b>›</b><small>poslední skupina</small></span></nav></section>
+<p class="foot tail">Snímek stavu, sám se neobnovuje. Po klepnutí na dlaždici se skupina otevře nahoře, křížek vpravo vrací na dlaždice.</p>
+</div>
+</body>
+</html>
