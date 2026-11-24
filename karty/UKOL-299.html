@@ -56,9 +56,10 @@ a{color:#0b3d91}
 <body data-karta="UKOL-299">
 <a class="zavrit-stranku" data-zavrit-stranku href="https://procentov.github.io/zivy-obraz-prace/prace/" aria-label="Zavřít">✕</a>
 <main data-pilot="v4" data-karta="UKOL-299">
+
 <div data-pole="stav-ted">
 <h2>Stav teď</h2>
-<a class="stav-ted-item now" data-stav-ted="now" data-bod-id="K3" href="#bod-K3">▶ Smer karta -&gt; mapa: zkouska stranky, ktera si stav bodu bere z karty sama pres Vratneho (jen cteni); jinak prekresleni reditelem pri budiku</a>
+<a class="stav-ted-item now" data-stav-ted="now" data-bod-id="K3" href="#bod-K3">▶ Mapa si stav bere sama z karty</a>
 </div>
 
 <div class="legenda">
@@ -75,128 +76,168 @@ a{color:#0b3d91}
 <section class="skupina" data-skupina="g1">
   <div class="skupina-radek" data-g="g1" data-open="0" onclick="openGroup('g1')">
     <span class="g-num">1.</span>
-    <span class="g-nazev">Kroky K</span>
-    <span class="g-pocet">hotovo 6/9</span>
-    <span class="g-pasek">▪▪▪▪▪▪▪▫▫▫</span>
+    <span class="g-nazev">Mapa a její zkouška na mobilu</span>
+    <span class="g-pocet">hotovo 1/4</span>
+    <span class="g-pasek">▪▪▫▫▫▫▫▫▫▫</span>
     <span class="g-znacky">▶ </span>
   </div>
   <div class="skupina-ramecek" data-g="g1" hidden>
     <div class="skupina-hlavicka" onclick="closeGroup('g1')">
-      <span class="g-nazev">1. Kroky K</span>
+      <span class="g-nazev">1. Mapa a její zkouška na mobilu</span>
       <button type="button" class="krizek" data-zavrit aria-label="Zavřít skupinu"
         onclick="event.stopPropagation(); closeGroup('g1')">✕</button>
     </div>
     <div class="body-seznam">
       
-<div class="bod" data-bod="K1" data-stav="d" id="bod-K1">
+<div class="bod" data-bod="K1" data-stav="d" data-text="lidsky" id="bod-K1">
   <div class="bod-radek" onclick="toggleBod('K1')">
     <span class="znacka">✔</span>
-    <span class="bod-nazev">K1 Nakreslit strom UKOL-96 na tabuli podle vzorniku</span>
+    <span class="bod-nazev">Nakreslit strom pilotního úkolu</span>
     <span class="stav-slovo">hotovo</span>
   </div>
   <div class="bod-detail" id="detail-K1" hidden>
-    <p>Hotovo. vytah_stromu_96.py 19. 11. 2026 23:1x: 36 bodu, 16 hotovo/PASS, 20 ceka; tabule https://claude.ai/artifact/9Rui4Fiq1zv6XWrQRtRjt7 (105 prvku)</p>
+    <p>Strom úkolu z karty 96 je nakreslený na tabuli: 36 bodů, z toho 16 hotových.</p>
     
   </div>
 </div>
 
-<div class="bod" data-bod="K2" data-stav="w" id="bod-K2">
+<div class="bod" data-bod="K2" data-stav="w" data-text="lidsky" id="bod-K2">
   <div class="bod-radek" onclick="toggleBod('K2')">
     <span class="znacka">◻</span>
-    <span class="bod-nazev">K2 Mirek si mapu otevre na mobilu: pozna do 5 s, co je na rade a co ceka na nej</span>
+    <span class="bod-nazev">Otevřít mapu na mobilu a poznat, co je na řadě</span>
     <span class="stav-slovo">čeká na pořadí</span>
   </div>
   <div class="bod-detail" id="detail-K2" hidden>
-    <p>Bez dalšího popisu.</p>
+    <p>Otevři mapu na mobilu. Hotovo je, když do pěti vteřin poznáš, co je na řadě a co čeká na tebe.</p>
     
   </div>
 </div>
 
-<div class="bod" data-bod="K3" data-stav="n" id="bod-K3">
+<div class="bod" data-bod="K3" data-stav="n" data-text="lidsky" id="bod-K3">
   <div class="bod-radek" onclick="toggleBod('K3')">
     <span class="znacka">▶</span>
-    <span class="bod-nazev">K3 Smer karta -&gt; mapa: zkouska stranky, ktera si stav bodu bere z karty sama pres Vratneho (jen cteni); jinak prekresleni reditelem pri budiku</span>
+    <span class="bod-nazev">Mapa si stav bere sama z karty</span>
     <span class="stav-slovo">teď se dělá</span>
   </div>
   <div class="bod-detail" id="detail-K3" hidden>
-    <p>Bez dalšího popisu.</p>
+    <p>Stránka mapy si sama přečte stav bodů z karty (jen čtení), takže se nemusí překreslovat ručně.</p>
     
   </div>
 </div>
 
-<div class="bod" data-bod="K4" data-stav="w" id="bod-K4">
+<div class="bod" data-bod="K4" data-stav="w" data-text="lidsky" id="bod-K4">
   <div class="bod-radek" onclick="toggleBod('K4')">
     <span class="znacka">◻</span>
-    <span class="bod-nazev">K4 Smer mapa -&gt; karta: Mirkovo doplneni v tabuli (listek u vetve) precte reditel pri budiku a zapise na kartu jako by to rekl v chatu (cizi karta = predavka drziteli)</span>
+    <span class="bod-nazev">Tvoje doplnění v mapě se propíše na kartu</span>
     <span class="stav-slovo">čeká na pořadí</span>
   </div>
   <div class="bod-detail" id="detail-K4" hidden>
-    <p>Bez dalšího popisu.</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="K5" data-stav="d" id="bod-K5">
-  <div class="bod-radek" onclick="toggleBod('K5')">
-    <span class="znacka">✔</span>
-    <span class="bod-nazev">K5 Odkaz na mapu do ziveho obrazu prace karty: generator C:/work/ukoly/_253_stroj/obraz_a.py dnes zadne odkazy z karty nekresli (hledano &#x27;odkaz|artifact|mapa&#x27; 19. 11. 23:4x: 0 nalezu) - doplnit radek &#x27;Myslenkova mapa&#x27; z pole odkazy karty, premerit na 3 kartach</span>
-    <span class="stav-slovo">hotovo</span>
-  </div>
-  <div class="bod-detail" id="detail-K5" hidden>
-    <p>Hotovo. obraz_a.py dostal obal &#x27;radek Myslenkova mapa&#x27; z rejstriku C:/work/PRO_CODEXE/UKOL-299/mapy.json (zaloha obraz_a.py.zaloha_299_20261120-013125); meridlo_k5.py 01:31:53 lokalne 5 z 5 karet s radkem, zaporna karta UKOL-01 …</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="K6" data-stav="d" id="bod-K6">
-  <div class="bod-radek" onclick="toggleBod('K6')">
-    <span class="znacka">✔</span>
-    <span class="bod-nazev">K6 Zapsat postup do knihy znalosti (jak-spolupracujeme) a do vzorniku; az potom dalsi karty</span>
-    <span class="stav-slovo">hotovo</span>
-  </div>
-  <div class="bod-detail" id="detail-K6" hidden>
-    <p>Hotovo. Kniha C:/work/znalosti/ucet/spoluprace/jak-spolupracujeme.md bod 20 Myslenkova mapa (zaloha .zaloha_20261120-0956, stara platna verze presunuta do prekonanych, slepa ulicka html embed na mobilu, otevrene K4/K2). Meridla …</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="K7" data-stav="d" id="bod-K7">
-  <div class="bod-radek" onclick="toggleBod('K7')">
-    <span class="znacka">✔</span>
-    <span class="bod-nazev">K7 Mapa tri souvisejicich karet 294 (zaklad PIM) -&gt; 295 (ATOS na UTULI) a 290 (Art Decoration na Procentov), s navaznosti na UKOL-96</span>
-    <span class="stav-slovo">hotovo</span>
-  </div>
-  <div class="bod-detail" id="detail-K7" hidden>
-    <p>Hotovo. precti_kartu 294/295/290 19. 11. 23:2x: 294 7 z 7, 295 2 z 9 bezi F2, 290 1 z 8 nikdo nedrzi; tabule https://claude.ai/artifact/Afhmn8EyDSqJhKWSVBLxsU (54 prvku)</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="K8" data-stav="d" id="bod-K8">
-  <div class="bod-radek" onclick="toggleBod('K8')">
-    <span class="znacka">✔</span>
-    <span class="bod-nazev">K8 Ukazka ziveho prehledu Gmail + Kalendar (Mirek 19. 11. 23:22: &#x27;pojdme si to ukazat ... u kalendare a u e-mailu&#x27;)</span>
-    <span class="stav-slovo">hotovo</span>
-  </div>
-  <div class="bod-detail" id="detail-K8" hidden>
-    <p>Hotovo. typ Data https://claude.ai/artifact/ACsniuxyDuThqT57BkLruG: 3 zive dotazy (search_threads newer_than:1d -in:sent, list_labels, list_events 7 dni) overene vlastnim behem 19. 11. 23:3x: 17 vlaken za 24 h, kalendar 8 akci; …</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="K9" data-stav="d" id="bod-K9">
-  <div class="bod-radek" onclick="toggleBod('K9')">
-    <span class="znacka">✔</span>
-    <span class="bod-nazev">K9 Rozbalovaci verze mapy tri karet (Mirek 20. 11. 08:00 volba &#x27;1&#x27;)</span>
-    <span class="stav-slovo">hotovo</span>
-  </div>
-  <div class="bod-detail" id="detail-K9" hidden>
-    <p>Hotovo. Vlozena stranka v tabuli se na Mirkove mobilu (Fold, 20. 11. 08:50) nespustila: &#x27;Web embed disabled. It navigated away from its content.&#x27; Nahrazeno samostatnou rozbalovaci strankou https://claude.ai/artifact/Bc2ZDoM7edws…</p>
+    <p>Co dopíšeš do mapy, přečte ředitel při budíku a zapíše na kartu, jako bys to řekl v chatu.</p>
     
   </div>
 </div>
     </div>
     <div class="pruh-sbalit" data-sbalit onclick="closeGroup('g1')">▲ Sbalit skupinu</div>
+  </div>
+</section>
+
+<section class="skupina" data-skupina="g2">
+  <div class="skupina-radek" data-g="g2" data-open="0" onclick="openGroup('g2')">
+    <span class="g-num">2.</span>
+    <span class="g-nazev">Napojení na živý obraz práce</span>
+    <span class="g-pocet">hotovo 2/2</span>
+    <span class="g-pasek">▪▪▪▪▪▪▪▪▪▪</span>
+    <span class="g-znacky"></span>
+  </div>
+  <div class="skupina-ramecek" data-g="g2" hidden>
+    <div class="skupina-hlavicka" onclick="closeGroup('g2')">
+      <span class="g-nazev">2. Napojení na živý obraz práce</span>
+      <button type="button" class="krizek" data-zavrit aria-label="Zavřít skupinu"
+        onclick="event.stopPropagation(); closeGroup('g2')">✕</button>
+    </div>
+    <div class="body-seznam">
+      
+<div class="bod" data-bod="K5" data-stav="d" data-text="lidsky" id="bod-K5">
+  <div class="bod-radek" onclick="toggleBod('K5')">
+    <span class="znacka">✔</span>
+    <span class="bod-nazev">Odkaz na mapu na stránce karty</span>
+    <span class="stav-slovo">hotovo</span>
+  </div>
+  <div class="bod-detail" id="detail-K5" hidden>
+    <p>Na stránce karty je řádek „Myšlenková mapa“ s odkazem, bere se z jednoho seznamu map.</p>
+    
+  </div>
+</div>
+
+<div class="bod" data-bod="K6" data-stav="d" data-text="lidsky" id="bod-K6">
+  <div class="bod-radek" onclick="toggleBod('K6')">
+    <span class="znacka">✔</span>
+    <span class="bod-nazev">Pravidlo o myšlenkové mapě zapsat do knihy</span>
+    <span class="stav-slovo">hotovo</span>
+  </div>
+  <div class="bod-detail" id="detail-K6" hidden>
+    <p>Postup je v knize znalostí (stránka Jak spolupracujeme, bod 20), včetně slepé uličky s vloženou stránkou.</p>
+    
+  </div>
+</div>
+    </div>
+    <div class="pruh-sbalit" data-sbalit onclick="closeGroup('g2')">▲ Sbalit skupinu</div>
+  </div>
+</section>
+
+<section class="skupina" data-skupina="g3">
+  <div class="skupina-radek" data-g="g3" data-open="0" onclick="openGroup('g3')">
+    <span class="g-num">3.</span>
+    <span class="g-nazev">Mapy dalších karet</span>
+    <span class="g-pocet">hotovo 3/3</span>
+    <span class="g-pasek">▪▪▪▪▪▪▪▪▪▪</span>
+    <span class="g-znacky"></span>
+  </div>
+  <div class="skupina-ramecek" data-g="g3" hidden>
+    <div class="skupina-hlavicka" onclick="closeGroup('g3')">
+      <span class="g-nazev">3. Mapy dalších karet</span>
+      <button type="button" class="krizek" data-zavrit aria-label="Zavřít skupinu"
+        onclick="event.stopPropagation(); closeGroup('g3')">✕</button>
+    </div>
+    <div class="body-seznam">
+      
+<div class="bod" data-bod="K7" data-stav="d" data-text="lidsky" id="bod-K7">
+  <div class="bod-radek" onclick="toggleBod('K7')">
+    <span class="znacka">✔</span>
+    <span class="bod-nazev">Společná mapa tří souvisejících karet</span>
+    <span class="stav-slovo">hotovo</span>
+  </div>
+  <div class="bod-detail" id="detail-K7" hidden>
+    <p>Jedna mapa pro základ vlastního PIM (294), ATOS na UTULI (295) a Art Decoration na Procentov (290).</p>
+    
+  </div>
+</div>
+
+<div class="bod" data-bod="K8" data-stav="d" data-text="lidsky" id="bod-K8">
+  <div class="bod-radek" onclick="toggleBod('K8')">
+    <span class="znacka">✔</span>
+    <span class="bod-nazev">Ukázka živého přehledu pošty a kalendáře</span>
+    <span class="stav-slovo">hotovo</span>
+  </div>
+  <div class="bod-detail" id="detail-K8" hidden>
+    <p>Ukázková stránka čte živě e-maily, štítky a kalendář na sedm dní.</p>
+    
+  </div>
+</div>
+
+<div class="bod" data-bod="K9" data-stav="d" data-text="lidsky" id="bod-K9">
+  <div class="bod-radek" onclick="toggleBod('K9')">
+    <span class="znacka">✔</span>
+    <span class="bod-nazev">Rozbalovací verze mapy tří karet</span>
+    <span class="stav-slovo">hotovo</span>
+  </div>
+  <div class="bod-detail" id="detail-K9" hidden>
+    <p>Stránka vložená do tabule se na mobilu nespustila, proto je rozbalovací mapa samostatná stránka s odkazem z tabule.</p>
+    
+  </div>
+</div>
+    </div>
+    <div class="pruh-sbalit" data-sbalit onclick="closeGroup('g3')">▲ Sbalit skupinu</div>
   </div>
 </section>
 </main>
