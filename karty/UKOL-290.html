@@ -56,9 +56,10 @@ a{color:#0b3d91}
 <body data-karta="UKOL-290">
 <a class="zavrit-stranku" data-zavrit-stranku href="https://procentov.github.io/zivy-obraz-prace/prace/" aria-label="Zavřít">✕</a>
 <main data-pilot="v4" data-karta="UKOL-290">
+
 <div data-pole="stav-ted">
 <h2>Stav teď</h2>
-<p class="stav-ted-prazdno">Nic teď neběží a nic nečeká na tebe.</p>
+<a class="stav-ted-item now" data-stav-ted="now" data-bod-id="F3" href="#bod-F3">▶ Rozvody – pravidla pro e-shop</a>
 </div>
 
 <div class="legenda">
@@ -75,116 +76,156 @@ a{color:#0b3d91}
 <section class="skupina" data-skupina="g1">
   <div class="skupina-radek" data-g="g1" data-open="0" onclick="openGroup('g1')">
     <span class="g-num">1.</span>
-    <span class="g-nazev">Kroky F</span>
-    <span class="g-pocet">hotovo 3/8</span>
-    <span class="g-pasek">▪▪▪▪▫▫▫▫▫▫</span>
+    <span class="g-nazev">Příprava podkladů (výkop a základy)</span>
+    <span class="g-pocet">hotovo 3/3</span>
+    <span class="g-pasek">▪▪▪▪▪▪▪▪▪▪</span>
     <span class="g-znacky"></span>
   </div>
   <div class="skupina-ramecek" data-g="g1" hidden>
     <div class="skupina-hlavicka" onclick="closeGroup('g1')">
-      <span class="g-nazev">1. Kroky F</span>
+      <span class="g-nazev">1. Příprava podkladů (výkop a základy)</span>
       <button type="button" class="krizek" data-zavrit aria-label="Zavřít skupinu"
         onclick="event.stopPropagation(); closeGroup('g1')">✕</button>
     </div>
     <div class="body-seznam">
       
-<div class="bod" data-bod="F0" data-stav="d" id="bod-F0">
+<div class="bod" data-bod="F0" data-stav="d" data-text="lidsky" id="bod-F0">
   <div class="bod-radek" onclick="toggleBod('F0')">
     <span class="znacka">✔</span>
-    <span class="bod-nazev">F0 Vykop: zdroje = tabulka A (feed AD https://www.art-decoration.pl/feed overit, oba weby vyrobce, cenik, rucne hotove skrinky na Procentovu = tahak, Club = cil)</span>
+    <span class="bod-nazev">Výkop – nasbírat zdroje dat</span>
     <span class="stav-slovo">hotovo</span>
   </div>
   <div class="bod-detail" id="detail-F0" hidden>
-    <p>Hotovo. [{&quot;meritko&quot;: &quot;M0a&quot;, &quot;prikaz&quot;: &quot;python C:/work/PRO_CODEXE/UKOL-290/F0/meridlo_m0.py&quot;, &quot;cas&quot;: &quot;2026-11-18T20:24:24+01:00&quot;, &quot;vysledek&quot;: {&quot;povinnych_ok&quot;: 5, &quot;povinnych&quot;: 5, &quot;vady&quot;: 0}}, {&quot;meritko&quot;: &quot;M0b&quot;, &quot;prikaz&quot;: &quot;python C…</p>
+    <p>Feed Art Decoration, weby výrobce a ceník jsou uložené, každý s datem stažení.</p>
     
   </div>
 </div>
 
-<div class="bod" data-bod="F1" data-stav="d" id="bod-F1">
+<div class="bod" data-bod="F1" data-stav="d" data-text="lidsky" id="bod-F1">
   <div class="bod-radek" onclick="toggleBod('F1')">
     <span class="znacka">✔</span>
-    <span class="bod-nazev">F1 Zakladova deska: predpis kategorie (chlivecky B a C, co je vyrobek a co varianta a jak je Shopion ulozi - kombinace vs parametry, rozsah = seznam vsech koupelnovych skrinek vyrobce, kde tabulky Mirek uvidi)</span>
+    <span class="bod-nazev">Základová deska – předpis kategorie</span>
     <span class="stav-slovo">hotovo</span>
   </div>
   <div class="bod-detail" id="detail-F1" hidden>
-    <p>Hotovo. [{&quot;meritko&quot;: &quot;M1&quot;, &quot;prikaz&quot;: &quot;python C:/work/PRO_CODEXE/UKOL-290/F1/meridlo_f1_predpis.py&quot;, &quot;cas&quot;: &quot;2026-11-24T10:07:29+01:00&quot;, &quot;vysledek&quot;: {&quot;kontrol&quot;: 11, &quot;prosly&quot;: 11, &quot;podstrcenych_chyb&quot;: 6, &quot;zachyceno&quot;: 6, &quot;f1_predpi…</p>
+    <p>Určí se, co je výrobek a co varianta a jak je e-shop uloží. Předpis i rozsah schvaluješ ty.</p>
     
   </div>
 </div>
 
-<div class="bod" data-bod="F2" data-stav="d" id="bod-F2">
+<div class="bod" data-bod="F2" data-stav="d" data-text="lidsky" id="bod-F2">
   <div class="bod-radek" onclick="toggleBod('F2')">
     <span class="znacka">✔</span>
-    <span class="bod-nazev">F2 Hruba stavba: tabulka A -&gt; B na vzoru (vyber vzoru s vice barvami a vizualizaci ke kazde, logika vyrobce, poradi zdroju, rozlepeni, slovnik k Mirkovu schvaleni)</span>
+    <span class="bod-nazev">Hrubá stavba – tabulka jednoho vzorového výrobku</span>
     <span class="stav-slovo">hotovo</span>
   </div>
   <div class="bod-detail" id="detail-F2" hidden>
-    <p>Hotovo. [{&quot;meritko&quot;: &quot;M2&quot;, &quot;prikaz&quot;: &quot;python C:/work/PRO_CODEXE/UKOL-290/F2/meridlo_m2_290.py&quot;, &quot;cas&quot;: &quot;2026-11-24 10:17:57&quot;, &quot;vysledek&quot;: {&quot;vyrobku_v_B&quot;: 85, &quot;poli_overeno&quot;: 935, &quot;chyb&quot;: 0, &quot;vzor_266_barev&quot;: 13, &quot;zaporne&quot;: &quot;8 z …</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="F3" data-stav="w" id="bod-F3">
-  <div class="bod-radek" onclick="toggleBod('F3')">
-    <span class="znacka">◻</span>
-    <span class="bod-nazev">F3 Rozvody: tabulka B -&gt; C (cestina, ceny z Pateri, kategorie) + meridlo a podstrcena chyba ke kazdemu pravidlu</span>
-    <span class="stav-slovo">čeká na pořadí</span>
-  </div>
-  <div class="bod-detail" id="detail-F3" hidden>
-    <p>Hotovo, až: M3: 100 % pravidel ma meridlo a chyti podstrcenou chybu</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="F4" data-stav="w" id="bod-F4">
-  <div class="bod-radek" onclick="toggleBod('F4')">
-    <span class="znacka">◻</span>
-    <span class="bod-nazev">F4 Kolaudace vzoru: VYSTAVENY import na zivy e-shop (rozhodnuti 24. 11.: bez dalsiho ptani), zpetne cteni z adminu, porovnani s tahakem a Clubem, nezavisly kontrolor; chyba = oprava pravidla a znovu od F2</span>
-    <span class="stav-slovo">čeká na pořadí</span>
-  </div>
-  <div class="bod-detail" id="detail-F4" hidden>
-    <p>Hotovo, až: M4: vzor schvaleny Mirkem</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="F5" data-stav="w" id="bod-F5">
-  <div class="bod-radek" onclick="toggleBod('F5')">
-    <span class="znacka">◻</span>
-    <span class="bod-nazev">F5 Radove domy: 5 dalsich skrinek, opravy jen v pravidlech, prepocet vsech dosud proslych</span>
-    <span class="stav-slovo">čeká na pořadí</span>
-  </div>
-  <div class="bod-detail" id="detail-F5" hidden>
-    <p>Hotovo, až: M5: 5 z 5 bez rucniho zasahu, nic se nezhorsilo</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="F6" data-stav="w" id="bod-F6">
-  <div class="bod-radek" onclick="toggleBod('F6')">
-    <span class="znacka">◻</span>
-    <span class="bod-nazev">F6 Cela ulice: zbytek rozsahu z F1; na web jen skript z tabulky C; denni hlidac web proti C</span>
-    <span class="stav-slovo">čeká na pořadí</span>
-  </div>
-  <div class="bod-detail" id="detail-F6" hidden>
-    <p>Hotovo, až: M6: 100 % rozsahu, 0 rozdilu</p>
-    
-  </div>
-</div>
-
-<div class="bod" data-bod="F7" data-stav="w" id="bod-F7">
-  <div class="bod-radek" onclick="toggleBod('F7')">
-    <span class="znacka">◻</span>
-    <span class="bod-nazev">F7 Nastehovani: zverejneni jen na Mirkovo slovo (hranice zivy e-shop)</span>
-    <span class="stav-slovo">čeká na pořadí</span>
-  </div>
-  <div class="bod-detail" id="detail-F7" hidden>
-    <p>Hotovo, až: Mirkovo slovo v deniku</p>
+    <p>Tabulka vzoru: u každého údaje je zdroj. Poslední přeměření: 85 výrobků, 935 ověřených údajů, žádná chyba.</p>
     
   </div>
 </div>
     </div>
     <div class="pruh-sbalit" data-sbalit onclick="closeGroup('g1')">▲ Sbalit skupinu</div>
+  </div>
+</section>
+
+<section class="skupina" data-skupina="g2">
+  <div class="skupina-radek" data-g="g2" data-open="0" onclick="openGroup('g2')">
+    <span class="g-num">2.</span>
+    <span class="g-nazev">Převod do e-shopu</span>
+    <span class="g-pocet">hotovo 0/2</span>
+    <span class="g-pasek">▫▫▫▫▫▫▫▫▫▫</span>
+    <span class="g-znacky">▶ </span>
+  </div>
+  <div class="skupina-ramecek" data-g="g2" hidden>
+    <div class="skupina-hlavicka" onclick="closeGroup('g2')">
+      <span class="g-nazev">2. Převod do e-shopu</span>
+      <button type="button" class="krizek" data-zavrit aria-label="Zavřít skupinu"
+        onclick="event.stopPropagation(); closeGroup('g2')">✕</button>
+    </div>
+    <div class="body-seznam">
+      
+<div class="bod" data-bod="F3" data-stav="n" data-text="lidsky" id="bod-F3">
+  <div class="bod-radek" onclick="toggleBod('F3')">
+    <span class="znacka">▶</span>
+    <span class="bod-nazev">Rozvody – pravidla pro e-shop</span>
+    <span class="stav-slovo">teď se dělá</span>
+  </div>
+  <div class="bod-detail" id="detail-F3" hidden>
+    <p>Čeština, ceny z Páteře a kategorie. Hotovo je, když každé pravidlo má kontrolu a ta chytí podstrčenou chybu.</p>
+    
+  </div>
+</div>
+
+<div class="bod" data-bod="F4" data-stav="w" data-text="lidsky" id="bod-F4">
+  <div class="bod-radek" onclick="toggleBod('F4')">
+    <span class="znacka">◻</span>
+    <span class="bod-nazev">Kolaudace – vzor nahrát na e-shop a zkontrolovat</span>
+    <span class="stav-slovo">čeká na pořadí</span>
+  </div>
+  <div class="bod-detail" id="detail-F4" hidden>
+    <p>Vzor se nahraje na e-shop, přečte zpět a porovná se vzorovými výrobky. Hotovo, až ho schválíš ty.</p>
+    
+  </div>
+</div>
+    </div>
+    <div class="pruh-sbalit" data-sbalit onclick="closeGroup('g2')">▲ Sbalit skupinu</div>
+  </div>
+</section>
+
+<section class="skupina" data-skupina="g3">
+  <div class="skupina-radek" data-g="g3" data-open="0" onclick="openGroup('g3')">
+    <span class="g-num">3.</span>
+    <span class="g-nazev">Rozšíření a zveřejnění</span>
+    <span class="g-pocet">hotovo 0/3</span>
+    <span class="g-pasek">▫▫▫▫▫▫▫▫▫▫</span>
+    <span class="g-znacky"></span>
+  </div>
+  <div class="skupina-ramecek" data-g="g3" hidden>
+    <div class="skupina-hlavicka" onclick="closeGroup('g3')">
+      <span class="g-nazev">3. Rozšíření a zveřejnění</span>
+      <button type="button" class="krizek" data-zavrit aria-label="Zavřít skupinu"
+        onclick="event.stopPropagation(); closeGroup('g3')">✕</button>
+    </div>
+    <div class="body-seznam">
+      
+<div class="bod" data-bod="F5" data-stav="w" data-text="lidsky" id="bod-F5">
+  <div class="bod-radek" onclick="toggleBod('F5')">
+    <span class="znacka">◻</span>
+    <span class="bod-nazev">Řadové domy – dalších pět skříněk</span>
+    <span class="stav-slovo">čeká na pořadí</span>
+  </div>
+  <div class="bod-detail" id="detail-F5" hidden>
+    <p>Pět dalších výrobků se převede jen opravou pravidel, bez ruční práce.</p>
+    
+  </div>
+</div>
+
+<div class="bod" data-bod="F6" data-stav="w" data-text="lidsky" id="bod-F6">
+  <div class="bod-radek" onclick="toggleBod('F6')">
+    <span class="znacka">◻</span>
+    <span class="bod-nazev">Celá ulice – zbytek rozsahu</span>
+    <span class="stav-slovo">čeká na pořadí</span>
+  </div>
+  <div class="bod-detail" id="detail-F6" hidden>
+    <p>Zbytek výrobků jde na web jen skriptem a denní hlídač porovnává web s tabulkou.</p>
+    
+  </div>
+</div>
+
+<div class="bod" data-bod="F7" data-stav="w" data-text="lidsky" id="bod-F7">
+  <div class="bod-radek" onclick="toggleBod('F7')">
+    <span class="znacka">◻</span>
+    <span class="bod-nazev">Nastěhování – zveřejnit na tvé slovo</span>
+    <span class="stav-slovo">čeká na pořadí</span>
+  </div>
+  <div class="bod-detail" id="detail-F7" hidden>
+    <p>Nic se nezveřejní, dokud to sám neřekneš.</p>
+    
+  </div>
+</div>
+    </div>
+    <div class="pruh-sbalit" data-sbalit onclick="closeGroup('g3')">▲ Sbalit skupinu</div>
   </div>
 </section>
 </main>
